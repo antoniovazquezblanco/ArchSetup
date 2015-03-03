@@ -177,11 +177,11 @@ function password(){
 
 # Configure a bootloader...
 function bootloader(){
-	mkdir -p /mnt/loader/entries/
+	mkdir -p /mnt/boot/loader/entries/
 	echo "title          Arch Linux" > /mnt/boot/loader/entries/arch.conf
 	echo "linux          /vmlinuz-linux" >> /mnt/boot/loader/entries/arch.conf
 	echo "initrd         /initramfs-linux.img" >> /mnt/boot/loader/entries/arch.conf
-	echo "options        root=PARTUUID=$(blkid -s PARTUUID -o value $part_sys) rw" >> /mnt/loader/entries/arch.conf
+	echo "options        root=PARTUUID=$(blkid -s PARTUUID -o value $part_sys) rw" >> /mnt/boot/loader/entries/arch.conf
 	echo "default  arch" > /mnt/boot/loader/loader.conf
 	echo "timeout  0" >> /mnt/boot/loader/loader.conf
 	modprobe efivars
@@ -225,7 +225,7 @@ function software(){
 		"kicad" "EDA software" "kicad" \
 		2> "$tmp_io"
 
-	#pacman -Syu $(<"$tmp_io")
+	pacman -Syu $(<"$tmp_io")
 }
 
 # Main menu function...
