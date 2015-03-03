@@ -1,0 +1,265 @@
+#!/bin/bash
+# Archlinux setup script.
+
+# Check for dependencies...
+command -v dialog >/dev/null 2>&1 || { echo "[!] Please install dialog in order to run this script..." >&2; exit 1; }
+
+# Check if we are root...
+#if [ "$(id -u)" != "0" ]; then
+#	echo "[!] This script must be run as root..." 1>&2
+#	exit 1
+#fi
+
+# General configuration...
+tmp_io=/tmp/archsetup.$$
+backtitle='Archlinux Setup'
+keyboard_layout='en'
+font=''
+editor='nano'
+part_efi=''
+part_sys=''
+
+# Keyboard layout choosing function...
+function keyboard_layout(){
+	local keymaps="$(localectl list-keymaps | sed 's/[a-zA-Z0-9_\-]*/& &/')"
+	dialog --backtitle "$backtitle" --title "[KEYBOARD LAYOUT]" --menu "Please select your keyboard layout..." 0 0 0 $keymaps 2> "$tmp_io"
+	if [ "$?" = "0" ]
+	then
+		keyboard_layout=$(<"$tmp_io")
+		loadkeys $keyboard_layout
+		return 0
+	fi
+	return 1
+}
+
+# Font choosing function...
+function font(){
+	local fonts="$((cd /usr/share/kbd/consolefonts/ && find . -type f -name '*.psf.gz' -o -name '*.psfu.gz'; ) | sed 's/.\/\(.*\).psf.gz/\1/' | sed 's/.\/\(.*\).psfu.gz/\1/' | sed 's/[a-zA-Z0-9_\-]*/& &/' | sort)"
+	dialog --backtitle "$backtitle" --title '[CONSOLE FONTS]' --menu "Please select your preferred console font..." 0 0 0 $fonts 2> "$tmp_io"
+	if [ "$?" = "0" ]
+	then
+		font=$(<"$tmp_io")
+		setfont $font
+		return 0
+	fi
+	return 1
+}
+
+# Text editor choosing function...
+function editor(){
+	dialog --backtitle "$backtitle" --title "[TEXT EDITOR]" --menu "Please select your preferred text editor..." 0 0 0 \
+		nano "Nano" \
+		vi "Vi" \
+		2> "$tmp_io"
+	if [ "$?" = "0" ]
+	then
+		editor=$(<"$tmp_io")
+		return 0
+	fi
+	return 1
+}
+
+# Locale choosing function...
+function locales(){
+	$editor /etc/locale.gen
+	locale-gen
+}
+
+# Internet menu function...
+function internet(){
+	ping -c 5 www.google.com > /dev/null
+	if [ $? -eq  0 ]
+	then
+		dialog --backtitle "$backtitle" --title '[INTERNET]' --msgbox 'You are already connected to the internet.' 0 0
+		return 0
+	else
+		wifi-menu
+		return $?
+	fi
+}
+
+# Paritioning function...
+function partition(){
+	parted
+	local parts="$(lsblk -l --output NAME -p --noheadings | sed 's/[a-zA-Z0-9_\-\/]*/& &/')"
+	dialog --backtitle "$backtitle" --title "[EFI PARTITION]" --menu "Please select your EFI partition..." 0 0 0 $parts 2> "$tmp_io"
+	if [ "$?" = "0" ]
+	then
+		part_efi=$(<"$tmp_io")
+		mkfs.vfat -F32 $part_efi
+	fi
+	dialog --backtitle "$backtitle" --title "[SYSTEM PARTITION]" --menu "Please select your system partition..." 0 0 0 $parts 2> "$tmp_io"
+	if [ "$?" = "0" ]
+	then
+		part_sys=$(<"$tmp_io")
+		mkfs.ext4 $part_sys
+	fi
+	return 0
+}
+
+# Mount partitions...
+function part_mount(){
+	mount $part_sys /mnt
+	mkdir -p /mnt/boot
+	mount $part_efi /mnt/boot
+}
+
+# Select a mirrorlist...
+function mirrorlist(){
+	$editor /etc/pacman.d/mirrorlist
+}
+
+# Install base system...
+function install_base(){
+	pacstrap -i /mnt base base-devel
+}
+
+# Generate fstab...
+function fstab(){
+	genfstab -U -p /mnt >> /mnt/etc/fstab
+	$editor /mnt/etc/fstab
+}
+
+# Configure locale and console...
+function config_locale(){
+	local langs="$(locale -a | sed 's/[a-zA-Z0-9_\-]*/& &/')"
+	dialog --backtitle "$backtitle" --title "[LANGUAGE]" --menu "Please select your preferred language..." 0 0 0 $langs 2> "$tmp_io"
+	if [ "$?" = "0" ]
+	then
+		echo LANG=$(<"$tmp_io") > /mnt/etc/locale.conf
+	fi
+	cp /etc/locale.gen /mnt/etc/locale.gen
+	echo KEYMAP=$keyboard_layout > /mnt/etc/vconsole.conf
+	echo FONT=$font >> /mnt/etc/vconsole.conf
+	arch-chroot /mnt /bin/bash <<EOF
+		locale-gen
+EOF
+}
+
+# Configure timezone...
+function timezone(){
+	local zones="$((cd /usr/share/zoneinfo/ && find -maxdepth 1 ! -path . -type d -printf '%f\n') | sed 's/[a-zA-Z0-9_\-]*/& &/')"
+	local zone=''
+	dialog --backtitle "$backtitle" --title "[TIMEZONE]" --menu "Please select your localtime zone..." 0 0 0 $zones 2> "$tmp_io"
+	if [ "$?" = "0" ]
+	then
+		zone=$(<"$tmp_io")
+	fi
+	local subzones="$((cd /usr/share/zoneinfo/$zone/ && find -maxdepth 1 ! -path . -printf '%f\n') | sed 's/[a-zA-Z0-9_\-]*/& &/')"
+	local subzone=''
+	dialog --backtitle "$backtitle" --title "[TIMEZONE]" --menu "Please select your localtime subzone..." 0 0 0 $subzones 2> "$tmp_io"
+	if [ "$?" = "0" ]
+	then
+		arch-chroot /mnt /bin/bash <<EOF
+			ln -sf /usr/share/zoneinfo/$zone/$(<"$tmp_io") /etc/localtime
+			hwclock --systohc --utc
+EOF
+	fi
+}
+
+# Configure hostname...
+function hostnam(){
+	dialog --backtitle "$backtitle" --title "[HOSTNAME]" --inputbox "Hostname:" 0 0 2> "$tmp_io"
+	cp "$tmp_io" /mnt/etc/hostname
+}
+
+# Create initial ramdisk...
+function ramdisk(){
+	arch-chroot /mnt /bin/bash <<EOF
+		mkinitcpio -p linux
+EOF
+}
+
+# Set the root password...
+function password(){
+	passwd
+}
+
+# Configure a bootloader...
+function bootloader(){
+	mkdir -p /mnt/loader/entries/
+	echo "title          Arch Linux" > /mnt/boot/loader/entries/arch.conf
+	echo "linux          /vmlinuz-linux" >> /mnt/boot/loader/entries/arch.conf
+	echo "initrd         /initramfs-linux.img" >> /mnt/boot/loader/entries/arch.conf
+	echo "options        root=PARTUUID=$(blkid -s PARTUUID -o value $part_sys) rw" >> /mnt/loader/entries/arch.conf
+	echo "default  arch" > /mnt/boot/loader/loader.conf
+	echo "timeout  0" >> /mnt/boot/loader/loader.conf
+	modprobe efivars
+	arch-chroot /mnt /bin/bash <<EOF
+		pacman -Sy gummiboot --noconfirm
+		gummiboot --path=/boot/ install
+EOF
+}
+
+# Umount partitions...
+function part_umount(){
+	umount -R /mnt
+}
+
+# Add an user...
+function user_add(){
+	dialog --backtitle "$backtitle" --title "[NEW USER]" --inputbox "Username:" 0 0 2> "$tmp_io"
+	useradd -m -g users -G wheel -s /bin/bash $(<"$tmp_io")
+	passwd $(<"$tmp_io")
+}
+
+# Configure sudo...
+function sudo_config(){
+	EDITOR=$editor visudo
+}
+
+# Optional software...
+function software(){
+	dialog --backtitle "$backtitle" --title "[EXTRA SOFTWARE]" --checklist "Choose the packages you want to install:" 0 0 0 \
+		"xfce4" "XFCE desktop" "xfce4" \
+		"xfce4-whiskermenu-plugin" "XFCE menu plugin" "xfce4-whiskermenu-plugin" \
+		"numix-themes" "GTK theme" "numix-themes" \
+		"faenza-icon-theme" "Icon theme" "faenza-icon-theme"\
+		"lightdm" "Desktop manager" "lightdm" \
+		"xorg-server" "XOrg server" "xorg-server" \
+		"xf86-video-intel" "Intel graphic drivers" "xf86-video-intel" \
+		"bash-completion" "Bash autocompletion" "bash-completion" \
+		"firefox" "Firefox navigator" "firefox" \
+		"git" "Code management" "git" \
+		"terminator" "A terminal emulator" "terminator" \
+		"kicad" "EDA software" "kicad" \
+		2> "$tmp_io"
+
+	#pacman -Syu $(<"$tmp_io")
+}
+
+# Main menu function...
+function main_menu(){
+	while true
+	do
+		dialog --backtitle "$backtitle" --title "[MAIN MENU]" --menu "Please select a task..." 0 0 0 \
+			keyboard_layout "Select a keyboard layout" \
+			font "Select a font" \
+			editor "Select a text editor" \
+			locales "Choose locales" \
+			internet "Connect to the internet" \
+			partition "Partition your disks" \
+			part_mount "Mount partitions" \
+			mirrorlist "Setup the mirrorlist" \
+			install_base "Install base system" \
+			fstab "Generate the fstab" \
+			config_locale "Configure new locale" \
+			timezone "Configure time and zone" \
+			hostnam "Set hostname" \
+			ramdisk "Generate ramdisk" \
+			password "Change root password" \
+			bootloader "Install bootloader" \
+			user_add "Add an user" \
+			sudo_config "Configure sudo" \
+			software "Install extra software" \
+			part_umount "Umount partitions" \
+			reboot "Reboot computer" \
+			exit "Exit setup" \
+			2> "$tmp_io"
+
+		$(<"$tmp_io")
+	done
+}
+
+# Show a welcome...
+main_menu
