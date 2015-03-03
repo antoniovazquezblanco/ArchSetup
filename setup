@@ -224,8 +224,11 @@ function software(){
 		"terminator" "A terminal emulator" "terminator" \
 		"kicad" "EDA software" "kicad" \
 		2> "$tmp_io"
+	packages=$(<"$tmp_io")
 
-	pacman -Syu $(<"$tmp_io")
+	arch-chroot /mnt /bin/bash <<EOF
+		pacman -Syu $packages --noconfirm
+EOF
 }
 
 # Main menu function...
