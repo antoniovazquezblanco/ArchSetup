@@ -172,7 +172,9 @@ EOF
 
 # Set the root password...
 function password(){
-	passwd
+	arch-chroot /mnt /bin/bash <<EOF
+		passwd
+EOF
 }
 
 # Configure a bootloader...
@@ -199,8 +201,11 @@ function part_umount(){
 # Add an user...
 function user_add(){
 	dialog --backtitle "$backtitle" --title "[NEW USER]" --inputbox "Username:" 0 0 2> "$tmp_io"
-	useradd -m -g users -G wheel -s /bin/bash $(<"$tmp_io")
-	passwd $(<"$tmp_io")
+	arch-chroot /mnt /bin/bash <<EOF
+		useradd -m -g users -G wheel -s /bin/bash $(<"$tmp_io")
+		passwd $(<"$tmp_io")
+EOF
+	
 }
 
 # Configure sudo...
