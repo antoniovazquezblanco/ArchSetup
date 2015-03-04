@@ -226,7 +226,9 @@ EOF
 
 # Configure sudo...
 function sudo_config(){
-	EDITOR=$editor visudo
+	arch-chroot /mnt /bin/bash <<EOF
+		EDITOR=$editor visudo
+EOF
 }
 
 # Optional software...
