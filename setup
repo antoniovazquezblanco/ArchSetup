@@ -1,14 +1,28 @@
 #!/bin/bash
-# Archlinux setup script.
+#
+# This file is part of ArchSetup.
+#
+# ArchSetup is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# ArchSetup is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 # Check for dependencies...
 command -v dialog >/dev/null 2>&1 || { echo "[!] Please install dialog in order to run this script..." >&2; exit 1; }
 
 # Check if we are root...
-#if [ "$(id -u)" != "0" ]; then
-#	echo "[!] This script must be run as root..." 1>&2
-#	exit 1
-#fi
+if [ "$(id -u)" != "0" ]; then
+	echo "[!] This script must be run as root..." 1>&2
+	exit 1
+fi
 
 # General configuration...
 tmp_io=/tmp/archsetup.$$
@@ -195,7 +209,9 @@ EOF
 
 # Umount partitions...
 function part_umount(){
-	umount -R /mnt
+	arch-chroot /mnt /bin/bash <<EOF
+		umount -R /mnt
+EOF
 }
 
 # Add an user...
