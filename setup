@@ -235,8 +235,9 @@ function software(){
 		"xfce4" "XFCE desktop" "xfce4" \
 		"xfce4-whiskermenu-plugin" "XFCE menu plugin" "xfce4-whiskermenu-plugin" \
 		"numix-themes" "GTK theme" "numix-themes" \
-		"faenza-icon-theme" "Icon theme" "faenza-icon-theme"\
+		"faenza-icon-theme" "Icon theme" "faenza-icon-theme" \
 		"lightdm" "Desktop manager" "lightdm" \
+		"lightdm-gtk3-greeter" "Lightdm theme" "lightdm-gtk3-greeter" \
 		"xorg-server" "XOrg server" "xorg-server" \
 		"xf86-video-intel" "Intel graphic drivers" "xf86-video-intel" \
 		"bash-completion" "Bash autocompletion" "bash-completion" \
