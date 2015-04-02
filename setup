@@ -24,9 +24,11 @@ if [ "$(id -u)" != "0" ]; then
 	exit 1
 fi
 
-# General configuration...
+# Constants...
 tmp_io=/tmp/archsetup.$$
 backtitle='Archlinux Setup'
+
+# Configuration variables...
 keyboard_layout='en'
 font=''
 editor='nano'
