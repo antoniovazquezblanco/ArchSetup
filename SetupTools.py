@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
 # This file is part of ArchSetup.
 #
@@ -35,9 +36,10 @@ class SetupTools:
     def set_keyboard_layout():
         print("[D] SetupTools.set_keyboard_layout(): Not implemented!")
 
-    def list_console_fonts():
-        # local fonts="$((cd /usr/share/kbd/consolefonts/ && find . -type f -name '*.psf.gz' -o -name '*.psfu.gz'; ) | sed 's/.\/\(.*\).psf.gz/\1/' | sed 's/.\/\(.*\).psfu.gz/\1/' | sed 's/[a-zA-Z0-9_\-]*/& &/' | sort)"
-        print("[D] SetupTools.list_console_fonts(): Not implemented!")
+    def list_console_fonts(self):
+        fntlist=subprocess.check_output("(cd /usr/share/kbd/consolefonts/ && find . -type f -name '*.psf.gz' -o -name '*.psfu.gz') | sed 's/.\\/\\(.*\\).psf.gz/\\1/' | sed 's/.\\/\\(.*\\).psfu.gz/\\1/'", shell=True).decode().split('\n')
+        fntlist.remove('')
+        return fntlist
 
     def load_console_font():
         #setfont $font
