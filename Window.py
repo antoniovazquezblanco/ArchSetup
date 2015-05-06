@@ -17,22 +17,29 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import curses
+from curses import panel
 import logging
-from SetupTools import SetupTools
-from Interface import Interface
-from Window import Window
 
-class ArchSetup:
+class Window:
     def __init__(self):
-        logging.basicConfig(filename='ArchSetup.log',level=logging.DEBUG)
-        self.setuptools = SetupTools()
-        self.interface = Interface(self.callback)
-        self.interface.loop()
+        logging.debug('Window.__init__()')
+        win = curses.newwin(10, 10, 10, 10)
+        self.panel = panel.new_panel(win)
+        self.refresh()
 
-    def callback(self, event):
-        logging.debug('ArchSetup.callback(event=' + str(event) + ')')
-        self.interface.addwin(Window())
+    def show(self):
+        logging.debug('Window.show()')
+        self.panel.show()
 
+    def hide(self):
+        logging.debug('Window.hide()')
+        self.panel.hide()
 
-if __name__ == "__main__":
-	ArchSetup()
+    def refresh(self):
+        logging.debug('Window.refresh()')
+        win = self.panel.window()
+        win.box()
+        win.refresh()
+
+    def resize(self, y, x):
+        logging.debug('Window.resize(y=' + str(y) + ', x=' + str(x) + ')')

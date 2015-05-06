@@ -20,8 +20,11 @@ import curses
 import logging
 
 class Interface:
-    def __init__(self):
+    def __init__(self, callback):
         logging.debug('Interface.__init__()')
+        self.callback = callback
+
+    def loop(self):
         try:
             # Initialize curses
             self.screen = curses.initscr()
@@ -55,7 +58,8 @@ class Interface:
             traceback.print_exc()
 
     def _loop(self):
-        logging.debug('Interface.__loop()')
+        logging.debug('Interface._loop()')
+        self.callback(event='init')
         self._refresh()
         while True:
             event = self.screen.getch()
@@ -66,14 +70,28 @@ class Interface:
                 break
 
     def _resize(self):
-        logging.debug('Interface.__resize()')
+        logging.debug('Interface._resize()')
+        (y, x) = self.screen.getmaxyx()
+        if hasattr(self, 'window'):
+            self.window.resize(y, x)
         self._refresh()
 
     def _refresh(self):
+        logging.debug('Interface._refresh()')
         self.screen.erase()
         self.screen.refresh()
+        if hasattr(self, 'window'):
+            self.window.refresh()
 
     def setbgattrs(self, bg=curses.COLOR_BLACK, fg=curses.COLOR_RED):
         curses.init_pair(1, fg, bg)
         self.screen.bkgdset(curses.color_pair(1))
+        self._refresh()
+
+    def addwin(self, window):
+        logging.debug('Interface.addwin()')
+        if hasattr(self, 'window'):
+            self.window.hide()
+        self.window = window
+        self.window.show()
         self._refresh()
