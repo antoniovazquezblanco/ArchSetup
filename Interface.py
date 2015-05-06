@@ -21,7 +21,6 @@ import logging
 
 class Interface:
     def __init__(self, callback):
-        logging.debug('Interface.__init__()')
         self.callback = callback
 
     def loop(self):
@@ -58,26 +57,23 @@ class Interface:
             traceback.print_exc()
 
     def _loop(self):
-        logging.debug('Interface._loop()')
         self.callback(event='init')
         self._refresh()
         while True:
             event = self.screen.getch()
-            logging.debug('Interface._getch(' + str(int(event)) + ')')
             if event == curses.KEY_RESIZE:
                 self._resize()
             elif event == ord("q"):
+                logging.debug('Interface._loop(): Implement missing getchar functionality...')
                 break
 
     def _resize(self):
-        logging.debug('Interface._resize()')
         (y, x) = self.screen.getmaxyx()
         if hasattr(self, 'window'):
             self.window.resize(y, x)
         self._refresh()
 
     def _refresh(self):
-        logging.debug('Interface._refresh()')
         self.screen.erase()
         self.screen.refresh()
         if hasattr(self, 'window'):
@@ -89,9 +85,8 @@ class Interface:
         self._refresh()
 
     def addwin(self, window):
-        logging.debug('Interface.addwin()')
         if hasattr(self, 'window'):
             self.window.hide()
         self.window = window
         self.window.show()
-        self._refresh()
+        self._resize()

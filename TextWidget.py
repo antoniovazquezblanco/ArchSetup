@@ -17,22 +17,19 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import curses
+import textwrap
+from Widget import Widget
 import logging
-from SetupTools import SetupTools
-from Interface import Interface
-from Window import Window
 
-class ArchSetup:
-    def __init__(self):
-        logging.basicConfig(filename='ArchSetup.log',level=logging.DEBUG)
-        self.setuptools = SetupTools()
-        self.interface = Interface(self.callback)
-        self.interface.loop()
+class TextWidget(Widget):
+    def __init__(self, y, x, text, n):
+        self.lines = textwrap.wrap(text, width=n)
+        super().__init__(y, x, len(self.lines), n)
 
-    def callback(self, event):
-        if event == 'init':
-            self.interface.addwin(Window())
-
-
-if __name__ == "__main__":
-	ArchSetup()
+    def draw(self, window):
+        (posy, posx) = self.position()
+        i = 0
+        for line in self.lines:
+            logging.debug('TextWidget.draw(n='+str(i)+', l='+line+')')
+            window.addstr(posy + i, posx, line)
+            i = i+1

@@ -19,27 +19,52 @@
 import curses
 from curses import panel
 import logging
+from TextWidget import TextWidget
 
 class Window:
     def __init__(self):
-        logging.debug('Window.__init__()')
-        win = curses.newwin(10, 10, 10, 10)
+        win = curses.newwin(0, 0, 0, 0)
         self.panel = panel.new_panel(win)
+        self.widgets = []
+        self._compute()
         self.refresh()
+        self.addwidget(TextWidget(1, 1, 'Very very very very very very very long text...', 150))
+
+    def addwidget(self, widget):
+        self.widgets.append(widget)
+        self._compute()
+
+    def _compute(self):
+        ymax = 0
+        xmax = 0
+        for widget in self.widgets:
+            (ypos, xpos) = widget.position()
+            (ysize, xsize) = widget.size()
+            if ypos+ysize > ymax:
+                ymax = ypos+ysize
+            if xpos+xsize > xmax:
+                xmax = xpos+xsize
+        self.sizey = ymax+3
+        self.sizex = xmax+2
+        win = self.panel.window()
+        win.resize(self.sizey, self.sizex)
+
+    def refresh(self):
+        win = self.panel.window()
+        win.box()
+        for widget in self.widgets:
+            widget.draw(win)
+        win.refresh()
 
     def show(self):
-        logging.debug('Window.show()')
         self.panel.show()
 
     def hide(self):
-        logging.debug('Window.hide()')
         self.panel.hide()
 
-    def refresh(self):
-        logging.debug('Window.refresh()')
-        win = self.panel.window()
-        win.box()
-        win.refresh()
-
     def resize(self, y, x):
-        logging.debug('Window.resize(y=' + str(y) + ', x=' + str(x) + ')')
+        logging.debug('Window.resize(y='+str(y)+', x='+str(x)+')')
+        posy = int((y-self.sizey)/2)
+        posx = int((x-self.sizex)/2)
+        logging.debug('Window.resize() move(y='+str(posy)+', x='+str(posx)+')')
+        self.panel.move(posy, posx)
