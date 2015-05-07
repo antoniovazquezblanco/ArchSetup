@@ -95,4 +95,5 @@ class Interface:
             self.window.hide()
         self.window = window
         self.window.show()
+        self.window.event(ord('\t'))
         self._resize()
