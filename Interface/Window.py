@@ -98,3 +98,4 @@ class Window:
             for widget in self.widgets:
                 if widget.ishighlighted():
                     widget.event(event)
+                    return

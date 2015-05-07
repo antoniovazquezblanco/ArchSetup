@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
+import subprocess
+
 class Font:
     def __init__(self):
         pass
