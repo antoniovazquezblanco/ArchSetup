@@ -20,6 +20,7 @@ import logging
 from SetupTools import SetupTools
 from Interface.Interface import Interface
 from Interface.WelcomeWindow import WelcomeWindow
+from Interface.FinishWindow import FinishWindow
 
 class ArchSetup:
     def __init__(self):
@@ -33,6 +34,7 @@ class ArchSetup:
             self.windows = []
             self.window_index = 0
             self.windows.append(WelcomeWindow(self.callback))
+            self.windows.append(FinishWindow(self.callback))
             self.interface.addwin(self.windows[self.window_index])
         elif event == 'prev':
             self.window_index = self.window_index - 1
