@@ -69,8 +69,6 @@ class Interface:
                 self._resize()
             else:
                 self.window.event(event)
-                # TODO: Dont pass this to callback??
-                self.callback(event=event)
 
     def exit(self):
         self._keep_running = False

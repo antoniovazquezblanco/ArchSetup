@@ -19,8 +19,7 @@
 import logging
 from SetupTools import SetupTools
 from Interface.Interface import Interface
-from Interface.SetupWindow import SetupWindow
-from Interface.TextWidget import TextWidget
+from Interface.WelcomeWindow import WelcomeWindow
 
 class ArchSetup:
     def __init__(self):
@@ -31,18 +30,19 @@ class ArchSetup:
 
     def callback(self, event):
         if event == 'init':
-            welcome = SetupWindow()
-            welcome.addwidget(TextWidget(1, 1, 'Welcome to the Archlinux installer!',  40))
-            welcome.addwidget(TextWidget(3, 1, 'In order to navigate use the TAB key and press ENTER in order to activate the selected widget.', 40))
-            welcome.setnextcallback(self.callback, 'next')
-            self.interface.addwin(welcome)
+            self.windows = []
+            self.window_index = 0
+            self.windows.append(WelcomeWindow(self.callback))
+            self.interface.addwin(self.windows[self.window_index])
         elif event == 'prev':
-            logging.debug('ArchSetup.callback(event=prev)')
+            self.window_index = self.window_index - 1
+            self.interface.addwin(self.windows[self.window_index])
         elif event == 'next':
-            logging.debug('ArchSetup.callback(event=next)')
-        elif event == ord('q'):
-            self.interface.exit()
-
+            self.window_index = self.window_index + 1
+            if self.window_index == len(self.windows):
+                self.interface.exit()
+                return
+            self.interface.addwin(self.windows[self.window_index])
 
 if __name__ == "__main__":
 	ArchSetup()
