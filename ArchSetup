@@ -16,15 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-import curses
 import logging
 from SetupTools import SetupTools
-from Interface import Interface
-from Window import Window
+from Interface.Interface import Interface
+from Interface.Window import Window
 
 class ArchSetup:
     def __init__(self):
-        logging.basicConfig(filename='ArchSetup.log',level=logging.DEBUG)
+        logging.basicConfig(filename='ArchSetup.log', level=logging.DEBUG)
         self.setuptools = SetupTools()
         self.interface = Interface(self.callback)
         self.interface.loop()

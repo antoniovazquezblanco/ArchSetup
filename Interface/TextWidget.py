@@ -17,21 +17,20 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import curses
-from curses import panel
+import textwrap
 import logging
+from Interface.Widget import Widget
 
-class Widget:
-    def __init__(self, y, x, sy, sx):
-        self.posy = y
-        self.posx = x
-        self.sizey = sy
-        self.sizex = sx
-
-    def position(self):
-        return (self.posy, self.posx)
-
-    def size(self):
-        return (self.sizey, self.sizex)
+class TextWidget(Widget):
+    def __init__(self, y, x, text, n):
+        self.lines = textwrap.wrap(text, width=n)
+        super().__init__(y, x, len(self.lines), n)
+        logging.debug('TextWidget.__init__(y='+str(len(self.lines))+')')
 
     def draw(self, window):
-        window.addstr(1, 1, ' ')
+        (posy, posx) = self.position()
+        i = 0
+        for line in self.lines:
+            logging.debug('TextWidget.draw(n='+str(i)+', l='+line+')')
+            window.addstr(posy + i, posx, line)
+            i = i+1

@@ -79,7 +79,7 @@ class Interface:
         if hasattr(self, 'window'):
             self.window.refresh()
 
-    def setbgattrs(self, bg=curses.COLOR_BLACK, fg=curses.COLOR_RED):
+    def setbgattrs(self, bg=curses.COLOR_BLACK, fg=curses.COLOR_WHITE):
         curses.init_pair(1, fg, bg)
         self.screen.bkgdset(curses.color_pair(1))
         self._refresh()

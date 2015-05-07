@@ -16,26 +16,23 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-class Pane:
-    def __init__(self, window, sizex, sizey):
-        self.window = window
-        self.sizex = sizex
-        self.sizey = sizey
-        self.pane =  self.window.newpane()
-        self.pane.border()
-        self.resize()
+import logging
+import curses
+from curses import panel
 
-    def refresh(self):
-        self.window.refresh()
-        self.pane.refresh()
+class Widget:
+    def __init__(self, y, x, sy, sx):
+        self.posy = y
+        self.posx = x
+        self.sizey = sy
+        self.sizex = sx
+        logging.debug('Widget.__init__(sizey='+str(sy)+', sizex='+str(sx)+')')
 
-    def resize(self):
-        self.window.resize()
-        height, width =  self.window.getsize()
-        self.pane.resize(self.sizey, self.sizex)
-        self.pane.mvwin(int((height-4-self.sizey)/2), int((width-2-self.sizex)/2))
-        self.refresh()
+    def position(self):
+        return (self.posy, self.posx)
 
-    def addwidget():
-        print("[D] Pane.addwidget(): Not implemented!")
+    def size(self):
+        return (self.sizey, self.sizex)
 
+    def draw(self, window):
+        window.addstr(1, 1, ' ')
