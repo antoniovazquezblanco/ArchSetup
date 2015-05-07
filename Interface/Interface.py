@@ -17,7 +17,6 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import curses
-import logging
 
 class Interface:
     def __init__(self, callback):
@@ -65,7 +64,8 @@ class Interface:
             if event == curses.KEY_RESIZE:
                 self._resize()
             else:
-                # TODO: Pass this to subwindows...
+                self.window.event(event)
+                # TODO: Dont pass this to callback??
                 self.callback(event=event)
 
     def exit(self):

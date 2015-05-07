@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
+import signal
+import logging
 import curses
 from curses import panel
 
@@ -45,6 +47,7 @@ class Window:
         self.sizex = xmax+1
         win = self.panel.window()
         win.resize(self.sizey, self.sizex)
+        self.resize()
 
     def refresh(self):
         win = self.panel.window()
@@ -60,7 +63,34 @@ class Window:
     def hide(self):
         self.panel.hide()
 
-    def resize(self, y, x):
-        posy = int((y-self.sizey)/2)
-        posx = int((x-self.sizex)/2)
+    def resize(self, y=-1, x=-1):
+        if y != -1:
+            self.screeny = y
+        if x != -1:
+            self.screenx = x
+        if not hasattr(self, 'screeny') or not hasattr(self, 'screenx'):
+            return
+        posy = int((self.screeny-self.sizey)/2)
+        posx = int((self.screenx-self.sizex)/2)
         self.panel.move(posy, posx)
+        curses.panel.update_panels()
+
+    def event(self, event):
+        if event == ord('\t'):
+            # On tab highligh widgets iteratively...
+            high = False
+            for widget in self.widgets:
+                if high == True:
+                    widget.highlight(True)
+                    return
+                high = widget.ishighlighted()
+                if high == True:
+                    widget.highlight(False)
+            self.widgets[0].highlight(True)
+            self.refresh()
+        else:
+            for widget in self.widgets:
+                if widget.ishighlighted():
+                    logging.debug('Window.event(' + str(event) + ')')
+                    widget.event(event)
+

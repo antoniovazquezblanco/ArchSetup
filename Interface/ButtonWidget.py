@@ -16,28 +16,27 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-class Widget:
-    def __init__(self, y, x, sy, sx):
-        self.posy = y
-        self.posx = x
-        self.sizey = sy
-        self.sizex = sx
-        self.highlighted = False
+import curses
+import logging
+from Interface.Widget import Widget
 
-    def position(self):
-        return (self.posy, self.posx)
-
-    def size(self):
-        return (self.sizey, self.sizex)
+class ButtonWidget(Widget):
+    def __init__(self, y, x, text):
+        super().__init__(y, x, 1, len(text))
+        self.text = text
 
     def draw(self, window):
-        pass
+        (posy, posx) = self.position()
+        logging.debug('ButtonWidget.draw(highlighted='+str(self.ishighlighted())+')')
+        if not self.ishighlighted():
+            window.addstr(posy, posx, self.text, curses.A_REVERSE)
+        else:
+            window.addstr(posy, posx, self.text, curses.A_REVERSE | curses.A_UNDERLINE)
 
-    def highlight(self, highligh):
-        self.highlighted = highligh
-
-    def ishighlighted(self):
-        return self.highlighted
+    def setcallback(self, callback, event):
+        self.callback = callback
+        self.event_param = event
 
     def event(self, event):
-        pass
+        if event == ord('\n'):
+            self.callback(self.event_param)

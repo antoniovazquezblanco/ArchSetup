@@ -17,6 +17,7 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import textwrap
+import curses
 from Interface.Widget import Widget
 
 class TextWidget(Widget):
@@ -28,5 +29,8 @@ class TextWidget(Widget):
         (posy, posx) = self.position()
         i = 0
         for line in self.lines:
-            window.addstr(posy + i, posx, line)
+            if self.ishighlighted():
+                window.addstr(posy + i, posx, line, curses.A_STANDOUT)
+            else:
+                window.addstr(posy + i, posx, line)
             i = i+1
