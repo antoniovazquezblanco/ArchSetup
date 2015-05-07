@@ -16,17 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
-import curses
-from curses import panel
-
 class Widget:
     def __init__(self, y, x, sy, sx):
         self.posy = y
         self.posx = x
         self.sizey = sy
         self.sizex = sx
-        logging.debug('Widget.__init__(sizey='+str(sy)+', sizex='+str(sx)+')')
 
     def position(self):
         return (self.posy, self.posx)

@@ -16,21 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-import curses
 import textwrap
-import logging
 from Interface.Widget import Widget
 
 class TextWidget(Widget):
     def __init__(self, y, x, text, n):
         self.lines = textwrap.wrap(text, width=n)
         super().__init__(y, x, len(self.lines), n)
-        logging.debug('TextWidget.__init__(y='+str(len(self.lines))+')')
 
     def draw(self, window):
         (posy, posx) = self.position()
         i = 0
         for line in self.lines:
-            logging.debug('TextWidget.draw(n='+str(i)+', l='+line+')')
             window.addstr(posy + i, posx, line)
             i = i+1

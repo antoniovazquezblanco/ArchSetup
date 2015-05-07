@@ -19,7 +19,7 @@
 import logging
 from SetupTools import SetupTools
 from Interface.Interface import Interface
-from Interface.Window import Window
+from Interface.SetupWindow import SetupWindow
 
 class ArchSetup:
     def __init__(self):
@@ -30,7 +30,9 @@ class ArchSetup:
 
     def callback(self, event):
         if event == 'init':
-            self.interface.addwin(Window())
+            self.interface.addwin(SetupWindow())
+        elif event == ord('q'):
+            self.interface.exit()
 
 
 if __name__ == "__main__":

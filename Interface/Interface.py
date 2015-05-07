@@ -22,6 +22,7 @@ import logging
 class Interface:
     def __init__(self, callback):
         self.callback = callback
+        self._keep_running = True
 
     def loop(self):
         try:
@@ -59,13 +60,16 @@ class Interface:
     def _loop(self):
         self.callback(event='init')
         self._refresh()
-        while True:
+        while self._keep_running:
             event = self.screen.getch()
             if event == curses.KEY_RESIZE:
                 self._resize()
-            elif event == ord("q"):
-                logging.debug('Interface._loop(): Implement missing getchar functionality...')
-                break
+            else:
+                # TODO: Pass this to subwindows...
+                self.callback(event=event)
+
+    def exit(self):
+        self._keep_running = False
 
     def _resize(self):
         (y, x) = self.screen.getmaxyx()
