@@ -24,11 +24,24 @@ from Interface.ButtonWidget import ButtonWidget
 class SetupWindow(Window):
     def __init__(self):
         super().__init__()
-        button = ButtonWidget(1, 1, 'Next >')
-        button.setcallback(self._callback, 'button')
-        self.addwidget(button)
 
-    def _callback(self, event):
-        logging.debug('SetupWindow._callback(event=' + event + ')')
-        self.addwidget(TextWidget(3, 1, 'Short text...', 40))
-        self.refresh()
+    def setnextcallback(self, callback, event):
+        (y, x) = self.size()
+        if hasattr(self, 'button_prev'):
+            y = y - 2
+        self.button_next = ButtonWidget(y, x-8, 'Next >')
+        self.button_next.setcallback(callback, event)
+        self.addwidget(self.button_next, True)
+
+    def setprevcallback(self, callback, event):
+        (y, x) = self.size()
+        if hasattr(self, 'button_next'):
+            y = y - 2
+        self.button_prev = ButtonWidget(y, 2, '< Prev')
+        self.button_prev.setcallback(callback, event)
+        self.addwidget(self.button_prev, True)
+
+    def addwidget(self, widget, skip=False):
+        if not skip and (hasattr(self, 'button_prev') or hasattr(self, 'button_next')):
+            raise Exception('Cannot add content after setting up callbacks...')
+        super().addwidget(widget)

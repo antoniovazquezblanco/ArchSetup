@@ -35,6 +35,7 @@ class Widget:
 
     def highlight(self, highligh):
         self.highlighted = highligh
+        return highligh
 
     def ishighlighted(self):
         return self.highlighted

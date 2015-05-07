@@ -40,15 +40,19 @@ class Interface:
             self.screen.keypad(1)
             # Default attributes...
             self.setbgattrs()
+            # Hide cursor...
+            curses.curs_set(0)
             # Enter the main loop...
             self._loop()
             # Set everything back to normal
+            curses.curs_set(1)
             self.screen.keypad(0)
             curses.echo()
             curses.nocbreak()
             curses.endwin()
         except:
             # In event of error, restore terminal to sane state.
+            curses.curs_set(1)
             self.screen.keypad(0)
             curses.echo()
             curses.nocbreak()

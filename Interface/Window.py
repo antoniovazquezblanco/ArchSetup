@@ -75,22 +75,26 @@ class Window:
         self.panel.move(posy, posx)
         curses.panel.update_panels()
 
+    def size(self):
+        return self.panel.window().getmaxyx()
+
     def event(self, event):
         if event == ord('\t'):
             # On tab highligh widgets iteratively...
             high = False
             for widget in self.widgets:
                 if high == True:
-                    widget.highlight(True)
-                    return
+                    if widget.highlight(True):
+                        self.refresh()
+                        return
                 high = widget.ishighlighted()
                 if high == True:
                     widget.highlight(False)
-            self.widgets[0].highlight(True)
-            self.refresh()
+            for widget in self.widgets:
+                if widget.highlight(True):
+                    self.refresh()
+                    return
         else:
             for widget in self.widgets:
                 if widget.ishighlighted():
-                    logging.debug('Window.event(' + str(event) + ')')
                     widget.event(event)
-
