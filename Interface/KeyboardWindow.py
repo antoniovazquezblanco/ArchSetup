@@ -18,6 +18,7 @@
 
 from SetupTools.Keyboard import Keyboard
 from Interface.SetupWindow import SetupWindow
+from Interface.SpacerWidget import SpacerWidget
 from Interface.TextWidget import TextWidget
 from Interface.ScrollWidget import ScrollWidget
 from Interface.RadioWidget import RadioWidget
@@ -30,6 +31,7 @@ class KeyboardWindow(SetupWindow):
         keyboard = Keyboard()
         items = keyboard.list_keyboard_layouts()
         self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
+        self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
 

@@ -78,15 +78,13 @@ class Window:
     def event(self, event):
         if event == ord('\t'):
             # On tab highligh widgets iteratively...
-            high = False
-            for widget in self.widgets:
-                if high == True:
-                    if widget.highlight(True):
-                        self.refresh()
-                        return
-                high = widget.ishighlighted()
-                if high == True:
-                    widget.highlight(False)
+            for i in range(0, len(self.widgets)):
+                if self.widgets[i].ishighlighted():
+                    self.widgets[i].highlight(False)
+                    for j in range(i+1, len(self.widgets)):
+                        if self.widgets[j].highlight(True):
+                            self.refresh()
+                            return
             for widget in self.widgets:
                 if widget.highlight(True):
                     self.refresh()
