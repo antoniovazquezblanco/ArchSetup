@@ -28,7 +28,7 @@ class ButtonWidget(Widget):
     def draw(self, window):
         (posy, posx) = self.position()
         if not self.ishighlighted():
-            window.addstr(posy, posx, self.text, curses.A_REVERSE)
+            window.addstr(posy, posx, self.text)
         else:
             window.addstr(posy, posx, self.text, curses.A_REVERSE | curses.A_UNDERLINE)
 
