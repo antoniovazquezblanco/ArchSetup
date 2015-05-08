@@ -20,6 +20,7 @@ import logging
 from SetupTools.Setuptools import SetupTools
 from Interface.Interface import Interface
 from Interface.WelcomeWindow import WelcomeWindow
+from Interface.KeyboardWindow import KeyboardWindow
 from Interface.FontWindow import FontWindow
 from Interface.FinishWindow import FinishWindow
 
@@ -35,6 +36,7 @@ class ArchSetup:
             self.windows = []
             self.window_index = 0
             self.windows.append(WelcomeWindow(self.callback))
+            self.windows.append(KeyboardWindow(self.callback, self.setuptools))
             self.windows.append(FontWindow(self.callback, self.setuptools))
             self.windows.append(FinishWindow(self.callback))
             self.interface.addwin(self.windows[self.window_index])

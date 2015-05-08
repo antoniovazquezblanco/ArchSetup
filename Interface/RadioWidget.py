@@ -39,7 +39,6 @@ class RadioWidget(Widget):
             if i + 1 > sy:
                 return
 
-
     def event(self, event):
         if event == curses.KEY_UP:
             self.selected = self.selected - 1
