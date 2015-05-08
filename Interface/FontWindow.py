@@ -31,7 +31,7 @@ class FontWindow(SetupWindow):
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
 
-    def event(self, event):
+    def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
         else:

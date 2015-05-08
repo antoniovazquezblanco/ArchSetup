@@ -22,17 +22,20 @@ from Interface.TextWidget import TextWidget
 from Interface.RadioWidget import RadioWidget
 
 class KeyboardWindow(SetupWindow):
-    def __init__(self, callback, setuptools):
+    def __init__(self, callback, setupconfig):
         super().__init__()
         self.addwidget(TextWidget(1, 1, 'Please select a keyboard...',  40))
+        self.setupconfig = setupconfig
         keyboard = Keyboard()
         items = keyboard.list_keyboard_layouts()
         self.addwidget(RadioWidget(3, 1, 40, 20, items, self.event))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
 
-    def event(self, event):
+    def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
+        elif event == 'selection':
+            self.setupconfig.setkeyboard(opt)
         else:
             super().event(event)

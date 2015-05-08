@@ -24,6 +24,7 @@ class RadioWidget(Widget):
         self.items = items
         self.callback = callback
         self.selected = 0
+        self.callback('selection', self.items[self.selected])
         super().__init__(y, x, h, w)
 
     def draw(self, window):
@@ -45,11 +46,13 @@ class RadioWidget(Widget):
             if self.selected < 0:
                 self.selected = 0
             self.callback('refresh')
+            self.callback('selection', self.items[self.selected])
         elif event == curses.KEY_DOWN:
             self.selected = self.selected + 1
             (sy, sx) = self.size()
             if self.selected > sy:
                 self.selected = sy
             self.callback('refresh')
+            self.callback('selection', self.items[self.selected])
         elif event == ord('\n'):
             self.callback(ord('\t'))
