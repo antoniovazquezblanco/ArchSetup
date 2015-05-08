@@ -22,3 +22,6 @@ class SetupConfig:
 
     def setkeyboard(self, layout):
         self.keyboard = layout
+
+    def setfont(self, font):
+        self.font = font

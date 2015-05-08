@@ -24,8 +24,8 @@ from Interface.RadioWidget import RadioWidget
 class KeyboardWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
-        self.addwidget(TextWidget(1, 1, 'Please select a keyboard...',  40))
         self.setupconfig = setupconfig
+        self.addwidget(TextWidget(1, 1, 'Please select a keyboard...',  40))
         keyboard = Keyboard()
         items = keyboard.list_keyboard_layouts()
         self.addwidget(RadioWidget(3, 1, 40, 20, items, self.event))

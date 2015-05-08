@@ -22,8 +22,9 @@ from Interface.TextWidget import TextWidget
 from Interface.RadioWidget import RadioWidget
 
 class FontWindow(SetupWindow):
-    def __init__(self, callback, setuptools):
+    def __init__(self, callback, setupconfig):
         super().__init__()
+        self.setupconfig = setupconfig
         self.addwidget(TextWidget(1, 1, 'Please select a console font...',  40))
         font = Font()
         items = font.list_console_fonts()
@@ -34,5 +35,7 @@ class FontWindow(SetupWindow):
     def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
+        elif event == 'selection':
+            self.setupconfig.setfont(opt)
         else:
             super().event(event)
