@@ -33,6 +33,9 @@ class Widget:
     def draw(self, window):
         pass
 
+    def refresh(self, window):
+        pass
+
     def highlight(self, highligh):
         self.highlighted = highligh
         return highligh

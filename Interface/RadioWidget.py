@@ -20,12 +20,12 @@ import curses
 from Interface.Widget import Widget
 
 class RadioWidget(Widget):
-    def __init__(self, y, x, w, h, items, callback):
+    def __init__(self, y, x, w, items, callback):
         self.items = items
         self.callback = callback
         self.selected = 0
         self.callback('selection', self.items[self.selected])
-        super().__init__(y, x, h, w)
+        super().__init__(y, x, len(items), w)
 
     def draw(self, window):
         (posy, posx) = self.position()
@@ -37,8 +37,6 @@ class RadioWidget(Widget):
             else:
                 window.addstr(posy + i, posx, '  ' + item)
             i = i + 1
-            if i + 1 > sy:
-                return
 
     def event(self, event):
         if event == curses.KEY_UP:
@@ -50,8 +48,8 @@ class RadioWidget(Widget):
         elif event == curses.KEY_DOWN:
             self.selected = self.selected + 1
             (sy, sx) = self.size()
-            if self.selected > sy:
-                self.selected = sy
+            if self.selected > len(self.items)-1:
+                self.selected = len(self.items)-1
             self.callback('refresh')
             self.callback('selection', self.items[self.selected])
         elif event == ord('\n'):

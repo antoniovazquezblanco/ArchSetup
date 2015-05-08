@@ -19,12 +19,10 @@
 import signal
 import logging
 import curses
-from curses import panel
 
 class Window:
     def __init__(self):
-        win = curses.newwin(0, 0, 0, 0)
-        self.panel = panel.new_panel(win)
+        self.window = curses.newwin(0, 0, 0, 0)
         self.widgets = []
         self._compute()
         self.refresh()
@@ -45,23 +43,17 @@ class Window:
                 xmax = xpos+xsize
         self.sizey = ymax+1
         self.sizex = xmax+1
-        win = self.panel.window()
-        win.resize(self.sizey, self.sizex)
+        self.window.resize(self.sizey, self.sizex)
         self.resize()
 
     def refresh(self):
-        win = self.panel.window()
-        win.erase()
-        win.box()
+        self.window.erase()
+        self.window.box()
         for widget in self.widgets:
-            widget.draw(win)
-        win.refresh()
-
-    def show(self):
-        self.panel.show()
-
-    def hide(self):
-        self.panel.hide()
+            widget.draw(self.window)
+        self.window.refresh()
+        for widget in self.widgets:
+            widget.refresh(self.window)
 
     def resize(self, y=-1, x=-1):
         if y != -1:
@@ -70,13 +62,18 @@ class Window:
             self.screenx = x
         if not hasattr(self, 'screeny') or not hasattr(self, 'screenx'):
             return
-        posy = int((self.screeny-self.sizey)/2)
-        posx = int((self.screenx-self.sizex)/2)
-        self.panel.move(posy, posx)
-        curses.panel.update_panels()
+        self.posy = int((self.screeny-self.sizey)/2)
+        self.posx = int((self.screenx-self.sizex)/2)
+        self.window.mvwin(self.posy, self.posx)
 
     def size(self):
-        return self.panel.window().getmaxyx()
+        return self.window.getmaxyx()
+
+    def position(self):
+        if not hasattr(self, 'posy') or not hasattr(self, 'posx'):
+            self.posy = 0
+            self.posx = 0
+        return (self.posy, self.posx)
 
     def event(self, event):
         if event == ord('\t'):

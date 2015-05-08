@@ -19,6 +19,7 @@
 from SetupTools.Keyboard import Keyboard
 from Interface.SetupWindow import SetupWindow
 from Interface.TextWidget import TextWidget
+from Interface.ScrollWidget import ScrollWidget
 from Interface.RadioWidget import RadioWidget
 
 class KeyboardWindow(SetupWindow):
@@ -28,7 +29,7 @@ class KeyboardWindow(SetupWindow):
         self.addwidget(TextWidget(1, 1, 'Please select a keyboard...',  40))
         keyboard = Keyboard()
         items = keyboard.list_keyboard_layouts()
-        self.addwidget(RadioWidget(3, 1, 40, 20, items, self.event))
+        self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
 
