@@ -77,20 +77,20 @@ class Window:
 
     def event(self, event):
         if event == ord('\t'):
-            # On tab highligh widgets iteratively...
+            # On tab focus widgets iteratively...
             for i in range(0, len(self.widgets)):
-                if self.widgets[i].ishighlighted():
-                    self.widgets[i].highlight(False)
+                if self.widgets[i].isfocused():
+                    self.widgets[i].focus(False)
                     for j in range(i+1, len(self.widgets)):
-                        if self.widgets[j].highlight(True):
+                        if self.widgets[j].focus(True):
                             self.refresh()
                             return
             for widget in self.widgets:
-                if widget.highlight(True):
+                if widget.focus(True):
                     self.refresh()
                     return
         else:
             for widget in self.widgets:
-                if widget.ishighlighted():
+                if widget.isfocused():
                     widget.event(event)
                     return

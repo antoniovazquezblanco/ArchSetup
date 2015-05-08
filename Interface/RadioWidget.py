@@ -33,7 +33,10 @@ class RadioWidget(Widget):
         i = 0
         for item in self.items:
             if self.selected == i:
-                window.addstr(posy + i, posx, '> ' + item, curses.A_STANDOUT)
+                if self.ishighlighted():
+                    window.addstr(posy + i, posx, '> ' + item, curses.A_STANDOUT)
+                else:
+                    window.addstr(posy + i, posx, '> ' + item)
             else:
                 window.addstr(posy + i, posx, '  ' + item)
             i = i + 1

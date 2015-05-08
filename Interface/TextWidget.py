@@ -35,5 +35,5 @@ class TextWidget(Widget):
                 window.addstr(posy + i, posx, line)
             i = i+1
 
-    def highlight(self, highligh):
+    def focus(self, focus):
         return False

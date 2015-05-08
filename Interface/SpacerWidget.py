@@ -22,5 +22,5 @@ class SpacerWidget(Widget):
     def __init__(self, y, x, h):
         super().__init__(y, x, h, 1)
 
-    def highlight(self, highligh):
+    def focus(self, focus):
         return False

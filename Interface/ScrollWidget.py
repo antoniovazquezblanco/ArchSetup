@@ -62,3 +62,7 @@ class ScrollWidget(Widget):
             self.callback('refresh')
         else:
             self.widget.event(event)
+
+    def focus(self, focus):
+        self.widget.highlight(focus)
+        return super().focus(focus)
