@@ -19,6 +19,7 @@
 from SetupTools.Font import Font
 from Interface.SetupWindow import SetupWindow
 from Interface.TextWidget import TextWidget
+from Interface.ScrollWidget import ScrollWidget
 from Interface.RadioWidget import RadioWidget
 
 class FontWindow(SetupWindow):
@@ -28,7 +29,7 @@ class FontWindow(SetupWindow):
         self.addwidget(TextWidget(1, 1, 'Please select a console font...',  40))
         font = Font()
         items = font.list_console_fonts()
-        self.addwidget(RadioWidget(3, 1, 40, 20, items, self.event))
+        self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
 
