@@ -16,20 +16,20 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-from SetupTools.Font import Font
+from SetupTools.Keyboard import Keyboard
 from Interface.SetupWindow import SetupWindow
 from Interface.SpacerWidget import SpacerWidget
 from Interface.TextWidget import TextWidget
 from Interface.ScrollWidget import ScrollWidget
 from Interface.RadioWidget import RadioWidget
 
-class FontWindow(SetupWindow):
+class KeyboardWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
         self.setupconfig = setupconfig
-        self.addwidget(TextWidget(1, 1, 'Please select a console font...',  40))
-        font = Font()
-        items = font.list_console_fonts()
+        self.addwidget(TextWidget(1, 1, 'Please select a keyboard...',  40))
+        keyboard = Keyboard()
+        items = keyboard.list_keyboard_layouts()
         self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(callback, 'next')
@@ -39,6 +39,6 @@ class FontWindow(SetupWindow):
         if event == 'refresh':
             self.refresh()
         elif event == 'selection':
-            self.setupconfig.setfont(opt)
+            self.setupconfig.setkeyboard(opt)
         else:
             super().event(event)

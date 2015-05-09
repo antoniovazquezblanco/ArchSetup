@@ -16,7 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-class SetupTools:
+class SetupConfig:
     def __init__(self):
         pass
 
+    def setkeyboard(self, layout):
+        self.keyboard = layout
+
+    def setfont(self, font):
+        self.font = font

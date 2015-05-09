@@ -22,6 +22,7 @@ class Widget:
         self.posx = x
         self.sizey = sy
         self.sizex = sx
+        self.focused = False
         self.highlighted = False
 
     def position(self):
@@ -33,12 +34,23 @@ class Widget:
     def draw(self, window):
         pass
 
+    def refresh(self, window):
+        pass
+
     def highlight(self, highligh):
         self.highlighted = highligh
         return highligh
 
     def ishighlighted(self):
         return self.highlighted
+
+    def focus(self, focus):
+        self.highlight(focus)
+        self.focused = focus
+        return focus
+
+    def isfocused(self):
+        return self.focused
 
     def event(self, event):
         pass

@@ -16,21 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-import subprocess
+from Interface.Widget import Widget
 
-class Keyboard:
-    def __init__(self):
-        pass
+class SpacerWidget(Widget):
+    def __init__(self, y, x, h):
+        super().__init__(y, x, h, 1)
 
-    def list_keyboard_layouts(self):
-        kbdlist=subprocess.check_output(["localectl", "list-keymaps"]).decode().split('\n')
-        kbdlist.remove('')
-        return kbdlist
-
-    def load_keyboard_layout():
-        #loadkeys layout
-        print("[D] SetupTools.load_keyboard_layout(): Not implemented!")
-
-    def set_keyboard_layout():
-        print("[D] SetupTools.set_keyboard_layout(): Not implemented!")
-
+    def focus(self, focus):
+        return False
