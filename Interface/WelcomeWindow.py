@@ -19,9 +19,16 @@
 from Interface.SetupWindow import SetupWindow
 from Interface.TextWidget import TextWidget
 
+import gettext
+
 class WelcomeWindow(SetupWindow):
     def __init__(self, callback):
         super().__init__()
-        self.addwidget(TextWidget(1, 1, 'Welcome to the Archlinux installer!',  40))
-        self.addwidget(TextWidget(3, 1, 'In order to navigate use the TAB key and press ENTER in order to activate the selected widget.', 40))
+
+        # Init Translation
+        trans = gettext.translation("archsetup", "locale", fallback=True)
+        trans.install()
+
+        self.addwidget(TextWidget(1, 1, _('Welcome to the Archlinux installer!'),  40))
+        self.addwidget(TextWidget(3, 1, _('In order to navigate use the TAB key and press ENTER in order to activate the selected widget.'), 40))
         self.setnextcallback(callback, 'next')

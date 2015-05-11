@@ -23,11 +23,18 @@ from Interface.TextWidget import TextWidget
 from Interface.ScrollWidget import ScrollWidget
 from Interface.RadioWidget import RadioWidget
 
+import gettext
+
 class FontWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
+
+        # Init Translation
+        trans = gettext.translation("archsetup", "locale", fallback=True)
+        trans.install()
+
         self.setupconfig = setupconfig
-        self.addwidget(TextWidget(1, 1, 'Please select a console font...',  40))
+        self.addwidget(TextWidget(1, 1, _('Please select a console font...'),  40))
         font = Font()
         items = font.list_console_fonts()
         self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))

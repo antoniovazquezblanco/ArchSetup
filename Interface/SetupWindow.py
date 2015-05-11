@@ -21,6 +21,7 @@ from Interface.Window import Window
 from Interface.TextWidget import TextWidget
 from Interface.ButtonWidget import ButtonWidget
 
+
 class SetupWindow(Window):
     def __init__(self):
         super().__init__()

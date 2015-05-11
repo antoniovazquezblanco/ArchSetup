@@ -19,10 +19,17 @@
 from Interface.SetupWindow import SetupWindow
 from Interface.TextWidget import TextWidget
 
+import gettext
+
 class FinishWindow(SetupWindow):
     def __init__(self, callback):
         super().__init__()
-        self.addwidget(TextWidget(1, 1, 'All done!',  40))
-        self.addwidget(TextWidget(3, 1, 'Archlinux is setup in your computer. The program will exit when you click in the next button.', 40))
+
+        # Init Translation
+        trans = gettext.translation("archsetup", "locale", fallback=True)
+        trans.install()
+
+        self.addwidget(TextWidget(1, 1, _('All done!'),  40))
+        self.addwidget(TextWidget(3, 1, _('Archlinux is setup in your computer. The program will exit when you click in the next button.'), 40))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
