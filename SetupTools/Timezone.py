@@ -23,12 +23,11 @@ class Timezone:
         pass
 
     def list_zones(self):
-        zonelist=subprocess.check_output("(cd /usr/share/zoneinfo/ && find -maxdepth 1 ! -path . -type d -printf '%f\n')", shell=True).decode().split('\n')
+        zonelist=subprocess.check_output("(find /usr/share/zoneinfo/. -maxdepth 1 ! -type d -printf '%f\n')", shell=True).decode().split('\n')
         zonelist.remove('')
         return zonelist
 
     def list_subzones(self, zone):
-        szonelist=subprocess.check_output("(cd /usr/share/zoneinfo/"+zone+"/ && find -maxdepth 1 ! -path . -printf '%f\n')", shell=True).decode().split('\n')
+        szonelist=subprocess.check_output("(find /usr/share/zoneinfo/"+zone+"/. -maxdepth 1 ! -printf '%f\n')", shell=True).decode().split('\n')
         szonelist.remove('')
         return szonelist
-	

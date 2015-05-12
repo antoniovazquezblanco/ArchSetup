@@ -34,3 +34,6 @@ class SetupConfig:
 
     def settimesubzone(self, subzone):
         self.timesubzone = subzone
+
+    def sethostname(self, hostname):
+        self.hostname = hostname

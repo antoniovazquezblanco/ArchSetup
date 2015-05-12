@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: ArchSetup\n"
 "POT-Creation-Date: 2015-05-09 14:49+UTC\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -35,3 +35,10 @@ msgstr ""
 msgid "In order to navigate use the TAB key and press ENTER in order to activate the selected widget."
 msgstr ""
 
+#: Interface/TimezoneWindow.py:41
+msgid "Please select a time zone..."
+msgstr ""
+
+#: Interface/TimesubzoneWindow.py:41
+msgid "Please select a subzone..."
+msgstr ""
