@@ -37,8 +37,12 @@ msgstr "Um zu navigieren, benutzen sie TAB. Mit ENTER aktivieren sie die ausgewa
 
 #: Interface/TimezoneWindow.py:41
 msgid "Please select a time zone..."
-msgstr "Bitte waelen sie eine grobe Zeitzone:"
+msgstr "Bitte waehlen sie eine grobe Zeitzone:"
 
 #: Interface/TimesubzoneWindow.py:41
 msgid "Please select a subzone..."
-msgstr "Bitte waelen sie ihre genaue Zeitzone:"
+msgstr "Bitte waehlen sie ihre genaue Zeitzone:"
+
+#: Interface/DiskWindow.py:37
+msgid "Please select the disk, where ArchLinux should be installed"
+msgstr "Bitte waehlen sie eine Festplatte, wo ArchLinux installiert werden soll"

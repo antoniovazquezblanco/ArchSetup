@@ -18,16 +18,11 @@
 
 import subprocess
 
-class Timezone:
+class Disks:
     def __init__(self):
         pass
 
-    def list_zones(self):
-        zonelist=subprocess.check_output("(cd /usr/share/zoneinfo/ && find -maxdepth 1 ! -path . -type d -printf '%f\n')", shell=True).decode().split('\n')
-        zonelist.remove('')
-        return zonelist
-
-    def list_subzones(self, zone):
-        szonelist=subprocess.check_output("(cd /usr/share/zoneinfo/"+zone+"/ && find -maxdepth 1 ! -path . -printf '%f\n')", shell=True).decode().split('\n')
-        szonelist.remove('')
-        return szonelist
+    def list_disks(self):
+        disklist=subprocess.check_output(["ls /dev | grep sd[[:alpha:]]$ "], shell=True).decode().split('\n')
+        disklist.remove('')
+        return disklist

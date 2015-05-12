@@ -26,6 +26,7 @@ from Interface.FontWindow import FontWindow
 from Interface.TimezoneWindow import TimezoneWindow
 from Interface.TimesubzoneWindow import TimesubzoneWindow
 from Interface.FinishWindow import FinishWindow
+from Interface.DiskWindow import DiskWindow
 
 class ArchSetup:
     def __init__(self):
@@ -45,6 +46,7 @@ class ArchSetup:
             self.windows.append(WelcomeWindow(self.callback))
             self.windows.append(KeyboardWindow(self.callback, self.setupconfig))
             self.windows.append(FontWindow(self.callback, self.setupconfig))
+            self.windows.append(DiskWindow(self.callback, self.setupconfig))
             self.windows.append(TimezoneWindow(self.callback, self.setupconfig))
             self.windows.append(TimesubzoneWindow(self.callback, self.setupconfig))
             self.windows.append(FinishWindow(self.callback))

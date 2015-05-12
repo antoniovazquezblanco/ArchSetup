@@ -37,3 +37,6 @@ class SetupConfig:
 
     def sethostname(self, hostname):
         self.hostname = hostname
+
+    def setdisk(self, disk):
+        self.disk = disk;

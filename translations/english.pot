@@ -42,3 +42,7 @@ msgstr ""
 #: Interface/TimesubzoneWindow.py:41
 msgid "Please select a subzone..."
 msgstr ""
+
+#: Interface/DiskWindow.py:37
+msgid "Please select the disk, where ArchLinux should be installed"
+msgstr ""
