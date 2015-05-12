@@ -21,4 +21,4 @@ import subprocess
 class Hostname:
     def __init__(self):
         pass
-
+        

@@ -35,3 +35,14 @@ msgstr "Willkommen bei dem Archlinux Installer"
 msgid "In order to navigate use the TAB key and press ENTER in order to activate the selected widget."
 msgstr "Um zu navigieren, benutzen sie TAB. Mit ENTER aktivieren sie die ausgewaehlte Schaltflaeche"
 
+#: Interface/TimezoneWindow.py:41
+msgid "Please select a time zone..."
+msgstr "Bitte waehlen sie eine grobe Zeitzone:"
+
+#: Interface/TimesubzoneWindow.py:41
+msgid "Please select a subzone..."
+msgstr "Bitte waehlen sie ihre genaue Zeitzone:"
+
+#: Interface/DiskWindow.py:37
+msgid "Please select the disk, where ArchLinux should be installed"
+msgstr "Bitte waehlen sie eine Festplatte, wo ArchLinux installiert werden soll"
