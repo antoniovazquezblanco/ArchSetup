@@ -23,6 +23,8 @@ from Interface.Interface import Interface
 from Interface.WelcomeWindow import WelcomeWindow
 from Interface.KeyboardWindow import KeyboardWindow
 from Interface.FontWindow import FontWindow
+from Interface.TimezoneWindow import TimezoneWindow
+from Interface.TimesubzoneWindow import TimesubzoneWindow
 from Interface.FinishWindow import FinishWindow
 
 class ArchSetup:
@@ -43,6 +45,8 @@ class ArchSetup:
             self.windows.append(WelcomeWindow(self.callback))
             self.windows.append(KeyboardWindow(self.callback, self.setupconfig))
             self.windows.append(FontWindow(self.callback, self.setupconfig))
+            self.windows.append(TimezoneWindow(self.callback, self.setupconfig))
+            self.windows.append(TimesubzoneWindow(self.callback, self.setupconfig))
             self.windows.append(FinishWindow(self.callback))
             self.interface.addwin(self.windows[self.window_index])
         elif event == 'prev':

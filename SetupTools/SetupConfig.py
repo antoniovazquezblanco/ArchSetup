@@ -25,3 +25,12 @@ class SetupConfig:
 
     def setfont(self, font):
         self.font = font
+
+    def gettimezone(self):
+        return self.timezone
+
+    def settimezone(self, zone):
+        self.timezone = zone
+
+    def settimesubzone(self, subzone):
+        self.timesubzone = subzone
