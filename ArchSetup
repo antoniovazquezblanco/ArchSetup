@@ -28,7 +28,11 @@ from Interface.FinishWindow import FinishWindow
 class ArchSetup:
     def __init__(self):
         logging.basicConfig(filename='ArchSetup.log', level=logging.DEBUG)
-        self.setuptools = SetupConfig()
+        if os.getuid() != 0:
+            logging.error("You need to be root to run ArchSetup...")
+            print("You need to be root to run ArchSetup")
+            return
+        self.setupconfig = SetupConfig()
         self.interface = Interface(self.callback)
         self.interface.loop()
 
@@ -37,8 +41,8 @@ class ArchSetup:
             self.windows = []
             self.window_index = 0
             self.windows.append(WelcomeWindow(self.callback))
-            self.windows.append(KeyboardWindow(self.callback, self.setuptools))
-            self.windows.append(FontWindow(self.callback, self.setuptools))
+            self.windows.append(KeyboardWindow(self.callback, self.setupconfig))
+            self.windows.append(FontWindow(self.callback, self.setupconfig))
             self.windows.append(FinishWindow(self.callback))
             self.interface.addwin(self.windows[self.window_index])
         elif event == 'prev':
@@ -52,9 +56,4 @@ class ArchSetup:
             self.interface.addwin(self.windows[self.window_index])
 
 if __name__ == "__main__":
-    if os.getuid() != 0:
-        logging.error("You need to be root to run ArchSetup...")
-        print("You need to be root to run ArchSetup")
-        quit()
-    else:
         ArchSetup()
