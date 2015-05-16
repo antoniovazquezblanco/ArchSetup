@@ -44,3 +44,6 @@ class EntryWidget(Widget):
         else:
             self.text = self.text + chr(event)
         self.callback("refresh")
+
+    def gettext(self):
+        return self.text

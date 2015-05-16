@@ -46,3 +46,4 @@ class SetupWindow(Window):
         if not skip and (hasattr(self, 'button_prev') or hasattr(self, 'button_next')):
             raise Exception('Cannot add content after setting up callbacks...')
         super().addwidget(widget)
+        return widget
