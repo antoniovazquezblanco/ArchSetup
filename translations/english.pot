@@ -46,3 +46,7 @@ msgstr ""
 #: Interface/DiskWindow.py:37
 msgid "Please select the disk, where ArchLinux should be installed"
 msgstr ""
+
+#: Interface/HostnameWindow.py: 35
+msgid "Please enter a hostname:"
+msgstr ""

@@ -32,7 +32,7 @@ class HostnameWindow(SetupWindow):
         trans.install()
 
         self.setupconfig = setupconfig
-        self.addwidget(TextWidget(1, 1, _('Please enter a Hostname:'),  40))
+        self.addwidget(TextWidget(1, 1, _('Please enter a hostname:'),  40))
         self.entry = self.addwidget(EntryWidget(3, 1, "hostname", 40, self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(callback, 'next')
