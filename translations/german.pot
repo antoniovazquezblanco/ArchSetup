@@ -46,3 +46,7 @@ msgstr "Bitte waehlen sie ihre genaue Zeitzone:"
 #: Interface/DiskWindow.py:37
 msgid "Please select the disk, where ArchLinux should be installed"
 msgstr "Bitte waehlen sie eine Festplatte, wo ArchLinux installiert werden soll"
+
+#: Interface/HostnameWindow.py: 35
+msgid "Please enter a hostname:"
+msgstr "Bitte geben sie einen Hostnamen ein:"
