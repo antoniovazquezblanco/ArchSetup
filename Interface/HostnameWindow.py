@@ -41,6 +41,6 @@ class HostnameWindow(SetupWindow):
     def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
-            self.setupconfig.sethostname(self.entry.gettext)
+            self.setupconfig.sethostname(self.entry.gettext())
         else:
             super().event(event)
