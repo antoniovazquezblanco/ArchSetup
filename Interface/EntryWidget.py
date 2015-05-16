@@ -21,11 +21,12 @@ import logging
 from Interface.Widget import Widget
 
 class EntryWidget(Widget):
-    def __init__(self, y, x, text, cols, callback):
+    def __init__(self, y, x, text, cols, callback, maxwidth):
         super().__init__(y, x, 1, len(text))
         self.text = text
         self.cols = cols
         self.callback = callback
+        self.maxwidth = maxwidth
 
     def draw(self, window):
         (posy, posx) = self.position()
@@ -39,7 +40,7 @@ class EntryWidget(Widget):
             self.text = self.text[:-1]
             self.callback("refresh")
             return
-        elif event == ord('\n') or event < 0 or event > 127:
+        elif event == ord('\n') or event < 0 or event > 127 or len(self.text) >= self.maxwidth:
             return
         else:
             self.text = self.text + chr(event)
