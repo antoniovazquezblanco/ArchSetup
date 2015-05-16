@@ -35,8 +35,12 @@ class EntryWidget(Widget):
             window.addstr(posy, posx, self.text.center(self.cols), curses.A_REVERSE | curses.A_UNDERLINE)
 
     def event(self, event):
-        if event == ord('\n'):
+        if event == 263:
+            self.text = self.text[:-1]
+            self.callback("refresh")
             return
-
-        self.text = self.text + chr(event)
+        elif event == ord('\n') or event < 0 or event > 127:
+            return
+        else:
+            self.text = self.text + chr(event)
         self.callback("refresh")
