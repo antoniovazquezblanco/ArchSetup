@@ -50,3 +50,32 @@ msgstr ""
 #: Interface/HostnameWindow.py: 35
 msgid "Please enter a hostname:"
 msgstr ""
+
+#: Interface/RootPassWindow.py: 36
+msgid "Please choose a root password:"
+msgstr ""
+
+#: Interface/RootPassWindow.py: 38
+msgid "Please confirm:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 40
+msgid "Now you have to create a user:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 41
+msgid "Username:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 43
+msgid "Home directory:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 45
+msgid "Real name:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 47
+msgid "Password:"
+msgstr ""
+

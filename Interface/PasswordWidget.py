@@ -20,21 +20,21 @@ import curses
 import logging
 from Interface.Widget import Widget
 
-class EntryWidget(Widget):
-    def __init__(self, y, x, text, cols, callback, maxwidth):
+class PasswordWidget(Widget):
+    def __init__(self, y, x, text, cols, callback, maxwidth, char):
         super().__init__(y, x, 1, len(text))
         self.text = text
         self.cols = cols
         self.callback = callback
         self.maxwidth = maxwidth
+        self.char     = char
 
     def draw(self, window):
         (posy, posx) = self.position()
         if not self.ishighlighted():
-
-            window.addstr(posy, posx, self.text.center(self.cols), curses.A_REVERSE)
+            window.addstr(posy, posx, (self.char * len(self.text)).center(self.cols), curses.A_REVERSE)
         else:
-            window.addstr(posy, posx, (self.text + '_').center(self.cols), curses.A_REVERSE | curses.A_UNDERLINE)
+            window.addstr(posy, posx, (self.char * len(self.text) + '_').center(self.cols), curses.A_REVERSE | curses.A_UNDERLINE)
 
     def event(self, event):
         if event == 263:
@@ -49,7 +49,3 @@ class EntryWidget(Widget):
 
     def gettext(self):
         return self.text
-
-    def settext(self, text):
-        self.text = text
-        self.callback("refresh")

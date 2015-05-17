@@ -33,6 +33,7 @@ class SetupWindow(Window):
         self.button_next = ButtonWidget(y, x-8, 'Next >')
         self.button_next.setcallback(callback, event)
         self.addwidget(self.button_next, True)
+        return self.button_next
 
     def setprevcallback(self, callback, event):
         (y, x) = self.size()
