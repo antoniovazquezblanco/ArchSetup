@@ -49,3 +49,7 @@ class EntryWidget(Widget):
 
     def gettext(self):
         return self.text
+
+    def settext(self, text):
+        self.text = text
+        self.callback("refresh")
