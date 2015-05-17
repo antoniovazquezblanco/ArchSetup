@@ -31,9 +31,10 @@ class EntryWidget(Widget):
     def draw(self, window):
         (posy, posx) = self.position()
         if not self.ishighlighted():
-            window.addstr(posy, posx, self.text.center(self.cols))
+
+            window.addstr(posy, posx, self.text.center(self.cols), curses.A_REVERSE)
         else:
-            window.addstr(posy, posx, self.text.center(self.cols), curses.A_REVERSE | curses.A_UNDERLINE)
+            window.addstr(posy, posx, (self.text + '_').center(self.cols), curses.A_REVERSE | curses.A_UNDERLINE)
 
     def event(self, event):
         if event == 263:
