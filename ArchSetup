@@ -28,6 +28,7 @@ from Interface.TimesubzoneWindow import TimesubzoneWindow
 from Interface.FinishWindow import FinishWindow
 from Interface.DiskWindow import DiskWindow
 from Interface.HostnameWindow import HostnameWindow
+from Interface.RootPassWindow import RootPassWindow
 
 class ArchSetup:
     def __init__(self):
@@ -51,6 +52,7 @@ class ArchSetup:
             self.windows.append(TimezoneWindow(self.callback, self.setupconfig))
             self.windows.append(TimesubzoneWindow(self.callback, self.setupconfig))
             self.windows.append(HostnameWindow(self.callback, self.setupconfig))
+            self.windows.append(RootPassWindow(self.callback, self.setupconfig))
             self.windows.append(FinishWindow(self.callback))
             self.interface.addwin(self.windows[self.window_index])
         elif event == 'prev':
