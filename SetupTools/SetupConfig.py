@@ -43,3 +43,9 @@ class SetupConfig:
 
     def setrootpassword(self, key):
         self.rootpassword = key
+
+    def setuserdata(self, username, homedir, realname, passwd):
+        self.username = username
+        self.homedir = homedir
+        self.realname = realname
+        self.passwordd = passwd
