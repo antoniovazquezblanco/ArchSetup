@@ -26,6 +26,7 @@ import gettext
 class RootPassWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
+        self.callback = callback
 
         # Init Translation
         trans = gettext.translation("archsetup", "locale", fallback=True)
@@ -37,13 +38,16 @@ class RootPassWindow(SetupWindow):
         self.addwidget(TextWidget(5, 1, _('Please confirm:'), 40))
         self.conf  = self.addwidget(PasswordWidget(7, 1, "", 40, self.event, 40, '*'))
         self.addwidget(SpacerWidget(23, 1, 1))
-        self.setnextcallback(callback, 'next')
+        self.next = self.setnextcallback(callback, '')
         self.setprevcallback(callback, 'prev')
 
     def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
-            if self.entry.gettext() == self.conf.gettext(): # Passwords Match
+            if self.entry.gettext() == self.conf.gettext() and len(self.entry.gettext()) > 0: # Passwords Match
                 self.setupconfig.setrootpassword(self.entry.gettext())
+                self.next.setcallback(self.callback, 'next')
+            else:
+                self.next.setcallback(self.callback, '')
         else:
             super().event(event)

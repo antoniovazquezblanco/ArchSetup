@@ -26,6 +26,7 @@ import gettext
 class HostnameWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
+        self.callback = callback
 
         # Init Translation
         trans = gettext.translation("archsetup", "locale", fallback=True)
@@ -35,12 +36,16 @@ class HostnameWindow(SetupWindow):
         self.addwidget(TextWidget(1, 1, _('Please enter a hostname:'),  40))
         self.entry = self.addwidget(EntryWidget(3, 1, "hostname", 40, self.event, 40))
         self.addwidget(SpacerWidget(23, 1, 1))
-        self.setnextcallback(callback, 'next')
+        self.next = self.setnextcallback(callback, '')
         self.setprevcallback(callback, 'prev')
 
     def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
-            self.setupconfig.sethostname(self.entry.gettext())
+            if len(self.entry.gettext()) > 0:
+                self.setupconfig.sethostname(self.entry.gettext())
+                self.next.setcallback(self.callback, 'next')
+            else:
+                self.next.setcallback(self.callback, '')
         else:
             super().event(event)
