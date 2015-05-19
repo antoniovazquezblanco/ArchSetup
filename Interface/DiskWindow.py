@@ -37,7 +37,7 @@ class DiskWindow(SetupWindow):
         self.addwidget(TextWidget(1, 1, _('Please select the disk, where ArchLinux should be installed'),  40))
         disk = Disks()
         items = disk.list_disks()
-        self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
+        self.addwidget(ScrollWidget(4, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
