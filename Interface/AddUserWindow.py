@@ -21,6 +21,7 @@ from Interface.SpacerWidget import SpacerWidget
 from Interface.TextWidget import TextWidget
 from Interface.EntryWidget import EntryWidget
 from Interface.PasswordWidget import PasswordWidget
+from Interface.ProgressWidget import ProgressWidget
 
 import gettext
 
@@ -48,6 +49,8 @@ class AddUserWindow(SetupWindow):
         self.password = self.addwidget(PasswordWidget(9, 1, "", 40, self.event, 40, '*'))
         self.addwidget(TextWidget(10,1, _("Please confirm:"), 40))
         self.confirm  = self.addwidget(PasswordWidget(11, 1, "", 40, self.event, 40, '*'))
+        self.addwidget(TextWidget(12,1, _("Password safety:"), 40))
+        self.pro      = self.addwidget(ProgressWidget(13, 1, 0, 40))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.next = self.setnextcallback(callback, '')
         self.setprevcallback(callback, 'prev')
@@ -62,6 +65,7 @@ class AddUserWindow(SetupWindow):
                 self.setupconfig.setuserdata(self.username.gettext(), self.homedir.gettext(), self.fullname.gettext(), self.password.gettext())
             else:
                 self.next.setcallback(self.callback, '')
+            self.pro.setvalue(int(100 / 20 * len(self.password.gettext())))
             self.refresh()
         else:
             super().event(event)
