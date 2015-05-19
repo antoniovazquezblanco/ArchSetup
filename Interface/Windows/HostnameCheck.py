@@ -16,8 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interface.SetupWindow import SetupWindow
-from Interface.TextWidget import TextWidget
+from Interface.Windows.SetupWindow import SetupWindow
+from Interface.Widgets.TextWidget import TextWidget
 
 import gettext
 

@@ -17,7 +17,7 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import curses
-from Interface.Widget import Widget
+from Interface.Widgets.Widget import Widget
 
 class RadioWidget(Widget):
     def __init__(self, y, x, w, items, callback):

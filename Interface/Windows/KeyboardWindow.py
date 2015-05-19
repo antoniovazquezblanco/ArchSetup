@@ -16,16 +16,16 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-from SetupTools.Disks import Disks
-from Interface.SetupWindow import SetupWindow
-from Interface.SpacerWidget import SpacerWidget
-from Interface.TextWidget import TextWidget
-from Interface.ScrollWidget import ScrollWidget
-from Interface.RadioWidget import RadioWidget
+from SetupTools.Keyboard import Keyboard
+from Interface.Windows.SetupWindow import SetupWindow
+from Interface.Widgets.SpacerWidget import SpacerWidget
+from Interface.Widgets.TextWidget import TextWidget
+from Interface.Widgets.ScrollWidget import ScrollWidget
+from Interface.Widgets.RadioWidget import RadioWidget
 
 import gettext
 
-class DiskWindow(SetupWindow):
+class KeyboardWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
 
@@ -34,10 +34,10 @@ class DiskWindow(SetupWindow):
         trans.install()
 
         self.setupconfig = setupconfig
-        self.addwidget(TextWidget(1, 1, _('Please select the disk, where ArchLinux should be installed'),  40))
-        disk = Disks()
-        items = disk.list_disks()
-        self.addwidget(ScrollWidget(4, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
+        self.addwidget(TextWidget(1, 1, _('Please select a keyboard...'),  40))
+        keyboard = Keyboard()
+        items = keyboard.list_keyboard_layouts()
+        self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
@@ -46,6 +46,6 @@ class DiskWindow(SetupWindow):
         if event == 'refresh':
             self.refresh()
         elif event == 'selection':
-            self.setupconfig.setdisk(opt)
+            self.setupconfig.setkeyboard(opt)
         else:
             super().event(event)

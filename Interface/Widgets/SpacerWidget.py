@@ -16,26 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-import curses
-import logging
-from Interface.Widget import Widget
+from Interface.Widgets.Widget import Widget
 
-class ButtonWidget(Widget):
-    def __init__(self, y, x, text):
-        super().__init__(y, x, 1, len(text))
-        self.text = text
+class SpacerWidget(Widget):
+    def __init__(self, y, x, h):
+        super().__init__(y, x, h, 1)
 
-    def draw(self, window):
-        (posy, posx) = self.position()
-        if not self.ishighlighted():
-            window.addstr(posy, posx, self.text)
-        else:
-            window.addstr(posy, posx, self.text, curses.A_REVERSE | curses.A_UNDERLINE)
-
-    def setcallback(self, callback, event):
-        self.callback = callback
-        self.event_param = event
-
-    def event(self, event):
-        if event == ord('\n'):
-            self.callback(self.event_param)
+    def focus(self, focus):
+        return False

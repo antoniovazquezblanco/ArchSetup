@@ -16,11 +16,24 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interface.Widget import Widget
+import textwrap
+import curses
+from Interface.Widgets.Widget import Widget
 
-class SpacerWidget(Widget):
-    def __init__(self, y, x, h):
-        super().__init__(y, x, h, 1)
+class TextWidget(Widget):
+    def __init__(self, y, x, text, n):
+        self.lines = textwrap.wrap(text, width=n)
+        super().__init__(y, x, len(self.lines), n)
+
+    def draw(self, window):
+        (posy, posx) = self.position()
+        i = 0
+        for line in self.lines:
+            if self.ishighlighted():
+                window.addstr(posy + i, posx, line, curses.A_STANDOUT)
+            else:
+                window.addstr(posy + i, posx, line)
+            i = i+1
 
     def focus(self, focus):
         return False

@@ -16,12 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/license
 
-from Interface.SetupWindow import SetupWindow
-from Interface.SpacerWidget import SpacerWidget
-from Interface.TextWidget import TextWidget
-from Interface.EntryWidget import EntryWidget
-from Interface.PasswordWidget import PasswordWidget
-from Interface.ProgressWidget import ProgressWidget
+from Interface.Windows.SetupWindow import SetupWindow
+from Interface.Widgets.SpacerWidget import SpacerWidget
+from Interface.Widgets.TextWidget import TextWidget
+from Interface.Widgets.EntryWidget import EntryWidget
+from Interface.Widgets.PasswordWidget import PasswordWidget
+from Interface.Widgets.ProgressWidget import ProgressWidget
 
 import gettext
 

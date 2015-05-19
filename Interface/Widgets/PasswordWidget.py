@@ -18,7 +18,7 @@
 
 import curses
 import logging
-from Interface.Widget import Widget
+from Interface.Widgets.Widget import Widget
 
 class PasswordWidget(Widget):
     def __init__(self, y, x, text, cols, callback, maxwidth, char):

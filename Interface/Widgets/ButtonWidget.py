@@ -16,20 +16,26 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interface.SetupWindow import SetupWindow
-from Interface.TextWidget import TextWidget
+import curses
+import logging
+from Interface.Widgets.Widget import Widget
 
-import gettext
+class ButtonWidget(Widget):
+    def __init__(self, y, x, text):
+        super().__init__(y, x, 1, len(text))
+        self.text = text
 
-class FinishWindow(SetupWindow):
-    def __init__(self, callback):
-        super().__init__()
+    def draw(self, window):
+        (posy, posx) = self.position()
+        if not self.ishighlighted():
+            window.addstr(posy, posx, self.text)
+        else:
+            window.addstr(posy, posx, self.text, curses.A_REVERSE | curses.A_UNDERLINE)
 
-        # Init Translation
-        trans = gettext.translation("archsetup", "locale", fallback=True)
-        trans.install()
+    def setcallback(self, callback, event):
+        self.callback = callback
+        self.event_param = event
 
-        self.addwidget(TextWidget(1, 1, _('All done!'),  40))
-        self.addwidget(TextWidget(3, 1, _('Archlinux is setup in your computer. The program will exit when you click in the next button.'), 40))
-        self.setnextcallback(callback, 'next')
-        self.setprevcallback(callback, 'prev')
+    def event(self, event):
+        if event == ord('\n'):
+            self.callback(self.event_param)
