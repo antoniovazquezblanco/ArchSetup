@@ -47,6 +47,7 @@ class EntryWidget(Widget):
             return
         elif event == ord('\n'):
             self.callback(ord('\t'))
+            return
         else:
             super().event(event)
 

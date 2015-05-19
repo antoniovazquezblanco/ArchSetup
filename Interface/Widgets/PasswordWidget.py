@@ -22,7 +22,7 @@ from Interface.Widgets.Widget import Widget
 
 class PasswordWidget(Widget):
     def __init__(self, y, x, text, cols, callback, maxwidth, char):
-        super().__init__(y, x, 1, len(text))
+        super().__init__(y, x, 1, maxwidth)
         self.text = text
         self.cols = cols
         self.callback = callback
@@ -37,15 +37,19 @@ class PasswordWidget(Widget):
             window.addstr(posy, posx, (self.char * len(self.text) + '_').center(self.cols), curses.A_REVERSE | curses.A_UNDERLINE)
 
     def event(self, event):
-        if event == 263:
+        if event == curses.KEY_BACKSPACE or event == curses.ascii.DEL:
             self.text = self.text[:-1]
             self.callback("refresh")
             return
-        elif event == ord('\n') or event < 0 or event > 127 or len(self.text) >= self.maxwidth:
+        elif len(self.text) < self.maxwidth-1 and curses.ascii.isprint(event):
+            self.text = self.text + chr(event)
+            self.callback("refresh")
+            return
+        elif event == ord('\n'):
+            self.callback(ord('\t'))
             return
         else:
-            self.text = self.text + chr(event)
-        self.callback("refresh")
+            super().event(event)
 
     def gettext(self):
         return self.text
