@@ -39,13 +39,17 @@ class TimesubzoneWindow(SetupWindow):
 
         # Add widgets and setup callbacks...
         self.addwidget(TextWidget(1, 1, _('Please select a subzone...'),  40))
-        self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, self.timezone.list_subzones(self.setupconfig.gettimezone()), self.event), self.event))
+        self.radiowidget = RadioWidget(0, 0, 40, self.timezone.list_subzones(self.setupconfig.gettimezone()), self.event)
+        self.addwidget(ScrollWidget(3, 1, 40, 20, self.radiowidget, self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
 
     def event(self, event, opt=''):
-        if event == 'refresh':
+        if event == 'show':
+            self.radiowidget.setlist(self.timezone.list_subzones(self.setupconfig.gettimezone()))
+            self.refresh()
+        elif event == 'refresh':
             self.refresh()
         elif event == 'selection':
             self.setupconfig.settimesubzone(opt)

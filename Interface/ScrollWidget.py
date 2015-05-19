@@ -31,6 +31,7 @@ class ScrollWidget(Widget):
         super().__init__(y, x, h, w)
 
     def draw(self, window):
+        self.pad.erase()
         self.widget.draw(self.pad)
 
     def refresh(self, window):
