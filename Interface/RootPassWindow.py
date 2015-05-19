@@ -20,6 +20,7 @@ from Interface.SetupWindow import SetupWindow
 from Interface.SpacerWidget import SpacerWidget
 from Interface.TextWidget import TextWidget
 from Interface.PasswordWidget import PasswordWidget
+from Interface.ProgressWidget import ProgressWidget
 
 import gettext
 
@@ -37,17 +38,20 @@ class RootPassWindow(SetupWindow):
         self.entry = self.addwidget(PasswordWidget(3, 1, "", 40, self.event, 40, '*'))
         self.addwidget(TextWidget(5, 1, _('Please confirm:'), 40))
         self.conf  = self.addwidget(PasswordWidget(7, 1, "", 40, self.event, 40, '*'))
+        self.addwidget(TextWidget(9, 1, _('Password safety:'), 40))
+        self.pro   = self.addwidget(ProgressWidget(10, 1, 10, 40))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.next = self.setnextcallback(callback, '')
         self.setprevcallback(callback, 'prev')
 
     def event(self, event, opt=''):
         if event == 'refresh':
-            self.refresh()
             if self.entry.gettext() == self.conf.gettext() and len(self.entry.gettext()) > 0: # Passwords Match
                 self.setupconfig.setrootpassword(self.entry.gettext())
                 self.next.setcallback(self.callback, 'next')
             else:
                 self.next.setcallback(self.callback, '')
+            self.pro.setvalue(int(100 / 20 * len(self.entry.gettext())))
+            self.refresh()
         else:
             super().event(event)

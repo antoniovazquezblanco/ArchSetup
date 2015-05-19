@@ -59,6 +59,10 @@ msgstr ""
 msgid "Please confirm:"
 msgstr ""
 
+#: Interface/RootPassWindow.py: 41
+msgid "Password safety:"
+msgstr ""
+
 #: Interface/AddUserWindow.py: 40
 msgid "Now you have to create a user:"
 msgstr ""
