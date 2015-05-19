@@ -30,4 +30,5 @@ class Timezone:
     def list_subzones(self, zone):
         szonelist=subprocess.check_output("(cd /usr/share/zoneinfo/"+zone+"/ && find -maxdepth 1 ! -path . -printf '%f\n')", shell=True).decode().split('\n')
         szonelist.remove('')
+        szonelist.sort()
         return szonelist
