@@ -41,6 +41,12 @@ class RadioWidget(Widget):
                 window.addstr(posy + i, posx, '  ' + item)
             i = i + 1
 
+    def setlist(self, items):
+        self.items = items
+        (sy, sx) = self.size()
+        self.resize(len(items), sx)
+        self.callback('refresh')
+
     def event(self, event):
         if event == curses.KEY_UP:
             self.selected = self.selected - 1

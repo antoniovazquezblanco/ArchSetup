@@ -91,9 +91,7 @@ class Interface:
         self._refresh()
 
     def addwin(self, window):
-        #if hasattr(self, 'window'):
-        #    self.window.hide()
         self.window = window
-        #self.window.show()
         self.window.event(ord('\t'))
+        self.window.event('show')
         self._resize()

@@ -31,6 +31,10 @@ class Widget:
     def size(self):
         return (self.sizey, self.sizex)
 
+    def resize(self, sy, sx):
+        self.sizey = sy
+        self.sizex = sx
+
     def draw(self, window):
         pass
 
