@@ -17,35 +17,43 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import curses
+import curses.ascii
 import logging
-from Interface.Widget import Widget
+from Interface.Widgets.Widget import Widget
 
-class PasswordWidget(Widget):
-    def __init__(self, y, x, text, cols, callback, maxwidth, char):
-        super().__init__(y, x, 1, len(text))
+class EntryWidget(Widget):
+    def __init__(self, y, x, text, cols, callback, maxwidth):
+        super().__init__(y, x, 1, maxwidth)
         self.text = text
         self.cols = cols
         self.callback = callback
         self.maxwidth = maxwidth
-        self.char     = char
 
     def draw(self, window):
         (posy, posx) = self.position()
         if not self.ishighlighted():
-            window.addstr(posy, posx, (self.char * len(self.text)).center(self.cols), curses.A_REVERSE)
+            window.addstr(posy, posx, self.text.center(self.cols), curses.A_REVERSE)
         else:
-            window.addstr(posy, posx, (self.char * len(self.text) + '_').center(self.cols), curses.A_REVERSE | curses.A_UNDERLINE)
+            window.addstr(posy, posx, (self.text + '_').center(self.cols), curses.A_REVERSE | curses.A_UNDERLINE)
 
     def event(self, event):
-        if event == 263:
+        if event == curses.KEY_BACKSPACE or event == curses.ascii.DEL:
             self.text = self.text[:-1]
             self.callback("refresh")
             return
-        elif event == ord('\n') or event < 0 or event > 127 or len(self.text) >= self.maxwidth:
+        elif len(self.text) < self.maxwidth-1 and curses.ascii.isprint(event):
+            self.text = self.text + chr(event)
+            self.callback("refresh")
+            return
+        elif event == ord('\n'):
+            self.callback(ord('\t'))
             return
         else:
-            self.text = self.text + chr(event)
-        self.callback("refresh")
+            super().event(event)
 
     def gettext(self):
         return self.text
+
+    def settext(self, text):
+        self.text = text
+        self.callback("refresh")

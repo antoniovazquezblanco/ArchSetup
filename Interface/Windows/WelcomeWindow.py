@@ -16,24 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-import textwrap
-import curses
-from Interface.Widget import Widget
+from Interface.Windows.SetupWindow import SetupWindow
+from Interface.Widgets.TextWidget import TextWidget
 
-class TextWidget(Widget):
-    def __init__(self, y, x, text, n):
-        self.lines = textwrap.wrap(text, width=n)
-        super().__init__(y, x, len(self.lines), n)
+import gettext
 
-    def draw(self, window):
-        (posy, posx) = self.position()
-        i = 0
-        for line in self.lines:
-            if self.ishighlighted():
-                window.addstr(posy + i, posx, line, curses.A_STANDOUT)
-            else:
-                window.addstr(posy + i, posx, line)
-            i = i+1
+class WelcomeWindow(SetupWindow):
+    def __init__(self, callback):
+        super().__init__()
 
-    def focus(self, focus):
-        return False
+        # Init Translation
+        trans = gettext.translation("archsetup", "locale", fallback=True)
+        trans.install()
+
+        self.addwidget(TextWidget(1, 1, _('Welcome to the Archlinux installer!'),  40))
+        self.addwidget(TextWidget(3, 1, _('In order to navigate use the TAB key and press ENTER in order to activate the selected widget.'), 40))
+        self.setnextcallback(callback, 'next')

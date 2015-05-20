@@ -18,7 +18,7 @@
 
 import curses
 import logging
-from Interface.Widget import Widget
+from Interface.Widgets.Widget import Widget
 
 class ScrollWidget(Widget):
     def __init__(self, y, x, w, h, widget, callback):

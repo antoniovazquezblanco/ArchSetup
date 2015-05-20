@@ -16,14 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/license
 
-from Interface.SetupWindow import SetupWindow
-from Interface.SpacerWidget import SpacerWidget
-from Interface.TextWidget import TextWidget
-from Interface.EntryWidget import EntryWidget
+from Interface.Windows.SetupWindow import SetupWindow
+from Interface.Widgets.SpacerWidget import SpacerWidget
+from Interface.Widgets.TextWidget import TextWidget
+from Interface.Widgets.PasswordWidget import PasswordWidget
+from Interface.Widgets.ProgressWidget import ProgressWidget
 
 import gettext
 
-class HostnameWindow(SetupWindow):
+class RootPassWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
         self.callback = callback
@@ -33,19 +34,24 @@ class HostnameWindow(SetupWindow):
         trans.install()
 
         self.setupconfig = setupconfig
-        self.addwidget(TextWidget(1, 1, _('Please enter a hostname:'),  40))
-        self.entry = self.addwidget(EntryWidget(3, 1, "hostname", 40, self.event, 40))
+        self.addwidget(TextWidget(1, 1, _('Please choose a root password:'),  40))
+        self.entry = self.addwidget(PasswordWidget(3, 1, "", 40, self.event, 40, '*'))
+        self.addwidget(TextWidget(5, 1, _('Please confirm:'), 40))
+        self.conf  = self.addwidget(PasswordWidget(7, 1, "", 40, self.event, 40, '*'))
+        self.addwidget(TextWidget(9, 1, _('Password safety:'), 40))
+        self.pro   = self.addwidget(ProgressWidget(10, 1, 10, 40))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.next = self.setnextcallback(callback, '')
         self.setprevcallback(callback, 'prev')
 
     def event(self, event, opt=''):
         if event == 'refresh':
-            self.refresh()
-            if len(self.entry.gettext()) > 0:
-                self.setupconfig.sethostname(self.entry.gettext())
+            if self.entry.gettext() == self.conf.gettext() and len(self.entry.gettext()) > 0: # Passwords Match
+                self.setupconfig.setrootpassword(self.entry.gettext())
                 self.next.setcallback(self.callback, 'next')
             else:
                 self.next.setcallback(self.callback, '')
+            self.pro.setvalue(int(100 / 20 * len(self.entry.gettext())))
+            self.refresh()
         else:
             super().event(event)

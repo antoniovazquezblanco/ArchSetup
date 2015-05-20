@@ -17,9 +17,9 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-from Interface.Window import Window
-from Interface.TextWidget import TextWidget
-from Interface.ButtonWidget import ButtonWidget
+from Interface.Windows.Window import Window
+from Interface.Widgets.TextWidget import TextWidget
+from Interface.Widgets.ButtonWidget import ButtonWidget
 
 
 class SetupWindow(Window):

@@ -16,16 +16,16 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-from SetupTools.Font import Font
-from Interface.SetupWindow import SetupWindow
-from Interface.SpacerWidget import SpacerWidget
-from Interface.TextWidget import TextWidget
-from Interface.ScrollWidget import ScrollWidget
-from Interface.RadioWidget import RadioWidget
+from SetupTools.Timezone import Timezone
+from Interface.Windows.SetupWindow import SetupWindow
+from Interface.Widgets.SpacerWidget import SpacerWidget
+from Interface.Widgets.TextWidget import TextWidget
+from Interface.Widgets.ScrollWidget import ScrollWidget
+from Interface.Widgets.RadioWidget import RadioWidget
 
 import gettext
 
-class FontWindow(SetupWindow):
+class TimezoneWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
 
@@ -33,11 +33,13 @@ class FontWindow(SetupWindow):
         trans = gettext.translation("archsetup", "locale", fallback=True)
         trans.install()
 
+        # Init setup tools
+        self.timezone = Timezone()
         self.setupconfig = setupconfig
-        self.addwidget(TextWidget(1, 1, _('Please select a console font...'),  40))
-        font = Font()
-        items = font.list_console_fonts()
-        self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
+
+        # Add widgets and setup callbacks...
+        self.addwidget(TextWidget(1, 1, _('Please select a time zone...'),  40))
+        self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, self.timezone.list_zones(), self.event), self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
@@ -46,6 +48,6 @@ class FontWindow(SetupWindow):
         if event == 'refresh':
             self.refresh()
         elif event == 'selection':
-            self.setupconfig.setfont(opt)
+            self.setupconfig.settimezone(opt)
         else:
             super().event(event)

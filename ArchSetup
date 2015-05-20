@@ -20,16 +20,16 @@ import logging
 import os
 from SetupTools.SetupConfig import SetupConfig
 from Interface.Interface import Interface
-from Interface.WelcomeWindow import WelcomeWindow
-from Interface.KeyboardWindow import KeyboardWindow
-from Interface.FontWindow import FontWindow
-from Interface.TimezoneWindow import TimezoneWindow
-from Interface.TimesubzoneWindow import TimesubzoneWindow
-from Interface.FinishWindow import FinishWindow
-from Interface.DiskWindow import DiskWindow
-from Interface.HostnameWindow import HostnameWindow
-from Interface.RootPassWindow import RootPassWindow
-from Interface.AddUserWindow import AddUserWindow
+from Interface.Windows.WelcomeWindow import WelcomeWindow
+from Interface.Windows.KeyboardWindow import KeyboardWindow
+from Interface.Windows.FontWindow import FontWindow
+from Interface.Windows.TimezoneWindow import TimezoneWindow
+from Interface.Windows.TimesubzoneWindow import TimesubzoneWindow
+from Interface.Windows.FinishWindow import FinishWindow
+from Interface.Windows.DiskWindow import DiskWindow
+from Interface.Windows.HostnameWindow import HostnameWindow
+from Interface.Windows.RootPassWindow import RootPassWindow
+from Interface.Windows.AddUserWindow import AddUserWindow
 
 class ArchSetup:
     def __init__(self):

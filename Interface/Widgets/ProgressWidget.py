@@ -18,7 +18,7 @@
 
 import textwrap
 import curses
-from Interface.Widget import Widget
+from Interface.Widgets.Widget import Widget
 
 class ProgressWidget(Widget):
     def __init__(self, y, x, percent, length):
