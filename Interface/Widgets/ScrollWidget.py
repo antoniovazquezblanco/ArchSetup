@@ -38,7 +38,10 @@ class ScrollWidget(Widget):
         (wposy, wposx) = window.getbegyx()
         (posy, posx) = self.position()
         (sy, sx) = self.size()
-        self.pad.refresh(self.padpos, 0, wposy+posy, wposx+posx, wposy+sy+3, wposx+sx)
+        try:
+            self.pad.refresh(self.padpos, 0, wposy+posy, wposx+posx, wposy+sy+3, wposx+sx)
+        except:
+            pass
 
     def event(self, event):
         if event == curses.KEY_UP:

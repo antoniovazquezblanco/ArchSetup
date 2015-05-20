@@ -17,6 +17,7 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import subprocess
+import os
 
 class Font:
     def __init__(self):
@@ -28,9 +29,19 @@ class Font:
         fntlist.sort()
         return fntlist
 
-    def load_console_font():
-        #setfont $font
-        print("[D] SetupTools.load_console_font(): Not implemented!")
+    def load_console_font(self, font):
+        os.system("setfont " + font)
+        #Now, if font is to big, the setup will crash -> check if we have a mimimum of
+        # 22 lines and 42 cols
+        try:
+            cols = int(subprocess.check_output("echo -n $COLUMNS", shell=True).decode())
+            lines= int(subprocess.check_output("echo -n $LINES"  , shell=True).decode())
+        except:
+            return
+        if(cols < 42 or lines < 25):
+            os.system("setfont") # load default
+        else:
+            return
 
     def set_console_font():
         print("[D] SetupTools.set_console_font(): Not implemented!")

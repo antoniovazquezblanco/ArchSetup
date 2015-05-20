@@ -47,5 +47,6 @@ class FontWindow(SetupWindow):
             self.refresh()
         elif event == 'selection':
             self.setupconfig.setfont(opt)
+            Font().load_console_font(opt)
         else:
             super().event(event)
