@@ -39,7 +39,7 @@ class RootPassWindow(SetupWindow):
         self.addwidget(TextWidget(5, 1, _('Please confirm:'), 40))
         self.conf  = self.addwidget(PasswordWidget(7, 1, "", 40, self.event, 40, '*'))
         self.addwidget(TextWidget(9, 1, _('Password safety:'), 40))
-        self.pro   = self.addwidget(ProgressWidget(10, 1, 10, 40))
+        self.pro   = self.addwidget(ProgressWidget(10, 1, 0, 40))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.next = self.setnextcallback(callback, '')
         self.setprevcallback(callback, 'prev')
