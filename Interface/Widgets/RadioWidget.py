@@ -47,6 +47,13 @@ class RadioWidget(Widget):
         self.resize(len(items), sx)
         self.callback('refresh')
 
+    def __getindex(self, char, default):
+        char = char.upper()
+        for i in range(len(self.items)):
+            if self.items[i][0].upper() == char:
+                return i
+        return default
+
     def event(self, event):
         if event == curses.KEY_UP:
             self.selected = self.selected - 1
@@ -54,6 +61,7 @@ class RadioWidget(Widget):
                 self.selected = 0
             self.callback('refresh')
             self.callback('selection', self.items[self.selected])
+            return
         elif event == curses.KEY_DOWN:
             self.selected = self.selected + 1
             (sy, sx) = self.size()
@@ -61,5 +69,18 @@ class RadioWidget(Widget):
                 self.selected = len(self.items)-1
             self.callback('refresh')
             self.callback('selection', self.items[self.selected])
+            return
         elif event == ord('\n'):
             self.callback(ord('\t'))
+            return
+        elif curses.ascii.isprint(event):
+            offset = self.__getindex(chr(event), self.selected)-self.selected
+            if offset > 0:
+                for i in range(offset):
+                    self.callback(curses.KEY_DOWN)
+            else:
+                for i in range(-offset):
+                    self.callback(curses.KEY_UP)
+            return
+        else:
+            super().event(event)
