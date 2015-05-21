@@ -49,3 +49,6 @@ class SetupConfig:
         self.homedir = homedir
         self.realname = realname
         self.passwordd = passwd
+
+    def setnetwork(self, net):
+        self.network = net

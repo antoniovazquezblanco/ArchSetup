@@ -83,3 +83,6 @@ msgstr ""
 msgid "Password:"
 msgstr ""
 
+#: Interface/NetworkWindow.py: 38
+msgid "Please select your network type:"
+msgstr ""
