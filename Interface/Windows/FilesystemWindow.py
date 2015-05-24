@@ -52,7 +52,7 @@ class FilesystemWindow(SetupWindow):
         if event == 'refresh':
             self.refresh()
         elif event == 'selection':
-#            self.setupconfig.setkeyboard(opt)
+            self.setupconfig.setfilesystem(opt)
             pass
         else:
             super().event(event)
