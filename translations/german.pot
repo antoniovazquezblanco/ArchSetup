@@ -87,3 +87,7 @@ msgstr "Passwort"
 #: Interface/NetworkWindow.py: 38
 msgid "Please select your network type:"
 msgstr "Bitte waehlen sie ihren Verbindungstyp:"
+
+#: Interface/FilesystemWindow.py: 37
+msgid "Please choose a filesystem:"
+msgstr "Bitte waehlen sie ein Dateisystem:"

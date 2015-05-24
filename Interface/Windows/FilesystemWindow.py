@@ -34,7 +34,7 @@ class FilesystemWindow(SetupWindow):
         trans.install()
 
         self.setupconfig = setupconfig
-        self.addwidget(TextWidget(1, 1, _('Please choose your filesystem:'),  40))
+        self.addwidget(TextWidget(1, 1, _('Please choose a filesystem:'),  40))
         fs = Filesystem()
         buff = fs.list_filesystems()
         if "mkfs.ext4" in buff:
