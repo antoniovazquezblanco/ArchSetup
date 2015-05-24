@@ -15,16 +15,20 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
-
-import subprocess
+import os
 
 class Filesystem:
     def __init__(self):
         pass
 
     def list_filesystems(self):
-        fslist=subprocess.check_output("ls /bin/ | grep \"mkfs\"").decode().split('\n')
-        fslist.remove('')
+        baselist = os.listdir("/usr/bin")
+        fslist = []
+        for file in baselist:
+            if len(file) > 4:
+                if file[:4] == "mkfs":
+                    fslist.append(file)
+        fslist.sort()
         return fslist
 
     def create_filesystem(self, drive, num):
