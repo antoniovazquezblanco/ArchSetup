@@ -52,3 +52,6 @@ class SetupConfig:
 
     def setnetwork(self, net):
         self.network = net
+
+    def setfilesystem(self, fs):
+        self.filesystem = fs
