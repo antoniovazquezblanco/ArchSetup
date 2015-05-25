@@ -51,7 +51,8 @@ class AddUserWindow(SetupWindow):
         self.confirm  = self.addwidget(PasswordWidget(11, 1, "", 40, self.event, 40, '*'))
         self.addwidget(TextWidget(12,1, _("Password safety:"), 40))
         self.pro      = self.addwidget(ProgressWidget(13, 1, 0, 40))
-        self.addwidget(SpacerWidget(23, 1, 1))
+        self.matcherr = self.addwidget(TextWidget(15, 1, _('Passwords do not match!'),  40))
+        self.matcherr.setvisibility(False)
         self.next = self.setnextcallback(callback, '')
         self.setprevcallback(callback, 'prev')
 
@@ -62,8 +63,10 @@ class AddUserWindow(SetupWindow):
                 self.homedir.settext("/home/" + self.cur_usr_name)
             if len(self.username.gettext()) > 0 and len(self.homedir.gettext()) > 0 and len(self.fullname.gettext()) > 0 and len(self.password.gettext()) > 0 and self.password.gettext() == self.confirm.gettext():
                 self.next.setcallback(self.callback, 'next')
+                self.matcherr.setvisibility(False)
                 self.setupconfig.setuserdata(self.username.gettext(), self.homedir.gettext(), self.fullname.gettext(), self.password.gettext())
             else:
+                self.matcherr.setvisibility(True)
                 self.next.setcallback(self.callback, '')
             self.pro.setvalue(int(100 / 20 * len(self.password.gettext())))
             self.refresh()

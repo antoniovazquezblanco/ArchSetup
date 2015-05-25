@@ -40,7 +40,8 @@ class RootPassWindow(SetupWindow):
         self.conf  = self.addwidget(PasswordWidget(7, 1, "", 40, self.event, 40, '*'))
         self.addwidget(TextWidget(9, 1, _('Password safety:'), 40))
         self.pro   = self.addwidget(ProgressWidget(10, 1, 0, 40))
-        self.addwidget(SpacerWidget(23, 1, 1))
+        self.matcherr = self.addwidget(TextWidget(12, 1, _('Passwords do not match!'),  40))
+        self.matcherr.setvisibility(False)
         self.next = self.setnextcallback(callback, '')
         self.setprevcallback(callback, 'prev')
 
@@ -49,7 +50,9 @@ class RootPassWindow(SetupWindow):
             if self.entry.gettext() == self.conf.gettext() and len(self.entry.gettext()) > 0: # Passwords Match
                 self.setupconfig.setrootpassword(self.entry.gettext())
                 self.next.setcallback(self.callback, 'next')
+                self.matcherr.setvisibility(False)
             else:
+                self.matcherr.setvisibility(True)
                 self.next.setcallback(self.callback, '')
             self.pro.setvalue(int(100 / 20 * len(self.entry.gettext())))
             self.refresh()
