@@ -35,7 +35,7 @@ class LocaleWindow(SetupWindow):
         trans.install()
 
         self.setupconfig = setupconfig
-        self.addwidget(TextWidget(1, 1, _('Please select locales...'),  40))
+        self.addwidget(TextWidget(1, 1, _('Please select some locales:'),  40))
         locale = Locale()
         items = locale.list_locales()
         self.addwidget(ScrollWidget(3, 1, 40, 20, CheckWidget(0, 0, 40, items, self.event), self.event))
