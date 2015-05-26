@@ -32,6 +32,7 @@ from Interface.Windows.RootPassWindow import RootPassWindow
 from Interface.Windows.AddUserWindow import AddUserWindow
 from Interface.Windows.NetworkWindow import NetworkWindow
 from Interface.Windows.FilesystemWindow import FilesystemWindow
+from Interface.Windows.LocaleWindow import LocaleWindow
 
 class ArchSetup:
     def __init__(self):
@@ -52,6 +53,7 @@ class ArchSetup:
             self.windows.append(KeyboardWindow(self.callback, self.setupconfig))
             self.windows.append(FontWindow(self.callback, self.setupconfig))
             self.windows.append(NetworkWindow(self.callback, self.setupconfig))
+            self.windows.append(LocaleWindow(self.callback, self.setupconfig))
             self.windows.append(DiskWindow(self.callback, self.setupconfig))
             self.windows.append(TimezoneWindow(self.callback, self.setupconfig))
             self.windows.append(TimesubzoneWindow(self.callback, self.setupconfig))
