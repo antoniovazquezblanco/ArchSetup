@@ -28,6 +28,7 @@ import gettext
 class LocaleWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
+        self.callback = callback
 
         # Init Translation
         trans = gettext.translation("archsetup", "locale", fallback=True)
@@ -39,15 +40,17 @@ class LocaleWindow(SetupWindow):
         items = locale.list_locales()
         self.addwidget(ScrollWidget(3, 1, 40, 20, CheckWidget(0, 0, 40, items, self.event), self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
-        self.setnextcallback(callback, 'next')
+        self.next = self.setnextcallback(self.callback, '')
         self.setprevcallback(callback, 'prev')
 
     def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
+            if len(self.setupconfig.locales) > 0:
+                self.next.setcallback(self.callback, 'next')
+            else:
+                self.next.setcallback(self.callback, '')
         elif event == 'selection':
-#            self.setupconfig.setfont(opt)
-#            Font().load_console_font(opt)
-            pass
+            self.setupconfig.setlocales(opt)
         else:
             super().event(event)

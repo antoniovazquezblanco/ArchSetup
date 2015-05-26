@@ -25,7 +25,7 @@ class CheckWidget(Widget):
         self.callback = callback
         self.selected = 0
         self.activated = []
-        self.callback('selection', self.items[self.selected])
+        self.callback('selection', [])
         super().__init__(y, x, len(items), w)
 
     def __selection_changed(self):
@@ -85,8 +85,8 @@ class CheckWidget(Widget):
                 self.activated.append(self.selected)
             else:
                 self.activated.remove(self.selected)
-            self.callback('refresh')
             self.__selection_changed()
+            self.callback('refresh')
         elif event == ord('\n'):
             self.callback(ord('\t'))
             return
