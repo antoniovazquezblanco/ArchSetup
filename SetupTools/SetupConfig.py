@@ -18,7 +18,7 @@
 
 class SetupConfig:
     def __init__(self):
-        pass
+        self.locales = []
 
     def setkeyboard(self, layout):
         self.keyboard = layout
@@ -55,3 +55,6 @@ class SetupConfig:
 
     def setfilesystem(self, fs):
         self.filesystem = fs
+
+    def setlocales(self, locales):
+        self.locales = locales

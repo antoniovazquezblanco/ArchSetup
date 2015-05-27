@@ -91,3 +91,7 @@ msgstr "Bitte waehlen sie ihren Verbindungstyp:"
 #: Interface/FilesystemWindow.py: 37
 msgid "Please choose a filesystem:"
 msgstr "Bitte waehlen sie ein Dateisystem:"
+
+#: Interface/Windows/LocaleWindow.py: 38
+msgid "Please select some locales:"
+msgstr "Bitte waehlen sie einige 'locales':"
