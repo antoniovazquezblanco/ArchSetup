@@ -23,11 +23,13 @@ class PreInstall:
         pass
 
     #Task to do:
-    #
+    # > Install Requiered Software      [x]
     # > Recive Mirrorlists              [x]
     # > Part disk                       [ ]
     # > mount datapart and swap         [ ]
     def run(setupconfig):
+        yield "1,installing requiered software"
+        os.system("pacman -Sy reflector --noconfirm --needed 2> /dev/null > /dev/null")
         yield "10,fetching mirrorlist"
         # get the 50 >most up to date< servers and sort them by download speed
         os.system("reflector --verbose -l 50 -p http --sort rate --save list.txt 2>/dev/null > /dev/null")
