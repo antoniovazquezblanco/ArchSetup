@@ -32,7 +32,7 @@ msgid "Welcome to the Archlinux installer!"
 msgstr ""
 
 #: Interface/WelcomeWindow.py:33
-msgid "In order to navigate use the TAB key and press ENTER in order to activate the selected widget."
+msgid "In order to navigate use the TAB key and press ENTER in order to activate the selected widget. On some lists you can select multiple items with SPACE."
 msgstr ""
 
 #: Interface/TimezoneWindow.py:41

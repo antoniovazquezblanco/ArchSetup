@@ -30,5 +30,5 @@ class WelcomeWindow(SetupWindow):
         trans.install()
 
         self.addwidget(TextWidget(1, 1, _('Welcome to the Archlinux installer!'),  40))
-        self.addwidget(TextWidget(3, 1, _('In order to navigate use the TAB key and press ENTER in order to activate the selected widget.'), 40))
+        self.addwidget(TextWidget(3, 1, _('In order to navigate use the TAB key and press ENTER in order to activate the selected widget. On some lists you can select multiple items with SPACE.'), 40))
         self.setnextcallback(callback, 'next')
