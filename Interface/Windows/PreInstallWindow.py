@@ -36,7 +36,7 @@ class PreInstallWindow(SetupWindow):
         trans = gettext.translation("archsetup", "locale", fallback=True)
         trans.install()
 
-        self.addwidget(TextWidget(1, 1, _('Please Wait...'),  40))
+        self.addwidget(TextWidget(1, 1, _('Please wait...'),  40))
         self.progress = self.addwidget(ProgressWidget(2, 1, 0, 40))
         self.status   = self.addwidget(TextWidget(3, 1, ' ', 40))
 

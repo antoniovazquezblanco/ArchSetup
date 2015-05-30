@@ -94,3 +94,23 @@ msgstr ""
 #: Interface/Windows/LocaleWindow.py: 38
 msgid "Please select some locales:"
 msgstr ""
+
+#: SetupTools/PreInstall.py: 
+msgid "fetching mirrorlist"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "partitioning disk"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "mouting disk"
+msgstr ""
+
+#: SetupTools/PreInstall.py
+msgid "done!"
+msgstr ""
+
+#: Interface/Windows/PreInstallWindow: 39
+msgid "Please wait..."
+msgstr ""
