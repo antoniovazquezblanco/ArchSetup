@@ -95,3 +95,4 @@ class Interface:
         self.window.event(ord('\t'))
         self.window.event('show')
         self._resize()
+        self.window.event('showed')

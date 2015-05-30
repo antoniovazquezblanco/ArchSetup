@@ -33,6 +33,7 @@ from Interface.Windows.AddUserWindow import AddUserWindow
 from Interface.Windows.NetworkWindow import NetworkWindow
 from Interface.Windows.FilesystemWindow import FilesystemWindow
 from Interface.Windows.LocaleWindow import LocaleWindow
+from Interface.Windows.PreInstallWindow import PreInstallWindow
 
 class ArchSetup:
     def __init__(self):
@@ -61,6 +62,7 @@ class ArchSetup:
             self.windows.append(RootPassWindow(self.callback, self.setupconfig))
             self.windows.append(AddUserWindow(self.callback, self.setupconfig))
             self.windows.append(FilesystemWindow(self.callback, self.setupconfig))
+            self.windows.append(PreInstallWindow(self.callback, self.setupconfig))
             self.windows.append(FinishWindow(self.callback))
             self.interface.addwin(self.windows[self.window_index])
         elif event == 'prev':

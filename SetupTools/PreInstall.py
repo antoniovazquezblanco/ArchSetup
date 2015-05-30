@@ -16,28 +16,26 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-import textwrap
-import curses
-from Interface.Widgets.Widget import Widget
+import os
 
-class TextWidget(Widget):
-    def __init__(self, y, x, text, n):
-        self.lines = textwrap.wrap(text, width=n)
-        self.n = n
-        super().__init__(y, x, len(self.lines), n)
+class PreInstall:
+    def __init__(self):
+        pass
 
-    def draw(self, window):
-        (posy, posx) = self.position()
-        i = 0
-        for line in self.lines:
-            if self.ishighlighted():
-                window.addstr(posy + i, posx, line, curses.A_STANDOUT)
-            else:
-                window.addstr(posy + i, posx, line)
-            i = i+1
+    #Task to do:
+    #
+    # > Recive Mirrorlists              [x]
+    # > Part disk                       [ ]
+    # > mount datapart and swap         [ ]
+    def run(setupconfig):
+        yield "10,fetching mirrorlist"
+        # get the 50 >most up to date< servers and sort them by download speed
+        os.system("reflector --verbose -l 50 -p http --sort rate --save list.txt 2>/dev/null > /dev/null")
 
-    def focus(self, focus):
-        return False
+        yield "33,partitioning disk"
+        # Part disk
 
-    def settext(self, text):
-        self.lines = textwrap.wrap(text, width=self.n)
+        yield "80,mounting disk"
+        # mount disk
+
+        yield "100,done!"
