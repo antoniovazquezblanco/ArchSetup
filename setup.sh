@@ -19,7 +19,7 @@ then
     echo "Startup failed."
     echo "It looks like the install medium is missing python..."
     echo "  >> installing Python >= 3.4.X:"
-    pacman -S python --noconfirm
+    pacman -Sy python --noconfirm
     clear
     echo "  >> Done!"
     echo "Now trying to restart..."
