@@ -112,6 +112,10 @@ msgstr "Disk einbinden"
 msgid "done!"
 msgstr "Fertig!"
 
+#: SetupTools/PreInstall.py                                                                               
+msgid "installing requiered software"
+msgstr "Installiere benoetigte Software"
+
 #: Interface/Windows/PreInstallWindow: 39
 msgid "Please wait..."
 msgstr "Bitte warten..."
