@@ -38,9 +38,3 @@ class DiskPartWindow(SetupWindow):
         self.addwidget(SpacerWidget(23, 1, 1))
         self.next = self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
-
-    def event(self, event, opt=''):
-        if event == 'refresh':
-            self.refresh()
-        else:
-            super().event(event)
