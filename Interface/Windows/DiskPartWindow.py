@@ -34,7 +34,7 @@ class DiskPartWindow(SetupWindow):
 
         self.setupconfig = setupconfig
         self.addwidget(TextWidget(1, 1, _('If you proceed, all your data will be destroyed!'),  40))
-        self.addwidget(TextWidget(2, 1, _('Please only proceed if you have made a backup.'),  40))
+        self.addwidget(TextWidget(3, 1, _('Please only proceed if you have made a backup.'),  40))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.next = self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
