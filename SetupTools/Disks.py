@@ -26,3 +26,6 @@ class Disks:
         disklist=subprocess.check_output(["ls /dev | grep sd[[:alpha:]]$ "], shell=True).decode().split('\n')
         disklist.remove('')
         return disklist
+
+    def part_disk(self):
+        pass

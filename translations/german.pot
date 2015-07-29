@@ -100,7 +100,7 @@ msgstr "Bitte waehlen sie einige 'locales':"
 msgid "fetching mirrorlist"
 msgstr "lade Spiegelserver Liste"
 
-#: SetupTools/PreInstall.py:                                                                              
+#: SetupTools/PreInstall.py:
 msgid "partitioning disk"
 msgstr "Partitioniere Disk"
 
@@ -112,10 +112,18 @@ msgstr "Disk einbinden"
 msgid "done!"
 msgstr "Fertig!"
 
-#: SetupTools/PreInstall.py                                                                               
+#: SetupTools/PreInstall.py
 msgid "installing requiered software"
 msgstr "Installiere benoetigte Software"
 
 #: Interface/Windows/PreInstallWindow: 39
 msgid "Please wait..."
 msgstr "Bitte warten..."
+
+#: Interface/Windows/DiskPartWindow: 36
+msgid "If you proceed, all your data will be destroyed!"
+msgstr "Wenn sie fortfahren werden alle ihre Daten zertört!"
+
+#: Interface/Windows/DiskPartWindow: 37
+msgid "Please only proceed if you have made a backup."
+msgstr "Bitte fahren sie nur fort, wenn sie eine Sicherung haben"

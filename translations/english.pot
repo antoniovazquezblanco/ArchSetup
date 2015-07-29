@@ -95,7 +95,7 @@ msgstr ""
 msgid "Please select some locales:"
 msgstr ""
 
-#: SetupTools/PreInstall.py: 
+#: SetupTools/PreInstall.py:
 msgid "fetching mirrorlist"
 msgstr ""
 
@@ -117,4 +117,12 @@ msgstr ""
 
 #: Interface/Windows/PreInstallWindow: 39
 msgid "Please wait..."
+msgstr ""
+
+#: Interface/Windows/DiskPartWindow: 36
+msgid "If you proceed, all your data will be destroyed!"
+msgstr ""
+
+#: Interface/Windows/DiskPartWindow: 37
+msgid "Please only proceed if you have made a backup."
 msgstr ""
