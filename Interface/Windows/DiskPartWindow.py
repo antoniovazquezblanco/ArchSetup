@@ -19,7 +19,6 @@
 from Interface.Windows.SetupWindow import SetupWindow
 from Interface.Widgets.SpacerWidget import SpacerWidget
 from Interface.Widgets.TextWidget import TextWidget
-from SetupTools.Disks import Disks
 
 import gettext
 

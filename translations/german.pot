@@ -122,8 +122,8 @@ msgstr "Bitte warten..."
 
 #: Interface/Windows/DiskPartWindow: 36
 msgid "If you proceed, all your data will be destroyed!"
-msgstr "Wenn sie fortfahren werden alle ihre Daten zertört!"
+msgstr "Wenn sie fortfahren werden alle ihre Daten zertoert!"
 
 #: Interface/Windows/DiskPartWindow: 37
 msgid "Please only proceed if you have made a backup."
-msgstr "Bitte fahren sie nur fort, wenn sie eine Sicherung haben"
+msgstr "Bitte fahren sie nur fort, wenn sie eine Sicherung haben."

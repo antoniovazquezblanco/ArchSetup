@@ -17,6 +17,7 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+from SetupTools.Disks import Disks
 
 class PreInstall:
     def __init__(self):
@@ -25,7 +26,7 @@ class PreInstall:
     #Task to do:
     # > Install Requiered Software      [x]
     # > Recive Mirrorlists              [x]
-    # > Part disk                       [ ]
+    # > Part disk                       [x]
     # > mount datapart and swap         [ ]
     def run(setupconfig):
         yield "1,installing requiered software"
@@ -35,7 +36,8 @@ class PreInstall:
         os.system("reflector --verbose -l 50 -p http --sort rate --save list.txt 2>/dev/null > /dev/null")
 
         yield "33,partitioning disk"
-        # Part disk
+        # Simple static test
+        Disks.part_disk(setupconfig, 8000)
 
         yield "80,mounting disk"
         # mount disk

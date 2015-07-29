@@ -17,6 +17,7 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import subprocess
+import os
 
 class Disks:
     def __init__(self):
@@ -27,5 +28,9 @@ class Disks:
         disklist.remove('')
         return disklist
 
-    def part_disk(self):
+    def part_disk(self, setupconfig, size_data):
+        os.system("parted -s " + setupconfig.disk + " mklabel msdos mkpart primary 1 " +size_data +"M mkpart primary " + size_data + "M 100%% set 1 boot on")
+
+
+
         pass
