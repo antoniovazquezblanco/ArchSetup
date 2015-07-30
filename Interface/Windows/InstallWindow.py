@@ -50,7 +50,7 @@ class InstallWindow(SetupWindow):
         elif event == 'showed':
             if self.has_runned == False:
                 for x in Pacstrap().run():
-                    self.status.append(str(x))
+                    self.status_label.append(str(x))
                     self.refresh()
             self.has_runned = True
             self.next.setcallback(self.callback, 'next')
