@@ -21,6 +21,7 @@ from Interface.Windows.SetupWindow import SetupWindow
 from Interface.Widgets.SpacerWidget import SpacerWidget
 from Interface.Widgets.TextWidget import TextWidget
 from Interface.Widgets.ScrollWidget import ScrollWidget
+from Interface.Widgets.RadioWidget import RadioWidget
 
 import gettext
 
@@ -32,25 +33,17 @@ class InstallWindow(SetupWindow):
         trans = gettext.translation("archsetup", "locale", fallback=True)
         trans.install()
 
-        self.has_runned = False # Make sure this window does only 'execute' once
-        self.callback    = callback
-
         self.setupconfig = setupconfig
+        self.callback = callback
         self.addwidget(TextWidget(1, 1, _('Installing base system'),  40))
-        self.status = TextWidget(2, 1, ' ', 40)
-        self.addwidget(ScrollWidget(4, 1, 40, 20, self.status, self.event))
+        self.status = TextWidget(0,0," ", 40)
+        self.addwidget(ScrollWidget(4, 1, 40, 20, self.staus, self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
-        self.setnextcallback(callback, '')
+        self.setnextcallback(callback, 'next')
+        self.setprevcallback(callback, 'prev')
 
     def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
-        elif event == 'showed':
-            if self.has_runned == False:
-                for x in Pacstrap().run(self.setupconfig):
-                    self.status.append(str(x))
-                    self.refresh()
-                    self.has_runned = True
-                    self.next.setcallback(self.callback, 'next')
-            else:
-                super().event(event)
+        else:
+            super().event(event)
