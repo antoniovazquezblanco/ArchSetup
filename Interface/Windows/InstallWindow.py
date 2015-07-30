@@ -38,11 +38,10 @@ class InstallWindow(SetupWindow):
         self.setupconfig = setupconfig
         self.callback = callback
         self.addwidget(TextWidget(1, 1, _('Installing base system'),  40))
-        self.status_label = TextWidget(0,0,"Install Log:", 40)
-        self.addwidget(ScrollWidget(4, 1, 40, 20, self.status_label, self.event))
+        self.status_label = TextWidget(0,0,"Install Log:", 50)
+        self.addwidget(ScrollWidget(4, 1, 50, 20, self.status_label, self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
-        self.setnextcallback(callback, '')
-        self.setprevcallback(callback, 'prev')
+        self.next = self.setnextcallback(callback, '')
 
     def event(self, event, opt=''):
         if event == 'refresh':
@@ -50,7 +49,7 @@ class InstallWindow(SetupWindow):
         elif event == 'showed':
             if self.has_runned == False:
                 for x in Pacstrap().run():
-                    self.status_label.append(str(x))
+                    self.status_label.settext(str(x))
                     self.refresh()
             self.has_runned = True
             self.next.setcallback(self.callback, 'next')

@@ -43,5 +43,4 @@ class TextWidget(Widget):
         self.lines = textwrap.wrap(text, width=self.n)
 
     def append(self, text):
-        for x in textwrap.wrap(text, width=self.n):
-            self.lines.append(x)
+        pass
