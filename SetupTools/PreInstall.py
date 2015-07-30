@@ -28,6 +28,7 @@ class PreInstall:
     # > Install Requiered Software      [x]
     # > Recive Mirrorlists              [x]
     # > Part disk                       [x]
+    # > Creates Filesystem              [ ]
     # > mount datapart and swap         [ ]
     def run(setupconfig):
         yield "1,installing requiered software"
