@@ -39,7 +39,7 @@ class InstallWindow(SetupWindow):
         self.callback = callback
         self.addwidget(TextWidget(1, 1, _('Installing base system'),  40))
         self.status_label = TextWidget(0,0,"status", 40)
-        self.addwidget(ScrollWidget(4, 1, 40, 20, self.staus_label, self.event))
+        self.addwidget(ScrollWidget(4, 1, 40, 20, self.status_label, self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(callback, '')
         self.setprevcallback(callback, 'prev')
