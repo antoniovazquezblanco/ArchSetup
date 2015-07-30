@@ -23,6 +23,6 @@ class Pacstrap:
         pass
 
     def run(self):
-        p = subprocess.Popen("pacstrap /mnt base base-devel 2> /dev/null")
+        p = subprocess.Popen(["pacstrap", "/mnt", "base", "base-devel"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         for line in p.stdout:
             yield line
