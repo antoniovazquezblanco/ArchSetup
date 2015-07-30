@@ -29,7 +29,7 @@ class Disks:
         return disklist
 
     def part_disk(self, setupconfig, size_data):
-        os.system("parted -s " + setupconfig.disk + " mklabel msdos mkpart primary 1 " +size_data +"M mkpart primary " + size_data + "M 100%% set 1 boot on")
+        os.system("parted -s " + setupconfig.disk + " mklabel msdos mkpart primary 1 " +str(size_data) +"M mkpart primary " + str(size_data) + "M 100%% set 1 boot on")
 
 
 

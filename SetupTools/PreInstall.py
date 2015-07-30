@@ -17,6 +17,7 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import subprocess
 from SetupTools.Disks import Disks
 
 class PreInstall:
@@ -36,8 +37,18 @@ class PreInstall:
         os.system("reflector --verbose -l 50 -p http --sort rate --save list.txt 2>/dev/null > /dev/null")
 
         yield "33,partitioning disk"
-        # Simple static test
-        Disks.part_disk(setupconfig, 8000)
+
+        # Calculate Partition layout:
+        #
+        #   /dev/sdx1 = data = TOTALSIZE - SIZE OF RAM
+        #   /dev/sdx2 = swap = SIZE OF RAM
+        #   This should work for most cases
+
+        size = int(subprocess.check_output("blockdev --getsize64 /dev/" + setupconfig.disk, shell=True).decode())
+        ramsize = int(os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES")) / 1000 / 1000
+        data = (size / 1000 / 1000) - ramsize
+
+        Disks.part_disk(setupconfig, data)
 
         yield "80,mounting disk"
         # mount disk
