@@ -32,9 +32,9 @@ class Disks:
         os.system("parted -s /dev/" + setupconfig.disk + " mklabel msdos mkpart primary 1 " +str(size_data) +"M mkpart primary " + str(size_data) + "M 100% set 1 boot on")
 
     def makefs(self, setupconfig):
-        cmd = str(setupconfig.filesystem +" /dev/" +setupconfig.disk +"1 -F > /dev/null")
+        cmd = str(setupconfig.filesystem +" /dev/" +setupconfig.disk +"1 -F > /dev/null 2> /dev/null")
         os.system(cmd)
-        cmd = str("mkswap /dev/" +setupconfig.disk +"2 > /dev/null")
+        cmd = str("mkswap /dev/" +setupconfig.disk +"2 > /dev/null 2> /dev/null")
         os.system(cmd)
 
     def mount(self, setupconfig):
