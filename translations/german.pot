@@ -105,6 +105,10 @@ msgid "partitioning disk"
 msgstr "Partitioniere Disk"
 
 #: SetupTools/PreInstall.py:
+msgid "creating filesystems"
+msgstr "erzeuge Dateisysteme"
+
+#: SetupTools/PreInstall.py:
 msgid "mouting disk"
 msgstr "Disk einbinden"
 

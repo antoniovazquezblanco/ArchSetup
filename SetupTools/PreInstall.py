@@ -51,6 +51,11 @@ class PreInstall:
 
         Disks().part_disk(setupconfig, data)
 
+        yield "60,creating filesystems"
+        # Create FS
+        Disks().makefs(setupconfig)
+
+
         yield "80,mounting disk"
         # mount disk
 
