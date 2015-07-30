@@ -16,16 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
+import subprocess
 
 class Pacstrap:
     def __init__(self):
         pass
 
     def run(self):
-        p = os.popen("pacstrap /mnt base base-devel")
-        l = " "
-        while l:
-            l = p.read()
-            yield l
-        p.close()
+        p = subprocess.Popen("pacstrap /mnt base base-devel 2> /dev/null")
+        for line in p.stdout:
+            yield line
