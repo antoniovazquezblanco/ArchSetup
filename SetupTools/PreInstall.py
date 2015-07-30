@@ -28,8 +28,8 @@ class PreInstall:
     # > Install Requiered Software      [x]
     # > Recive Mirrorlists              [x]
     # > Part disk                       [x]
-    # > Creates Filesystem              [ ]
-    # > mount datapart and swap         [ ]
+    # > Creates Filesystem              [x]
+    # > mount datapart and swap         [x]
     def run(setupconfig):
         yield "1,installing requiered software"
         os.system("pacman -Sy reflector --noconfirm --needed 2> /dev/null > /dev/null")
@@ -58,5 +58,6 @@ class PreInstall:
 
         yield "80,mounting disk"
         # mount disk
+        Disks().mount(setupconfig)
 
         yield "100,done!"

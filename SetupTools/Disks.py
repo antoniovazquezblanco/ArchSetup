@@ -37,5 +37,10 @@ class Disks:
         cmd = str("mkswap /dev/" +setupconfig.disk +"2 > /dev/null")
         os.system(cmd)
 
+    def mount(self, setupconfig):
+        cmd = str("mount /dev/" +setupconfig.disk +"1 /mnt")
+        os.system(cmd)
+        cmd = str("swapon /dev/" +setupconfig.disk +"2")
+        os.system(cmd)
 
         pass
