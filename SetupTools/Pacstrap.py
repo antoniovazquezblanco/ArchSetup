@@ -25,4 +25,4 @@ class Pacstrap:
     def run(self):
         p = subprocess.Popen(["pacstrap", "/mnt", "base", "base-devel"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         for line in p.stdout:
-            yield line
+            yield line.decode("utf-8")
