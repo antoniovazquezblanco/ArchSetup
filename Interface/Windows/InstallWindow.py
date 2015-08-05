@@ -38,9 +38,8 @@ class InstallWindow(SetupWindow):
         self.setupconfig = setupconfig
         self.callback = callback
         self.addwidget(TextWidget(1, 1, _('Installing base system. This may take up to one hour, depending on your network.'),  40))
-        self.status_label = TextWidget(3,1,"Install Log:", 40)
+        self.status_label = TextWidget(4,1,"Install Log:", 40)
         self.addwidget(self.status_label)
-        self.addwidget(SpacerWidget(23, 1, 1))
         self.next = self.setnextcallback(callback, '')
 
     def event(self, event, opt=''):
