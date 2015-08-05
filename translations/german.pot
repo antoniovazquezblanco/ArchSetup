@@ -131,3 +131,7 @@ msgstr "Wenn sie fortfahren werden alle ihre Daten zertoert!"
 #: Interface/Windows/DiskPartWindow: 37
 msgid "Please only proceed if you have made a backup."
 msgstr "Bitte fahren sie nur fort, wenn sie eine Sicherung haben."
+
+#: Interface/Windows/InstallWindow: 40
+msgid "Installing base system. This may take up to one hour, depending on your network."
+msgstr "Instaliere das Grundsystem, dies kann bis zu einer Stunde dauern, je nach Netzwerkverbindung."
