@@ -36,6 +36,7 @@ from Interface.Windows.LocaleWindow import LocaleWindow
 from Interface.Windows.DiskPartWindow import DiskPartWindow
 from Interface.Windows.PreInstallWindow import PreInstallWindow
 from Interface.Windows.InstallWindow import InstallWindow
+from Interface.Windows.PostInstallWindow import PostInstallWindow
 
 class ArchSetup:
     def __init__(self):
@@ -67,6 +68,7 @@ class ArchSetup:
             self.windows.append(DiskPartWindow(self.callback, self.setupconfig))
             self.windows.append(PreInstallWindow(self.callback, self.setupconfig))
             self.windows.append(InstallWindow(self.callback, self.setupconfig))
+            self.windows.append(PostInstallWindow(self.callback, self.setupconfig))
             self.windows.append(FinishWindow(self.callback))
             self.interface.addwin(self.windows[self.window_index])
         elif event == 'prev':

@@ -16,39 +16,42 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-from SetupTools.Pacstrap import Pacstrap
 from Interface.Windows.SetupWindow import SetupWindow
-from Interface.Widgets.SpacerWidget import SpacerWidget
 from Interface.Widgets.TextWidget import TextWidget
-from Interface.Widgets.ScrollWidget import ScrollWidget
-from Interface.Widgets.RadioWidget import RadioWidget
+from Interface.Widgets.ProgressWidget import ProgressWidget
+
+from SetupTools.PostInstall import PostInstall
 
 import gettext
 
-class InstallWindow(SetupWindow):
+class PostInstallWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
+        self.setupconfig = setupconfig
+        self.callback    = callback
+
+        self.has_runned = False # Make sure this window does only 'execute' once
 
         # Init Translation
         trans = gettext.translation("archsetup", "locale", fallback=True)
         trans.install()
 
-        self.has_runned = False
+        self.addwidget(TextWidget(1, 1, _('Applying Configuration'),  40))
+        self.progress = self.addwidget(ProgressWidget(2, 1, 0, 40))
+        self.status   = self.addwidget(TextWidget(3, 1, ' ', 40))
 
-        self.setupconfig = setupconfig
-        self.callback = callback
-        self.addwidget(TextWidget(1, 1, _('Installing base system. This may take up to one hour, depending on your network.'),  40))
-        self.status_label = TextWidget(4,1,"Install Log:", 40)
-        self.addwidget(self.status_label)
         self.next = self.setnextcallback(callback, '')
+
 
     def event(self, event, opt=''):
         if event == 'refresh':
-            self.refresh()
+            quit()
         elif event == 'showed':
             if self.has_runned == False:
-                for x in Pacstrap().run():
-                    self.status_label.settext(str(x))
+                for x in PostInstall.run(self.setupconfig):
+                    list = x.split(',')
+                    self.progress.setvalue(int(list[0]))
+                    self.status.settext(_(list[1]))
                     self.refresh()
             self.has_runned = True
             self.next.setcallback(self.callback, 'next')
