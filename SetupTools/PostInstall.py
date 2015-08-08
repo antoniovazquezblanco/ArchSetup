@@ -19,7 +19,7 @@
 import os
 import subprocess
 
-class PreInstall:
+class PostInstall:
     def __init__(self):
         pass
 
@@ -64,15 +64,15 @@ class PreInstall:
         os.system("echo FONT=" +setupconfig.font + " >> /etc/vconsole.conf")
 
         yield "25,Generating Boot Image"
-        os.system("arch-chroot /mnt \"mkinitcpio -p linux\"")
+        os.system("arch-chroot /mnt mkinitcpio -p linux")
 
         yield "30,Setting root password"
-        os.system("arch-chroot /mnt \"echo " + setupconfig.rootpassword + " | passwd --stdin root\"")
+        os.system("arch-chroot /mnt echo " + setupconfig.rootpassword + " \| passwd --stdin root")
 
         yield "40,Installing Bootloader"
-        os.system("arch-chroot /mnt \"pacman -Sy grub --noconfirm\"")
-        os.system("arch-chroot /mnt \"grub-install --recheck /dev/" + setupconfig.disk + "\"")
-        os.system("arch-chroot /mnt \"grub-mkconfig -o /boot/grub/grub.cfg\"")
+        os.system("arch-chroot /mnt pacman -Sy grub --noconfirm")
+        os.system("arch-chroot /mnt grub-install --recheck /dev/" + setupconfig.disk + "")
+        os.system("arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg")
 
 
 
