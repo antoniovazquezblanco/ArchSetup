@@ -30,11 +30,11 @@ class PreInstall:
     # locale.conf             [ ]
     # create time link        [x]
     # generate locales        [ ]
-    # mkinitcpio              [ ]
-    # set root password       [ ]
+    # mkinitcpio              [?] Configuration?
+    # set root password       [x]
     # save keybord layout     [x]
     # save font               [x]
-    # Install GRUB2           [ ] (might chooseable in future?)
+    # Install GRUB2           [x] (might chooseable in future?)
     # Installing basic deamons[ ]
     # Copy Mirrorlist list.txt[ ]
     # -----> Soon: Xorg + Configuration
@@ -48,14 +48,32 @@ class PreInstall:
         yield "4,Setting Hostname"
         os.system("echo " +setupconfig.hostname + " >> /mnt/etc/hostname")
 
+        yield "6,Setting up locale config"
+        #
+        # TODO: setupconfig.locale is a list of many locales, but
+        #       which should be used?
+
+
         yield "8,Setting Timezone"
-        os.system("ln /usr/share/zoneinfo/" +setupconfig.timezone + "/" + setupconfig.timesubzone + " /etc/localtime")
+        os.system("ln /mnt/usr/share/zoneinfo/" +setupconfig.timezone + "/" + setupconfig.timesubzone + " /mnt/etc/localtime")
 
         yield "15,Setting Keymap"
         os.system("echo KEYMAP=" + setupconfig.keybord + " > /etc/vconsole.conf")
 
         yield "16,Setting Font"
         os.system("echo FONT=" +setupconfig.font + " >> /etc/vconsole.conf")
+
+        yield "25,Generating Boot Image"
+        os.system("arch-chroot /mnt \"mkinitcpio -p linux\"")
+
+        yield "30,Setting root password"
+        os.system("arch-chroot /mnt \"echo " + setupconfig.rootpassword + " | passwd --stdin root\"")
+
+        yield "40,Installing Bootloader"
+        os.system("arch-chroot /mnt \"pacman -Sy grub --noconfirm\"")
+        os.system("arch-chroot /mnt \"grub-install --recheck /dev/" + setupconfig.disk + "\"")
+        os.system("arch-chroot /mnt \"grub-mkconfig -o /boot/grub/grub.cfg\"")
+
 
 
 
