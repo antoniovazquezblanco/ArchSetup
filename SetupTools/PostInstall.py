@@ -32,7 +32,7 @@ class PostInstall:
     # generate locales        [ ]
     # mkinitcpio              [?] Configuration?
     # set root password       [x]
-    # save keybord layout     [x]
+    # save keyboard layout     [x]
     # save font               [x]
     # Install GRUB2           [x] (might chooseable in future?)
     # Installing basic deamons[ ]
@@ -46,7 +46,7 @@ class PostInstall:
         os.system("genfstab -p /mnt >> /mnt/etc/fstab")
 
         yield "4,Setting Hostname"
-        os.system("echo " +setupconfig.hostname + " >> /mnt/etc/hostname")
+        os.system("echo " +setupconfig.hostname + " > /mnt/etc/hostname")
 
         yield "6,Setting up locale config"
         #
@@ -55,22 +55,23 @@ class PostInstall:
 
 
         yield "8,Setting Timezone"
+
         os.system("ln /mnt/usr/share/zoneinfo/" +setupconfig.timezone + "/" + setupconfig.timesubzone + " /mnt/etc/localtime")
 
         yield "15,Setting Keymap"
-        os.system("echo KEYMAP=" + setupconfig.keybord + " > /etc/vconsole.conf")
+        os.system("echo KEYMAP=" + setupconfig.keyboard + " > /mnt/etc/vconsole.conf")
 
         yield "16,Setting Font"
-        os.system("echo FONT=" +setupconfig.font + " >> /etc/vconsole.conf")
+        os.system("echo FONT=" +setupconfig.font + " >> /mnt/etc/vconsole.conf")
 
         yield "25,Generating Boot Image"
-        os.system("arch-chroot /mnt mkinitcpio -p linux")
+        os.system("arch-chroot /mnt mkinitcpio -p linux > /dev/null 2> /dev/null")
 
         yield "30,Setting root password"
         os.system("arch-chroot /mnt echo " + setupconfig.rootpassword + " \| passwd --stdin root")
 
         yield "40,Installing Bootloader"
-        os.system("arch-chroot /mnt pacman -Sy grub --noconfirm")
+        os.system("arch-chroot /mnt pacman -Sy grub --noconfirm > /dev/null 2>/dev/null")
         os.system("arch-chroot /mnt grub-install --recheck /dev/" + setupconfig.disk + "")
         os.system("arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg")
 
