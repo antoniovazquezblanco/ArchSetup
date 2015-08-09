@@ -68,7 +68,7 @@ class PostInstall:
         os.system("arch-chroot /mnt mkinitcpio -p linux > /dev/null 2> /dev/null")
 
         yield "30,Setting root password"
-        os.system("arch-chroot /mnt echo " + setupconfig.rootpassword + " \| passwd --stdin root")
+        os.system("arch-chroot /mnt echo -e '" + setupconfig.rootpassword + "\n" + setupconfig.rootpassword + "'|passwd")
 
         yield "35,Updating package database"
         os.system("arch-chroot /mnt pacman-db-upgrade") # To prevent problems with older install ISOs
