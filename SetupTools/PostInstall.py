@@ -49,7 +49,7 @@ class PostInstall:
         os.system("echo " +setupconfig.hostname + " > /mnt/etc/hostname")
 
         yield "6,Setting up locale config"
-        os.system("echo " +setupconfig.mainlocale + " > /mnt/etc/locale.conf")
+        os.system("echo LANG=" +setupconfig.mainlocale + " > /mnt/etc/locale.conf")
         #TODO:
         #    setup locale-gen.conf + locale-gen
         #
