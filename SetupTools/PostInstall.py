@@ -49,9 +49,10 @@ class PostInstall:
         os.system("echo " +setupconfig.hostname + " > /mnt/etc/hostname")
 
         yield "6,Setting up locale config"
+        os.system("echo " +setupconfig.mainlocale + " > /mnt/etc/locale.conf")
+        #TODO:
+        #    setup locale-gen.conf + locale-gen
         #
-        # TODO: setupconfig.locale is a list of many locales, but
-        #       which should be used?
 
 
         yield "8,Setting Timezone"
