@@ -33,6 +33,7 @@ from Interface.Windows.AddUserWindow import AddUserWindow
 from Interface.Windows.NetworkWindow import NetworkWindow
 from Interface.Windows.FilesystemWindow import FilesystemWindow
 from Interface.Windows.LocaleWindow import LocaleWindow
+from Interface.Windows.MainLocaleWindow import MainLocaleWindow
 from Interface.Windows.DiskPartWindow import DiskPartWindow
 from Interface.Windows.PreInstallWindow import PreInstallWindow
 from Interface.Windows.InstallWindow import InstallWindow
@@ -58,6 +59,7 @@ class ArchSetup:
             self.windows.append(FontWindow(self.callback, self.setupconfig))
             self.windows.append(NetworkWindow(self.callback, self.setupconfig))
             self.windows.append(LocaleWindow(self.callback, self.setupconfig))
+            self.windows.append(MainLocaleWindow(self.callback, self.setupconfig))
             self.windows.append(DiskWindow(self.callback, self.setupconfig))
             self.windows.append(TimezoneWindow(self.callback, self.setupconfig))
             self.windows.append(TimesubzoneWindow(self.callback, self.setupconfig))
