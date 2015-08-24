@@ -59,5 +59,8 @@ class SetupConfig:
     def setlocales(self, locales):
         self.locales = locales
 
-    def setmainlocale(self, mainlocale)
+    def getlocales(self):
+        return self.locales
+
+    def setmainlocale(self, mainlocale):
         self.mainlocale = mainlocale

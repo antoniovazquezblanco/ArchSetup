@@ -35,7 +35,7 @@ class MainLocaleWindow(SetupWindow):
 
         self.setupconfig = setupconfig
         self.addwidget(TextWidget(1, 1, _('Please select your main locale:'),  40))
-        self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, setupconfig.locales, self.event), self.event))
+        self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, setupconfig.getlocales(), self.event), self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(self.callback, 'next')
         self.setprevcallback(callback, 'prev')
