@@ -20,7 +20,7 @@ from Interface.Windows.SetupWindow import SetupWindow
 from Interface.Widgets.SpacerWidget import SpacerWidget
 from Interface.Widgets.TextWidget import TextWidget
 from Interface.Widgets.ScrollWidget import ScrollWidget
-from Interface.Widgets.CheckWidget import CheckWidget
+from Interface.Widgets.RadioWidget import RadioWidget
 
 import gettext
 
