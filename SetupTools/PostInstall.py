@@ -32,10 +32,10 @@ class PostInstall:
     # generate locales        [ ]
     # mkinitcpio              [?] Configuration?
     # set root password       [x]
-    # save keyboard layout     [x]
+    # save keyboard layout    [x]
     # save font               [x]
     # Install GRUB2           [x] (might chooseable in future?)
-    # Installing basic deamons[ ]
+    # Installing basic deamons[ ] (config?)
     # Copy Mirrorlist list.txt[x]
     # -----> Soon: Xorg + Configuration
 
@@ -53,6 +53,16 @@ class PostInstall:
         #TODO:
         #    setup locale-gen.conf + locale-gen
         #
+        file= open("/etc/locale.gen", "r")
+        x = file.readlines()
+        file.close();
+        out = open("buffer.temp", "w")
+        for line in x:
+            for y in setupconfig.locales:
+                if y in line:
+                    out.write(line[1:])
+                    continue
+            out.write(line)
 
 
         yield "8,Setting Timezone"
