@@ -27,7 +27,7 @@ class PostInstall:
     #
     # generate fstab          [x]
     # Hostname                [x]
-    # locale.conf             [ ]
+    # locale.conf             [?] (not fully tested)
     # create time link        [x]
     # generate locales        [ ]
     # mkinitcpio              [?] Configuration?
@@ -50,20 +50,18 @@ class PostInstall:
 
         yield "6,Setting up locale config"
         os.system("echo LANG=" +setupconfig.mainlocale + " > /mnt/etc/locale.conf")
-        #TODO:
-        #    setup locale-gen.conf + locale-gen
-        #
         file= open("/etc/locale.gen", "r")
         x = file.readlines()
         file.close();
-        out = open("buffer.temp", "w")
+        out = open("/mnt/etc/locale.gen", "w")
         for line in x:
             for y in setupconfig.locales:
                 if y in line:
-                    out.write(line[1:])
+                    out.write(y)
                     continue
             out.write(line)
 
+        os.system("arch-chroot /mnt locale-gen")
 
         yield "8,Setting Timezone"
 
