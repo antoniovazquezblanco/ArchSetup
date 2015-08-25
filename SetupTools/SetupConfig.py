@@ -60,7 +60,10 @@ class SetupConfig:
         self.locales = locales
 
     def getlocales(self):
-        return self.locales
+        if(len(self.locales) > 0):
+            return self.locales
+        else:
+            return [""]
 
     def setmainlocale(self, mainlocale):
         self.mainlocale = mainlocale
