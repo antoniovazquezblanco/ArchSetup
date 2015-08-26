@@ -89,7 +89,7 @@ class Window:
                 if widget.focus(True):
                     self.refresh()
                     return
-        elif event == 'show':
+        elif event == 'show' or event == 'showed':
             return
         else:
             for widget in self.widgets:

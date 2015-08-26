@@ -17,6 +17,7 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import subprocess
+import os
 
 class Disks:
     def __init__(self):
@@ -26,3 +27,20 @@ class Disks:
         disklist=subprocess.check_output(["ls /dev | grep sd[[:alpha:]]$ "], shell=True).decode().split('\n')
         disklist.remove('')
         return disklist
+
+    def part_disk(self, setupconfig, size_data):
+        os.system("parted -s /dev/" + setupconfig.disk + " mklabel msdos mkpart primary 1 " +str(size_data) +"M mkpart primary " + str(size_data) + "M 100% set 1 boot on")
+
+    def makefs(self, setupconfig):
+        cmd = str(setupconfig.filesystem +" /dev/" +setupconfig.disk +"1 -F > /dev/null 2> /dev/null")
+        os.system(cmd)
+        cmd = str("mkswap /dev/" +setupconfig.disk +"2 > /dev/null 2> /dev/null")
+        os.system(cmd)
+
+    def mount(self, setupconfig):
+        cmd = str("mount /dev/" +setupconfig.disk +"1 /mnt")
+        os.system(cmd)
+        cmd = str("swapon /dev/" +setupconfig.disk +"2")
+        os.system(cmd)
+
+        pass

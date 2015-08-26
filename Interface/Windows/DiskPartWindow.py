@@ -14,21 +14,26 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
+# along with ArchSetup.  If not, see <http://www.gnu.org/license
 
 from Interface.Windows.SetupWindow import SetupWindow
+from Interface.Widgets.SpacerWidget import SpacerWidget
 from Interface.Widgets.TextWidget import TextWidget
 
 import gettext
 
-class WelcomeWindow(SetupWindow):
-    def __init__(self, callback):
+class DiskPartWindow(SetupWindow):
+    def __init__(self, callback, setupconfig):
         super().__init__()
+        self.callback = callback
 
         # Init Translation
         trans = gettext.translation("archsetup", "locale", fallback=True)
         trans.install()
 
-        self.addwidget(TextWidget(1, 1, _('Welcome to the Archlinux installer!'),  40))
-        self.addwidget(TextWidget(3, 1, _('In order to navigate use the TAB key and press ENTER in order to activate the selected widget. On some lists you can select multiple items with SPACE.'), 40))
-        self.setnextcallback(callback, 'next')
+        self.setupconfig = setupconfig
+        self.addwidget(TextWidget(1, 1, _('If you proceed, all your data will be destroyed!'),  40))
+        self.addwidget(TextWidget(3, 1, _('Please only proceed if you have made a backup.'),  40))
+        self.addwidget(SpacerWidget(23, 1, 1))
+        self.next = self.setnextcallback(callback, 'next')
+        self.setprevcallback(callback, 'prev')

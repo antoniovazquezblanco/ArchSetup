@@ -16,19 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interface.Windows.SetupWindow import SetupWindow
-from Interface.Widgets.TextWidget import TextWidget
+import subprocess
 
-import gettext
+class Pacstrap:
+    def __init__(self):
+        pass
 
-class WelcomeWindow(SetupWindow):
-    def __init__(self, callback):
-        super().__init__()
-
-        # Init Translation
-        trans = gettext.translation("archsetup", "locale", fallback=True)
-        trans.install()
-
-        self.addwidget(TextWidget(1, 1, _('Welcome to the Archlinux installer!'),  40))
-        self.addwidget(TextWidget(3, 1, _('In order to navigate use the TAB key and press ENTER in order to activate the selected widget. On some lists you can select multiple items with SPACE.'), 40))
-        self.setnextcallback(callback, 'next')
+    def run(self):
+        p = subprocess.Popen(["pacstrap", "/mnt", "base", "base-devel"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        for line in p.stdout:
+            yield line.decode("utf-8")

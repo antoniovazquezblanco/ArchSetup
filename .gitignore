@@ -1,2 +1,4 @@
 ArchSetup.log
 __pycache__/
+list.txt
+*.pyc

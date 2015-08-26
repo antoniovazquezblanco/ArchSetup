@@ -23,6 +23,7 @@ from Interface.Widgets.Widget import Widget
 class TextWidget(Widget):
     def __init__(self, y, x, text, n):
         self.lines = textwrap.wrap(text, width=n)
+        self.n = n
         super().__init__(y, x, len(self.lines), n)
 
     def draw(self, window):
@@ -31,11 +32,21 @@ class TextWidget(Widget):
         (posy, posx) = self.position()
         i = 0
         for line in self.lines:
-            if self.ishighlighted():
-                window.addstr(posy + i, posx, line, curses.A_STANDOUT)
-            else:
-                window.addstr(posy + i, posx, line)
-            i = i+1
+            try: # I don't know why the pacstrap script fails here, but this should be a workaround until I found a fix...
+                if self.ishighlighted():
+                    window.addstr(posy + i, posx, line, curses.A_STANDOUT)
+                else:
+                    window.addstr(posy + i, posx, line)
+                i = i+1
+            except:
+                pass
 
     def focus(self, focus):
         return False
+
+    def settext(self, text):
+        self.lines = textwrap.wrap(text, width=self.n)
+        self.resize(len(self.lines), self.n)
+
+    def append(self, text):
+        pass

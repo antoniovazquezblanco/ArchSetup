@@ -32,7 +32,7 @@ msgid "Welcome to the Archlinux installer!"
 msgstr ""
 
 #: Interface/WelcomeWindow.py:33
-msgid "In order to navigate use the TAB key and press ENTER in order to activate the selected widget."
+msgid "In order to navigate use the TAB key and press ENTER in order to activate the selected widget. On some lists you can select multiple items with SPACE."
 msgstr ""
 
 #: Interface/TimezoneWindow.py:41
@@ -93,4 +93,44 @@ msgstr ""
 
 #: Interface/Windows/LocaleWindow.py: 38
 msgid "Please select some locales:"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "fetching mirrorlist"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "partitioning disk"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "creating filesystems"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "mouting disk"
+msgstr ""
+
+#: SetupTools/PreInstall.py
+msgid "done!"
+msgstr ""
+
+#: SetupTools/PreInstall.py
+msgid "installing requiered software"
+msgstr ""
+
+#: Interface/Windows/PreInstallWindow: 39
+msgid "Please wait..."
+msgstr ""
+
+#: Interface/Windows/DiskPartWindow: 36
+msgid "If you proceed, all your data will be destroyed!"
+msgstr ""
+
+#: Interface/Windows/DiskPartWindow: 37
+msgid "Please only proceed if you have made a backup."
+msgstr ""
+
+#: Interface/Windows/InstallWindow: 40
+msgid "Installing base system. This may take up to one hour, depending on your network."
 msgstr ""
