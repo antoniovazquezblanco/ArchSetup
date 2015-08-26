@@ -1,0 +1,137 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ArchSetup\n"
+"POT-Creation-Date: 2015-05-09 14:27+UTC\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: Interface/FinishWindow.py:32
+msgid "All done!"
+msgstr "Alles Abgeschlossen!"
+
+#: Interface/FinishWindow.py:33
+msgid "Archlinux is setup in your computer. The program will exit when you click in the next button."
+msgstr "Archlinux ist nun auf ihrem Computer installiert. Sie koennen das Programm beenden, indem sie auf den Next Button  druecken."
+
+#: Interface/FontWindow.py:37
+msgid "Please select a console font..."
+msgstr "Bitte waehlen sie eine Schriftart..."
+
+#: Interface/KeyboardWindow.py:37
+msgid "Please select a keyboard..."
+msgstr "Bitte waehlen sie ein Tastaur Layout:"
+
+#: Interface/WelcomeWindow.py:32
+msgid "Welcome to the Archlinux installer!"
+msgstr "Willkommen bei dem Archlinux Installer"
+
+#: Interface/WelcomeWindow.py:33
+msgid "In order to navigate use the TAB key and press ENTER in order to activate the selected widget. On some lists you can select multiple items with SPACE."
+msgstr "Um zu navigieren, benutzen sie TAB. Mit ENTER aktivieren sie die ausgewaehlte Schaltflaeche. Bei einigen Listen koennen sie mit LEERTASTE mehrere Eintraege auswaehlen."
+
+#: Interface/TimezoneWindow.py:41
+msgid "Please select a time zone..."
+msgstr "Bitte waehlen sie eine grobe Zeitzone:"
+
+#: Interface/TimesubzoneWindow.py:41
+msgid "Please select a subzone..."
+msgstr "Bitte waehlen sie ihre genaue Zeitzone:"
+
+#: Interface/DiskWindow.py:37
+msgid "Please select the disk, where ArchLinux should be installed"
+msgstr "Bitte waehlen sie eine Festplatte, wo ArchLinux installiert werden soll"
+
+#: Interface/HostnameWindow.py: 35
+msgid "Please enter a hostname:"
+msgstr "Bitte geben sie einen Hostnamen ein:"
+
+#: Interface/RootPassWindow.py: 36
+msgid "Please choose a root password:"
+msgstr "Bitte waelen sie ein 'root' Passwort:"
+
+#: Interface/RootPassWindow.py: 38
+msgid "Please confirm:"
+msgstr "Bitte Passwort bestaetigen:"
+
+#: Interface/RootPassWindow.py: 41
+msgid "Password safety:"
+msgstr "Passwordsicherheit:"
+
+
+#: Interface/AddUserWindow.py: 40
+msgid "Now you have to create a user:"
+msgstr "Sie muessen nun einen Benutzer erstellen:"
+
+#: Interface/AddUserWindow.py: 41
+msgid "Username:"
+msgstr "Benutzername"
+
+#: Interface/AddUserWindow.py: 43
+msgid "Home directory:"
+msgstr "Heimatsverzeichnis"
+
+#: Interface/AddUserWindow.py: 45
+msgid "Real name:"
+msgstr "Wirklicher Name"
+
+#: Interface/AddUserWindow.py: 47
+msgid "Password:"
+msgstr "Passwort"
+
+#: Interface/NetworkWindow.py: 38
+msgid "Please select your network type:"
+msgstr "Bitte waehlen sie ihren Verbindungstyp:"
+
+#: Interface/FilesystemWindow.py: 37
+msgid "Please choose a filesystem:"
+msgstr "Bitte waehlen sie ein Dateisystem:"
+
+#: Interface/Windows/LocaleWindow.py: 38
+msgid "Please select some locales:"
+msgstr "Bitte waehlen sie einige 'locales':"
+
+#: SetupTools/PreInstall.py:
+msgid "fetching mirrorlist"
+msgstr "lade Spiegelserver Liste"
+
+#: SetupTools/PreInstall.py:
+msgid "partitioning disk"
+msgstr "Partitioniere Disk"
+
+#: SetupTools/PreInstall.py:
+msgid "creating filesystems"
+msgstr "erzeuge Dateisysteme"
+
+#: SetupTools/PreInstall.py:
+msgid "mouting disk"
+msgstr "Disk einbinden"
+
+#: SetupTools/PreInstall.py
+msgid "done!"
+msgstr "Fertig!"
+
+#: SetupTools/PreInstall.py
+msgid "installing requiered software"
+msgstr "Installiere benoetigte Software"
+
+#: Interface/Windows/PreInstallWindow: 39
+msgid "Please wait..."
+msgstr "Bitte warten..."
+
+#: Interface/Windows/DiskPartWindow: 36
+msgid "If you proceed, all your data will be destroyed!"
+msgstr "Wenn sie fortfahren werden alle ihre Daten zertoert!"
+
+#: Interface/Windows/DiskPartWindow: 37
+msgid "Please only proceed if you have made a backup."
+msgstr "Bitte fahren sie nur fort, wenn sie eine Sicherung haben."
+
+#: Interface/Windows/InstallWindow: 40
+msgid "Installing base system. This may take up to one hour, depending on your network."
+msgstr "Instaliere das Grundsystem, dies kann bis zu einer Stunde dauern, je nach Netzwerkverbindung."

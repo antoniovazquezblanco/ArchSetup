@@ -1,0 +1,136 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ArchSetup\n"
+"POT-Creation-Date: 2015-05-09 14:49+UTC\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: Interface/FinishWindow.py:32
+msgid "All done!"
+msgstr ""
+
+#: Interface/FinishWindow.py:33
+msgid "Archlinux is setup in your computer. The program will exit when you click in the next button."
+msgstr ""
+
+#: Interface/FontWindow.py:37
+msgid "Please select a console font..."
+msgstr ""
+
+#: Interface/KeyboardWindow.py:37
+msgid "Please select a keyboard..."
+msgstr ""
+
+#: Interface/WelcomeWindow.py:32
+msgid "Welcome to the Archlinux installer!"
+msgstr ""
+
+#: Interface/WelcomeWindow.py:33
+msgid "In order to navigate use the TAB key and press ENTER in order to activate the selected widget. On some lists you can select multiple items with SPACE."
+msgstr ""
+
+#: Interface/TimezoneWindow.py:41
+msgid "Please select a time zone..."
+msgstr ""
+
+#: Interface/TimesubzoneWindow.py:41
+msgid "Please select a subzone..."
+msgstr ""
+
+#: Interface/DiskWindow.py:37
+msgid "Please select the disk, where ArchLinux should be installed"
+msgstr ""
+
+#: Interface/HostnameWindow.py: 35
+msgid "Please enter a hostname:"
+msgstr ""
+
+#: Interface/RootPassWindow.py: 36
+msgid "Please choose a root password:"
+msgstr ""
+
+#: Interface/RootPassWindow.py: 38
+msgid "Please confirm:"
+msgstr ""
+
+#: Interface/RootPassWindow.py: 41
+msgid "Password safety:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 40
+msgid "Now you have to create a user:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 41
+msgid "Username:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 43
+msgid "Home directory:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 45
+msgid "Real name:"
+msgstr ""
+
+#: Interface/AddUserWindow.py: 47
+msgid "Password:"
+msgstr ""
+
+#: Interface/NetworkWindow.py: 38
+msgid "Please select your network type:"
+msgstr ""
+
+#: Interface/FilesystemWindow.py: 37
+msgid "Please choose a filesystem:"
+msgstr ""
+
+#: Interface/Windows/LocaleWindow.py: 38
+msgid "Please select some locales:"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "fetching mirrorlist"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "partitioning disk"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "creating filesystems"
+msgstr ""
+
+#: SetupTools/PreInstall.py:
+msgid "mouting disk"
+msgstr ""
+
+#: SetupTools/PreInstall.py
+msgid "done!"
+msgstr ""
+
+#: SetupTools/PreInstall.py
+msgid "installing requiered software"
+msgstr ""
+
+#: Interface/Windows/PreInstallWindow: 39
+msgid "Please wait..."
+msgstr ""
+
+#: Interface/Windows/DiskPartWindow: 36
+msgid "If you proceed, all your data will be destroyed!"
+msgstr ""
+
+#: Interface/Windows/DiskPartWindow: 37
+msgid "Please only proceed if you have made a backup."
+msgstr ""
+
+#: Interface/Windows/InstallWindow: 40
+msgid "Installing base system. This may take up to one hour, depending on your network."
+msgstr ""

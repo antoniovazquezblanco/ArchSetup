@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# This file is part of ArchSetup.
+#
+# ArchSetup is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# ArchSetup is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
+
+import logging
+import os
+from SetupTools.SetupConfig import SetupConfig
+from Interface.Interface import Interface
+from Interface.Windows.WelcomeWindow import WelcomeWindow
+from Interface.Windows.KeyboardWindow import KeyboardWindow
+from Interface.Windows.FontWindow import FontWindow
+from Interface.Windows.TimezoneWindow import TimezoneWindow
+from Interface.Windows.TimesubzoneWindow import TimesubzoneWindow
+from Interface.Windows.FinishWindow import FinishWindow
+from Interface.Windows.DiskWindow import DiskWindow
+from Interface.Windows.HostnameWindow import HostnameWindow
+from Interface.Windows.RootPassWindow import RootPassWindow
+from Interface.Windows.AddUserWindow import AddUserWindow
+from Interface.Windows.NetworkWindow import NetworkWindow
+from Interface.Windows.FilesystemWindow import FilesystemWindow
+from Interface.Windows.LocaleWindow import LocaleWindow
+from Interface.Windows.MainLocaleWindow import MainLocaleWindow
+from Interface.Windows.DiskPartWindow import DiskPartWindow
+from Interface.Windows.PreInstallWindow import PreInstallWindow
+from Interface.Windows.InstallWindow import InstallWindow
+from Interface.Windows.PostInstallWindow import PostInstallWindow
+
+class ArchSetup:
+    def __init__(self):
+        logging.basicConfig(filename='ArchSetup.log', level=logging.DEBUG)
+        if os.getuid() != 0:
+            logging.error("You need to be root to run ArchSetup...")
+            print("You need to be root to run ArchSetup")
+            return
+        self.setupconfig = SetupConfig()
+        self.interface = Interface(self.callback)
+        self.interface.loop()
+
+    def callback(self, event):
+        if event == 'init':
+            self.windows = []
+            self.window_index = 0
+            self.windows.append(WelcomeWindow(self.callback))
+            self.windows.append(KeyboardWindow(self.callback, self.setupconfig))
+            self.windows.append(FontWindow(self.callback, self.setupconfig))
+            self.windows.append(NetworkWindow(self.callback, self.setupconfig))
+            self.windows.append(LocaleWindow(self.callback, self.setupconfig))
+            self.windows.append(MainLocaleWindow(self.callback, self.setupconfig))
+            self.windows.append(DiskWindow(self.callback, self.setupconfig))
+            self.windows.append(TimezoneWindow(self.callback, self.setupconfig))
+            self.windows.append(TimesubzoneWindow(self.callback, self.setupconfig))
+            self.windows.append(HostnameWindow(self.callback, self.setupconfig))
+            self.windows.append(RootPassWindow(self.callback, self.setupconfig))
+            self.windows.append(AddUserWindow(self.callback, self.setupconfig))
+            self.windows.append(FilesystemWindow(self.callback, self.setupconfig))
+            self.windows.append(DiskPartWindow(self.callback, self.setupconfig))
+            self.windows.append(PreInstallWindow(self.callback, self.setupconfig))
+            self.windows.append(InstallWindow(self.callback, self.setupconfig))
+            self.windows.append(PostInstallWindow(self.callback, self.setupconfig))
+            self.windows.append(FinishWindow(self.callback))
+            self.interface.addwin(self.windows[self.window_index])
+        elif event == 'prev':
+            self.window_index = self.window_index - 1
+            self.interface.addwin(self.windows[self.window_index])
+        elif event == 'next':
+            self.window_index = self.window_index + 1
+            if self.window_index == len(self.windows):
+                self.interface.exit()
+                return
+            self.interface.addwin(self.windows[self.window_index])
+
+if __name__ == "__main__":
+        ArchSetup()
