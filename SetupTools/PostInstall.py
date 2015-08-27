@@ -61,7 +61,7 @@ class PostInstall:
                     continue
             out.write(line)
 
-        os.system("arch-chroot /mnt locale-gen")
+        os.system("arch-chroot /mnt locale-gen > /dev/null 2> /dev/null")
 
         yield "8,Setting Timezone"
 
@@ -77,18 +77,18 @@ class PostInstall:
         os.system("arch-chroot /mnt mkinitcpio -p linux > /dev/null 2> /dev/null")
 
         yield "30,Setting root password"
-        os.system("arch-chroot /mnt echo -e '" + setupconfig.rootpassword + "\n" + setupconfig.rootpassword + "'|passwd")
+        os.system("arch-chroot /mnt echo -e '" + setupconfig.rootpassword + "\n" + setupconfig.rootpassword + "'|passwd > /dev/null 2> /dev/null")
 
         yield "35,Updating package database"
-        os.system("arch-chroot /mnt pacman-db-upgrade") # To prevent problems with older install ISOs
+        os.system("arch-chroot /mnt pacman-db-upgrade > /dev/null 2> /dev/null") # To prevent problems with older install ISOs
 
         yield "40,Updating Mirrorlist"
         os.system("cp list.txt /mnt/etc/pacman.d/mirrorlist")
 
         yield "45,Installing Bootloader"
         os.system("arch-chroot /mnt pacman -Sy grub --noconfirm > /dev/null 2>/dev/null")
-        os.system("arch-chroot /mnt grub-install --recheck /dev/" + setupconfig.disk + "")
-        os.system("arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg")
+        os.system("arch-chroot /mnt grub-install --recheck /dev/" + setupconfig.disk + "> /dev/null 2> /dev/null")
+        os.system("arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2> /dev/null")
 
 
 
