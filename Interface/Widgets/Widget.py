@@ -24,6 +24,7 @@ class Widget:
         self.sizex = sx
         self.focused = False
         self.highlighted = False
+        self.visible = True
 
     def position(self):
         return (self.posy, self.posx)
@@ -55,6 +56,12 @@ class Widget:
 
     def isfocused(self):
         return self.focused
+
+    def setvisibility(self, visible):
+        self.visible = visible
+
+    def isvisible(self):
+        return self.visible
 
     def event(self, event):
         pass

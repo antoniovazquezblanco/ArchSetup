@@ -27,6 +27,8 @@ class TextWidget(Widget):
         super().__init__(y, x, len(self.lines), n)
 
     def draw(self, window):
+        if not self.isvisible():
+            return
         (posy, posx) = self.position()
         i = 0
         for line in self.lines:
