@@ -70,3 +70,6 @@ class SetupConfig:
 
     def setmainlocale(self, mainlocale):
         self.mainlocale = mainlocale
+
+    def setsoftware(self, software):
+        self.software = software

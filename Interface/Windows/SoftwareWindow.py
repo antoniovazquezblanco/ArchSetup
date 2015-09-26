@@ -16,42 +16,37 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
-from SetupTools.Pacstrap import Pacstrap
+from SetupTools.Software import Software
 from Interface.Windows.SetupWindow import SetupWindow
 from Interface.Widgets.SpacerWidget import SpacerWidget
 from Interface.Widgets.TextWidget import TextWidget
 from Interface.Widgets.ScrollWidget import ScrollWidget
-from Interface.Widgets.RadioWidget import RadioWidget
+from Interface.Widgets.CheckWidget import CheckWidget
 
 import gettext
 
-class InstallWindow(SetupWindow):
+class SoftwareWindow(SetupWindow):
     def __init__(self, callback, setupconfig):
         super().__init__()
+        self.callback = callback
 
         # Init Translation
         trans = gettext.translation("archsetup", "locale", fallback=True)
         trans.install()
 
-        self.has_runned = False
-
         self.setupconfig = setupconfig
-        self.callback = callback
-        self.addwidget(TextWidget(1, 1, _('Installing base system. This may take up to one hour, depending on your network.'),  40))
-        self.status_label = TextWidget(4,1,"Install Log:", 40)
-        self.addwidget(self.status_label)
-        self.next = self.setnextcallback(callback, '')
+        self.addwidget(TextWidget(1, 1, _('Please choose some additional software:'),  40))
+        software = Software()
+        items = software.listPackages()
+        self.addwidget(ScrollWidget(3, 1, 40, 20, CheckWidget(0, 0, 40, items, self.event), self.event))
+        self.addwidget(SpacerWidget(23, 1, 1))
+        self.setnextcallback(self.callback, 'next')
+        self.setprevcallback(callback, 'prev')
 
     def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
-        elif event == 'showed':
-            if self.has_runned == False:
-                for x in Pacstrap().run(self.setupconfig):
-                    self.status_label.settext(str(x))
-                    self.refresh()
-            self.has_runned = True
-            self.next.setcallback(self.callback, 'next')
-            self.callback("next") # auto continue to next window
+        elif event == 'selection':
+            self.setupconfig.setsoftware(opt)
         else:
             super().event(event)

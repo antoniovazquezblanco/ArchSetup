@@ -16,18 +16,20 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
+from glob import glob
 import subprocess
-from SetupTools.Software import Software
 
-class Pacstrap:
+class Software:
     def __init__(self):
         pass
 
-    def run(self, setupconfig):
-        p = subprocess.Popen(["pacstrap", "/mnt", "base", "base-devel"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        for line in p.stdout:
-            yield line.decode("utf-8")
-        software = Software()
+    def listPackages(self):
+        return glob("software/*")
 
-        for x in software.installPackages(setupconfig.software):
-            yield x
+    def installPackages(self, pkglist):
+        for pkg in pkglist:
+            with open(pkg) as f:
+                applications = " ".join(f.readlines()).replace('\n', '')
+                p = subprocess.Popen(["arch-chroot", "/mnt", "pacman", "--noconfirm", "-S"] + applications.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                for line in p.stdout:
+                    yield line.decode("utf-8")
