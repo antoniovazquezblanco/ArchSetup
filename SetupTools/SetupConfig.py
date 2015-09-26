@@ -50,7 +50,7 @@ class SetupConfig:
         self.username = username
         self.homedir = homedir
         self.realname = realname
-        self.passwordd = passwd
+        self.password = passwd
 
     def setnetwork(self, net):
         self.network = net

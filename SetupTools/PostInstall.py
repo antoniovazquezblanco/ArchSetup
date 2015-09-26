@@ -36,6 +36,7 @@ class PostInstall:
     # save font               [x]
     # Install GRUB2           [x] (might chooseable in future?)
     # Installing basic deamons[ ] (config?)
+    # Create User             [x]
     # Copy Mirrorlist list.txt[x]
     # -----> Soon: Xorg + Configuration
 
@@ -76,8 +77,12 @@ class PostInstall:
         yield "25,Generating Boot Image"
         os.system("arch-chroot /mnt mkinitcpio -p linux > /dev/null 2> /dev/null")
 
+        yield "28,Creating User"
+        os.system("arch-chroot /mnt useradd -d " +setupconfig.homedir + " -c \'" +setupconfig.realname +"\' -s /bin/bash -m " +setupconfig.username)
+        os.system("echo " +setupconfig.username + ":" + setupconfig.password + " >passlist")
+
         yield "30,Setting root password"
-        os.system("echo root:" + setupconfig.rootpassword + " > passlist")
+        os.system("echo root:" + setupconfig.rootpassword + " >> passlist")
         os.system("arch-chroot /mnt chpasswd < passlist")
         os.system("rm passlist") # it is import to clean up the password file
 
