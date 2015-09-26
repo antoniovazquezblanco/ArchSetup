@@ -77,7 +77,9 @@ class PostInstall:
         os.system("arch-chroot /mnt mkinitcpio -p linux > /dev/null 2> /dev/null")
 
         yield "30,Setting root password"
-        os.system("arch-chroot /mnt echo -e '" + setupconfig.rootpassword + "\n" + setupconfig.rootpassword + "'|passwd > /dev/null 2> /dev/null")
+        os.system("echo root:" + setupconfig.rootpassword + " > passlist")
+        os.system("arch-chroot /mnt chpasswd < passlist")
+        os.system("rm passlist") # it is import to clean up the password file
 
         yield "35,Updating package database"
         os.system("arch-chroot /mnt pacman-db-upgrade > /dev/null 2> /dev/null") # To prevent problems with older install ISOs
