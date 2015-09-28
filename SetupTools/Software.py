@@ -29,7 +29,21 @@ class Software:
     def installPackages(self, pkglist):
         for pkg in pkglist:
             with open(pkg) as f:
-                applications = " ".join(f.readlines()).replace('\n', '')
+                apps = f.readlines()
+                cmds = []
+                buff = apps[:]
+
+                for entry in buff:
+                    if(entry[:3] == '$: '):
+                        apps.remove(entry)
+                        cmds.append("".join(entry).replace('\n', '').replace('$: ', ''))
+
+                applications = " ".join(apps).replace('\n', '')
                 p = subprocess.Popen(["arch-chroot", "/mnt", "pacman", "--noconfirm", "-S"] + applications.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 for line in p.stdout:
                     yield line.decode("utf-8")
+
+                for cmd in cmds:
+                    pc = subprocess.Popen(["arch-chroot", "/mnt"] + cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    for line in pc.stdout:
+                        yield line.decode("utf-8")

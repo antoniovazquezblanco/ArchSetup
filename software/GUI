@@ -2,4 +2,8 @@ xorg-server
 xorg-xinit
 xorg-utils
 xorg-server-utils
-
+xf86-input-mouse
+xf86-input-keyboard
+xf86-video-vesa
+lightdm
+$: systemctl enable lightdm
