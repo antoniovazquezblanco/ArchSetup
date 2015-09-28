@@ -6,4 +6,5 @@ xf86-input-mouse
 xf86-input-keyboard
 xf86-video-vesa
 lightdm
+lightdm-gtk-greeter
 $: systemctl enable lightdm
