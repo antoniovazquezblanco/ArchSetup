@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
+from SetupTools.Locale import Locale
+
 class SetupConfig:
     def __init__(self):
         self.locales = []
@@ -48,7 +50,7 @@ class SetupConfig:
         self.username = username
         self.homedir = homedir
         self.realname = realname
-        self.passwordd = passwd
+        self.password = passwd
 
     def setnetwork(self, net):
         self.network = net
@@ -63,7 +65,11 @@ class SetupConfig:
         if(len(self.locales) > 0):
             return self.locales
         else:
-            return [""]
+            temp = Locale()
+            return temp.list_locales() # This should avoid crashes
 
     def setmainlocale(self, mainlocale):
         self.mainlocale = mainlocale
+
+    def setsoftware(self, software):
+        self.software = software

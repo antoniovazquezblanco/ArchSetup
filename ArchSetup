@@ -31,6 +31,7 @@ from Interface.Windows.HostnameWindow import HostnameWindow
 from Interface.Windows.RootPassWindow import RootPassWindow
 from Interface.Windows.AddUserWindow import AddUserWindow
 from Interface.Windows.NetworkWindow import NetworkWindow
+from Interface.Windows.SoftwareWindow import SoftwareWindow
 from Interface.Windows.FilesystemWindow import FilesystemWindow
 from Interface.Windows.LocaleWindow import LocaleWindow
 from Interface.Windows.MainLocaleWindow import MainLocaleWindow
@@ -66,6 +67,7 @@ class ArchSetup:
             self.windows.append(HostnameWindow(self.callback, self.setupconfig))
             self.windows.append(RootPassWindow(self.callback, self.setupconfig))
             self.windows.append(AddUserWindow(self.callback, self.setupconfig))
+            self.windows.append(SoftwareWindow(self.callback, self.setupconfig))
             self.windows.append(FilesystemWindow(self.callback, self.setupconfig))
             self.windows.append(DiskPartWindow(self.callback, self.setupconfig))
             self.windows.append(PreInstallWindow(self.callback, self.setupconfig))

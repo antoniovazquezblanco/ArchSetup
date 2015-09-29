@@ -17,12 +17,17 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import subprocess
+from SetupTools.Software import Software
 
 class Pacstrap:
     def __init__(self):
         pass
 
-    def run(self):
+    def run(self, setupconfig):
         p = subprocess.Popen(["pacstrap", "/mnt", "base", "base-devel"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         for line in p.stdout:
             yield line.decode("utf-8")
+        software = Software()
+
+        for x in software.installPackages(setupconfig.software):
+            yield x
