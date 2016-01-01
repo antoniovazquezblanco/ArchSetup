@@ -61,6 +61,7 @@ class RadioWidget(Widget):
                 self.selected = 0
             self.callback('refresh')
             self.callback('selection', self.items[self.selected])
+            self.callback('user-selection', self.items[self.selected])
             return
         elif event == curses.KEY_DOWN:
             self.selected = self.selected + 1
@@ -69,6 +70,7 @@ class RadioWidget(Widget):
                 self.selected = len(self.items)-1
             self.callback('refresh')
             self.callback('selection', self.items[self.selected])
+            self.callback('user-selection', self.items[self.selected])
             return
         elif event == ord('\n'):
             self.callback(ord('\t'))

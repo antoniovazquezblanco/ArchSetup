@@ -2,9 +2,8 @@ xorg-server
 xorg-xinit
 xorg-utils
 xorg-server-utils
-xf86-input-mouse
-xf86-input-keyboard
-xf86-video-vesa
+xorg-drivers
 lightdm
 lightdm-gtk-greeter
+ttf-dejavu
 $: systemctl enable lightdm

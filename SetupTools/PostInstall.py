@@ -50,7 +50,7 @@ class PostInstall:
         os.system("echo " +setupconfig.hostname + " > /mnt/etc/hostname")
 
         yield "6,Setting up locale config"
-        os.system("echo LANG=" +setupconfig.mainlocale + " > /mnt/etc/locale.conf")
+        os.system("echo LANG=" +setupconfig.mainlocale.split()[0] + " > /mnt/etc/locale.conf")
         file= open("/etc/locale.gen", "r")
         x = file.readlines()
         file.close();

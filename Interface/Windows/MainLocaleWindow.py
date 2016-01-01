@@ -44,6 +44,7 @@ class MainLocaleWindow(SetupWindow):
     def event(self, event, opt=''):
         if event == 'show':
             self.radiolist.setlist(self.setupconfig.getlocales())
+            self.setupconfig.setmainlocale(self.setupconfig.getlocales()[0]) # Set first locale by default
             self.refresh()
         elif event == 'refresh':
             self.refresh()

@@ -73,3 +73,6 @@ class SetupConfig:
 
     def setsoftware(self, software):
         self.software = software
+
+    def getnetwork(self):
+        return self.network
