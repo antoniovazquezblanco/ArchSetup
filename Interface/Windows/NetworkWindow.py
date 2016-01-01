@@ -41,14 +41,17 @@ class NetworkWindow(SetupWindow):
         self.addwidget(ScrollWidget(3, 1, 40, 20, RadioWidget(0, 0, 40, items, self.event), self.event))
         self.addwidget(SpacerWidget(23, 1, 1))
         self.network.test_network()
-        self.next_button = self.setnextcallback(callback, 'next')
+        self.next_button = self.setnextcallback(self.connect, 'next')
         self.setprevcallback(callback, 'prev')
+
+    def connect(self, opt):
+        self.network.network_connect(self.setupconfig.getnetwork())
+        self.callback(opt)
 
     def event(self, event, opt=''):
         if event == 'refresh':
             self.refresh()
         elif event == 'selection':
             self.setupconfig.setnetwork(opt)
-            self.network.network_connect(opt)
         else:
             super().event(event)
