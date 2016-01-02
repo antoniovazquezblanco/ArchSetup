@@ -37,6 +37,10 @@ class Software:
                     if(entry[:3] == '$: '):
                         apps.remove(entry)
                         cmds.append("".join(entry).replace('\n', '').replace('$: ', ''))
+                    elif(entry[:3] == '#: '):
+                        apps.remove(entry)
+                        pkgname = "software/" + "".join(entry).replace('\n', '').replace('#: ', '')
+                        pkglist.append(pkgname)
 
                 applications = " ".join(apps).replace('\n', '')
                 p = subprocess.Popen(["arch-chroot", "/mnt", "pacman", "--noconfirm", "-S"] + applications.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
