@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 import subprocess
 
 class Keyboard:
@@ -23,8 +24,17 @@ class Keyboard:
         pass
 
     def list_keyboard_layouts(self):
-        kbdlist=subprocess.check_output(["localectl", "list-keymaps"]).decode().split('\n')
-        kbdlist.remove('')
+        kbdlist = []
+        try:
+            kbdlist=subprocess.check_output(["localectl", "list-keymaps"]).decode().split('\n')
+            kbdlist.remove('')
+        except subprocess.CalledProcessError:
+            # This is a temporal fix while localectl bug is not fixed...
+            kbdpath=subprocess.check_output(["find", "/usr/share/kbd/keymaps", "-name", "*.map*"]).decode().split('\n')
+            kbdpath.remove('')
+            for k in kbdpath:
+                kbdlist.append(os.path.basename(k).split('.map')[0])
+            kbdlist.sort()
         return kbdlist
 
     def load_keyboard_layout():
