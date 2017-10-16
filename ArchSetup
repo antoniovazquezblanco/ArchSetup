@@ -40,21 +40,32 @@ from Interface.Windows.PreInstallWindow import PreInstallWindow
 from Interface.Windows.InstallWindow import InstallWindow
 from Interface.Windows.PostInstallWindow import PostInstallWindow
 
+# Main program object. Initiates the needed objects to perform the setup tasks and also manages the basic interface initialization and handling.
 class ArchSetup:
     def __init__(self):
+        # Setup logging in case something goes wrong and the user needs to report a bug.
         logging.basicConfig(filename='ArchSetup.log', level=logging.DEBUG)
+        # Verify that we have permissions to install...
         if os.getuid() != 0:
             logging.error("You need to be root to run ArchSetup...")
             print("You need to be root to run ArchSetup")
             return
+        # Initialize the setup configuration object. It will hold the information of the current instalation.
         self.setupconfig = SetupConfig()
+        # Initialize an interface manager. Pass a callback function to be notified of events.
         self.interface = Interface(self.callback)
+        # Start the interface loop. It basically processes keyboard input and sends the relevant events to the callback and windows.
         self.interface.loop()
 
+    # Function to process UI events
     def callback(self, event):
+        # 'Init' event. Called after basic interface initialization and before loop. Mainly used to initialize stuff related to the user interface that depends on the screen information.
         if event == 'init':
+            # List of the user interface windows.
             self.windows = []
+            # Current selected window.
             self.window_index = 0
+            # Add every window of the process in order...
             self.windows.append(WelcomeWindow(self.callback))
             self.windows.append(KeyboardWindow(self.callback, self.setupconfig))
             self.windows.append(FontWindow(self.callback, self.setupconfig))
@@ -74,16 +85,24 @@ class ArchSetup:
             self.windows.append(InstallWindow(self.callback, self.setupconfig))
             self.windows.append(PostInstallWindow(self.callback, self.setupconfig))
             self.windows.append(FinishWindow(self.callback))
+            # Push the current window to the screen.
             self.interface.addwin(self.windows[self.window_index])
+        # 'Previous' event. Signals that the user pressed the prev button.
         elif event == 'prev':
+            # Show the previous window. For that update the window index and push it.
             self.window_index = self.window_index - 1
             self.interface.addwin(self.windows[self.window_index])
+        # 'Next' event. Signals that the user pressed the next button.
         elif event == 'next':
+            # Update windows index...
             self.window_index = self.window_index + 1
+            # If no more windows are available just exit...
             if self.window_index == len(self.windows):
                 self.interface.exit()
                 return
+            # Otherwise push the selected window...
             self.interface.addwin(self.windows[self.window_index])
 
+# Program entry point
 if __name__ == "__main__":
         ArchSetup()
