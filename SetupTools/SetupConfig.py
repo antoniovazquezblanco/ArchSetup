@@ -17,48 +17,67 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 from SetupTools.Locale import Locale
+import logging
+
 
 class SetupConfig:
     def __init__(self):
         self.locales = []
 
+    def logChange(self, key, value):
+        logging.info("Changed Setup parameter \'{}\' to \'{}\'".format(key, value))
+
     def setkeyboard(self, layout):
+        logChange("keyboardlayout", layout)
         self.keyboard = layout
 
     def setfont(self, font):
+        logChange("console.font", font)
         self.font = font
 
     def gettimezone(self):
         return self.timezone
 
     def settimezone(self, zone):
+        logChange("time.zone", zone)
         self.timezone = zone
 
     def settimesubzone(self, subzone):
+        logChange("time.subzone", subzone)
         self.timesubzone = subzone
 
     def sethostname(self, hostname):
+        logChange("hostname", hostname)
         self.hostname = hostname
 
     def setdisk(self, disk):
+        logChange("disk.device", disk)
         self.disk = disk
 
     def setrootpassword(self, key):
+        logChange("user.root.key", '<hidden>')
         self.rootpassword = key
 
     def setuserdata(self, username, homedir, realname, passwd):
+        logChange("user.username", username)
+        logChange("user.homedir", homedir)
+        logChange("user.realname", realname)
+        logChange("user.passwd", "<hidden>")
         self.username = username
         self.homedir = homedir
         self.realname = realname
         self.password = passwd
 
     def setnetwork(self, net):
+        logChange("network.type", net)
         self.network = net
 
     def setfilesystem(self, fs):
+        logChange("filesystem.type", fs)
         self.filesystem = fs
 
     def setlocales(self, locales):
+        logChange("locales", locales)
         self.locales = locales
 
     def getlocales(self):
@@ -69,9 +88,11 @@ class SetupConfig:
             return temp.list_locales() # This should avoid crashes
 
     def setmainlocale(self, mainlocale):
+        logChange("locales.main", mainlocale)
         self.mainlocale = mainlocale
 
     def setsoftware(self, software):
+        logChange("software", software)
         self.software = software
 
     def getnetwork(self):

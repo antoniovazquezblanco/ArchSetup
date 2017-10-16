@@ -44,11 +44,12 @@ from Interface.Windows.PostInstallWindow import PostInstallWindow
 class ArchSetup:
     def __init__(self):
         # Setup logging in case something goes wrong and the user needs to report a bug.
-        logging.basicConfig(filename='ArchSetup.log', level=logging.DEBUG)
+        logging.basicConfig(filename='ArchSetup.log', level=logging.DEBUG, format='%(asctime)s - [%(relativeCreated)6d] - %(name)s - %(levelname)s - %(message)s')
+
         # Verify that we have permissions to install...
         if os.getuid() != 0:
-            logging.error("You need to be root to run ArchSetup...")
-            print("You need to be root to run ArchSetup")
+            logging.error("ArchSetup start failed: Missing permissions")
+            print("You need to be root to run ArchSetup, exiting...")
             return
         # Initialize the setup configuration object. It will hold the information of the current instalation.
         self.setupconfig = SetupConfig()
