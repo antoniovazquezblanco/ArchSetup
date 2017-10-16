@@ -39,8 +39,7 @@ class PostInstall:
     # Create User             [x]
     # Copy Mirrorlist list.txt[x]
     # -----> Soon: Xorg + Configuration
-
-
+    @staticmethod
     def run(setupconfig):
 
         yield "2,Generating fstab"
