@@ -17,6 +17,7 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 from glob import glob
+import logging
 import subprocess
 
 class Software:
@@ -43,11 +44,18 @@ class Software:
                         pkglist.append(pkgname)
 
                 applications = " ".join(apps).replace('\n', '')
+                logging.info("Installing Extra Packages: \'{}\'".format(applications))
+                logging.info("Invoking subprocess arch-chroot /mnt pacman")
                 p = subprocess.Popen(["arch-chroot", "/mnt", "pacman", "--noconfirm", "-S"] + applications.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 for line in p.stdout:
-                    yield line.decode("utf-8")
+                    l = line.decode("utf-8")
+                    logging.debug("STDOUT: " + l )
+                    yield l
 
                 for cmd in cmds:
+                    debug.info("Invoking command in chroot: {}".format(cmd))
                     pc = subprocess.Popen(["arch-chroot", "/mnt"] + cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                     for line in pc.stdout:
-                        yield line.decode("utf-8")
+                        l = line.decode("utf-8")
+                        logging.debug("STDOUT: " + l )
+                        yield l
