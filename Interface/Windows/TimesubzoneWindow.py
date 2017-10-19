@@ -54,7 +54,6 @@ class TimesubzoneWindow(SetupWindow):
         if event == 'show':
             self.radiowidget.setlist(self.timezone.list_subzones(self.setupconfig.gettimezone()))
             self.radiowidget.select(0)
-            self.scroller.setPos(0)
             self.refresh()
         elif event == 'refresh':
             self.refresh()

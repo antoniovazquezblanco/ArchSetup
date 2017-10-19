@@ -42,7 +42,13 @@ class RadioWidget(Widget):
             i = i + 1
 
     def select(self, row):
-        self.selected = row
+        offset = row-self.selected
+        if offset > 0:
+            for i in range(offset):
+                self.callback(curses.KEY_DOWN)
+        else:
+            for i in range(-offset):
+                self.callback(curses.KEY_UP)
 
     def setlist(self, items):
         self.items = items
