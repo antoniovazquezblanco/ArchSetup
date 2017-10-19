@@ -41,6 +41,9 @@ class RadioWidget(Widget):
                 window.addstr(posy + i, posx, '  ' + item)
             i = i + 1
 
+    def select(self, row):
+        self.selected = row
+
     def setlist(self, items):
         self.items = items
         (sy, sx) = self.size()

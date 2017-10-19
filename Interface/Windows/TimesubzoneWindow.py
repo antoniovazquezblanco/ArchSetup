@@ -39,8 +39,13 @@ class TimesubzoneWindow(SetupWindow):
 
         # Add widgets and setup callbacks...
         self.addwidget(TextWidget(1, 1, _('Please select a subzone...'),  40))
-        self.radiowidget = RadioWidget(0, 0, 40, self.timezone.list_subzones(self.setupconfig.gettimezone()), self.event)
-        self.addwidget(ScrollWidget(3, 1, 40, 20, self.radiowidget, self.event))
+
+        # Loading subzones with '*' loads every available subzone, this makes
+        # sure that the pad will be large enough to hold every subset
+        self.radiowidget = RadioWidget(0, 0, 40, self.timezone.list_subzones('*'), self.event)
+
+        self.scroller = ScrollWidget(3, 1, 40, 20, self.radiowidget, self.event)
+        self.addwidget(self.scroller)
         self.addwidget(SpacerWidget(23, 1, 1))
         self.setnextcallback(callback, 'next')
         self.setprevcallback(callback, 'prev')
@@ -48,6 +53,8 @@ class TimesubzoneWindow(SetupWindow):
     def event(self, event, opt=''):
         if event == 'show':
             self.radiowidget.setlist(self.timezone.list_subzones(self.setupconfig.gettimezone()))
+            self.radiowidget.select(0)
+            self.scroller.setPos(0)
             self.refresh()
         elif event == 'refresh':
             self.refresh()

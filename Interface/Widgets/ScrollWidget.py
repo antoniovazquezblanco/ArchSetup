@@ -43,6 +43,10 @@ class ScrollWidget(Widget):
         except:
             pass
 
+    def setPos(self, pos):
+        self.curspos = 0
+        self.callback('refresh')
+
     def event(self, event):
         if event == curses.KEY_UP:
             self.curspos = self.curspos - 1
