@@ -52,6 +52,9 @@ class Software:
                     logging.debug("STDOUT: " + l )
                     yield l
 
+                p.wait()
+                logging.info("Process exited with code " + p.returncode)
+
                 for cmd in cmds:
                     debug.info("Invoking command in chroot: {}".format(cmd))
                     pc = subprocess.Popen(["arch-chroot", "/mnt"] + cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -59,3 +62,6 @@ class Software:
                         l = line.decode("utf-8")
                         logging.debug("STDOUT: " + l )
                         yield l
+
+                    pc.wait()
+                    logging.info("Process exited with code " + pc.returncode)
