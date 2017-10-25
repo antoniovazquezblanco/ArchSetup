@@ -56,7 +56,7 @@ class Software:
                 logging.info("Process exited with code " + str(p.returncode))
 
                 for cmd in cmds:
-                    debug.info("Invoking command in chroot: {}".format(cmd))
+                    logging.info("Invoking command in chroot: {}".format(cmd))
                     pc = subprocess.Popen(["arch-chroot", "/mnt"] + cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                     for line in pc.stdout:
                         l = line.decode("utf-8")
