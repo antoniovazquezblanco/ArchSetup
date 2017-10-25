@@ -56,12 +56,12 @@ class TextWidget(Widget):
         self.lines = textwrap.wrap(text, width=self.n)
         height = len(self.lines)
 
-        if height > maxheight:
-            self.lines = self.lines[:maxheight - 1]
+        if height > self.maxheight:
+            self.lines = self.lines[:self.maxheight - 1]
             self.lines.append("...")
             height = self.maxheight
 
-        self.resize(self.height, self.n)
+        self.resize(height, self.n)
 
     def append(self, text):
         pass
