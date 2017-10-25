@@ -42,7 +42,3 @@ class Font:
             os.system("setfont") # load default
         else:
             return
-
-    def set_console_font():
-        print("[D] SetupTools.set_console_font(): Not implemented!")
-

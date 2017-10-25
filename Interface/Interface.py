@@ -17,6 +17,7 @@
 # along with ArchSetup.  If not, see <http://www.gnu.org/licenses/>.
 
 import curses
+import traceback
 
 class Interface:
     def __init__(self, callback):

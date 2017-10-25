@@ -37,10 +37,9 @@ class Keyboard:
             kbdlist.sort()
         return kbdlist
 
-    def load_keyboard_layout():
+    def load_keyboard_layout(self):
         #loadkeys layout
         print("[D] SetupTools.load_keyboard_layout(): Not implemented!")
 
-    def set_keyboard_layout():
+    def set_keyboard_layout(self):
         print("[D] SetupTools.set_keyboard_layout(): Not implemented!")
-

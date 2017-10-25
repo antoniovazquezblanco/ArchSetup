@@ -30,6 +30,7 @@ class PreInstall:
     # > Part disk                       [x]
     # > Creates Filesystem              [x]
     # > mount datapart and swap         [x]
+    @staticmethod
     def run(setupconfig):
         yield "1,installing requiered software"
         os.system("pacman -Sy reflector --noconfirm --needed 2> /dev/null > /dev/null")

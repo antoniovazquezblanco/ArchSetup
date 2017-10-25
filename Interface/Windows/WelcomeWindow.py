@@ -22,7 +22,7 @@ from Interface.Widgets.TextWidget import TextWidget
 import gettext
 
 class WelcomeWindow(SetupWindow):
-    def __init__(self, callback):
+    def __init__(self, callback, config=None):
         super().__init__()
 
         # Init Translation

@@ -18,15 +18,20 @@
 
 import subprocess
 from SetupTools.Software import Software
+import logging
 
 class Pacstrap:
     def __init__(self):
         pass
 
     def run(self, setupconfig):
+        logging.info("Invoking pacstrap")
         p = subprocess.Popen(["pacstrap", "/mnt", "base", "base-devel"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         for line in p.stdout:
-            yield line.decode("utf-8")
+            l = line.decode("utf-8")
+            logging.debug("STDOUT: " + l)
+            yield l
+        logging.info("Continuing with additional Software")
         software = Software()
 
         for x in software.installPackages(setupconfig.software):

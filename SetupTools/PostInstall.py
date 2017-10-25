@@ -39,8 +39,7 @@ class PostInstall:
     # Create User             [x]
     # Copy Mirrorlist list.txt[x]
     # -----> Soon: Xorg + Configuration
-
-
+    @staticmethod
     def run(setupconfig):
 
         yield "2,Generating fstab"
@@ -98,7 +97,8 @@ class PostInstall:
         os.system("arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2> /dev/null")
 
 
-
+        yield "99,Installing Log"
+        os.system("cp ArchSetup.log /mnt/var/log/")
 
 
 

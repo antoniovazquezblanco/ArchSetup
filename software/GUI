@@ -1,7 +1,7 @@
 xorg-server
 xorg-xinit
-xorg-utils
-xorg-server-utils
+xorg-apps
+xterm
 xorg-drivers
 lightdm
 lightdm-gtk-greeter
