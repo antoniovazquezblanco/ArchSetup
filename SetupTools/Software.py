@@ -53,7 +53,7 @@ class Software:
                     yield l
 
                 p.wait()
-                logging.info("Process exited with code " + p.returncode)
+                logging.info("Process exited with code " + str(p.returncode))
 
                 for cmd in cmds:
                     debug.info("Invoking command in chroot: {}".format(cmd))
@@ -64,4 +64,4 @@ class Software:
                         yield l
 
                     pc.wait()
-                    logging.info("Process exited with code " + pc.returncode)
+                    logging.info("Process exited with code " + str(pc.returncode))
