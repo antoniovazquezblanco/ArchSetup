@@ -21,14 +21,21 @@ import curses
 from Interface.Widgets.Widget import Widget
 
 class TextWidget(Widget):
-    def __init__(self, y, x, text, n):
+    def __init__(self, y, x, text, n, maxheight=10):
         self.lines = textwrap.wrap(text, width=n)
         self.n = n
-        super().__init__(y, x, len(self.lines), n)
+        height = len(self.lines)
+        self.maxheight = maxheight
+        if height > maxheight:
+            self.lines = self.lines[:maxheight - 1]
+            self.lines.append("...")
+            height = maxheight
+        super().__init__(y, x, height, n)
 
     def draw(self, window):
         if not self.isvisible():
             return
+
         (posy, posx) = self.position()
         i = 0
         for line in self.lines:
@@ -37,6 +44,7 @@ class TextWidget(Widget):
                     window.addstr(posy + i, posx, line, curses.A_STANDOUT)
                 else:
                     window.addstr(posy + i, posx, line)
+
                 i = i+1
             except:
                 pass
@@ -46,7 +54,14 @@ class TextWidget(Widget):
 
     def settext(self, text):
         self.lines = textwrap.wrap(text, width=self.n)
-        self.resize(len(self.lines), self.n)
+        height = len(self.lines)
+
+        if height > maxheight:
+            self.lines = self.lines[:maxheight - 1]
+            self.lines.append("...")
+            height = self.maxheight
+
+        self.resize(self.height, self.n)
 
     def append(self, text):
         pass
