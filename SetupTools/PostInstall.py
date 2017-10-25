@@ -97,7 +97,8 @@ class PostInstall:
         os.system("arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2> /dev/null")
 
 
-
+        yield "99,Installing Log"
+        os.system("cp ArchSetup.log /mnt/var/log/")
 
 
 
